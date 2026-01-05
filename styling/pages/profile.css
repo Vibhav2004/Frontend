@@ -1,0 +1,237 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+     font-family: "SmoochSans", sans-serif;
+}
+body {
+
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: self-start;
+  height: auto;
+  
+}
+.container{
+   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: black;
+}
+.logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    margin-left: 0px;
+   
+}
+.header{
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    gap: 0px;
+    width: 300px;
+     z-index: 10;
+}
+.primary{
+       display: flex;
+    
+    align-items: center;
+    gap: 0px;
+    
+    margin-left: 0px;
+}
+input{
+    border-radius: 10px;
+    height: 30px;
+    padding: 3px;
+    width: 150px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 18px;
+}
+.add{
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.footerNav{
+     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* adjust as needed */
+    background-color: #4a4a4a;
+    padding: 10px 0;
+    border-radius: 5px;
+    flex-shrink: 0;
+
+}
+svg{
+  fill: rgb(255, 255, 255); 
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 22px;
+  color: rgba(188, 185, 185, 0.6);
+  transition: color 0.3s ease;
+}
+
+/* Dash hidden by default */
+.dash {
+  width: 22px;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Active state */
+.nav-item.active i {
+  color: white;
+}
+
+.nav-item.active .dash {
+  opacity: 1;
+}
+.secondary{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+}
+.pfp{
+    width: 75px;
+    height: 75px;
+    border-radius: 37.5px;
+    margin-right: 10px;
+}
+.username{
+    font-size: 24px;
+    
+    font-family: "SmoochSans", sans-serif;
+}
+.third{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 30px;
+}
+.Score{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90px;
+     height: 40px;
+     border-radius: 10px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgb(0, 0, 0);
+}
+.rank{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     width: 90px;
+      border-radius: 10px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+     height: 40px;
+    background-color: rgb(0, 0, 0);
+}
+.streak{
+    display: flex;
+     border-radius: 10px;
+    justify-content: center;
+     border-radius: 10px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+    align-items: center;
+     width: 90px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+}
+.fourth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 30px;
+}
+.friends{
+     display: flex;
+     border-radius: 10px;
+    justify-content: center;
+     border-radius: 10px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+    align-items: center;
+     width: 90px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+}
+.meme{
+    display: flex;
+     border-radius: 10px;
+    justify-content: center;
+     border-radius: 10px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+    align-items: center;
+     width: 90px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+}
+.edit{
+    display: flex;
+     border-radius: 10px;
+    justify-content: center;
+     border-radius: 10px;
+     border: 1px solid rgba(255, 255, 255, 0.3);
+    align-items: center;
+     width: 90px;
+    height: 40px;
+    background-color: rgb(0, 0, 0);
+}
+.memebox{
+      flex: 1; /* takes up remaining vertical space */
+    overflow-y: auto;
+    margin-top: 20px;
+    background-color: aqua;
+}

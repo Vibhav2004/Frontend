@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWIPENOW</title>
+  <link rel="stylesheet" href="/styling/pages/otp.css">
+  <link rel="stylesheet" href="/styling/components/loading2.css">
+</head>
+<body>
+    
+ <div class="container">
+    <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+   
+
+
+
+  <div class="info">
+  <span class="title">OTP Verification</span>
+<p class="description">Please enter the code we have sent you. </p>
+   </div>
+    <div class="inputs">
+    <input placeholder="" type="tel" maxlength="1">
+    <input placeholder="" type="tel" maxlength="1">
+    <input placeholder="" type="tel" maxlength="1">
+    <input placeholder="" type="tel" maxlength="1">
+  </div>
+        <button id="registered" onclick="verifyOTP()">VERIFY</button>
+<div class="loader hidden" id="loader">
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+</div>
+<p class="resend">You don't receive the code ?<a class="resend-action">resend</a></p>
+
+
+
+
+   
+</div>
+    
+   
+   <script src="/scripting/utils/routing.js">
+  
+</script>
+
+
+ 
+
+</body>
+
+</html>

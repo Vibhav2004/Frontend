@@ -1,0 +1,80 @@
+/* Font */
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+/* Container */
+.loader {
+  width: 120px;
+  height: 60px;
+  position: relative;
+  margin: 20px auto;
+  gap: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    padding-top: 15px; 
+}
+
+/* Text */
+.loader-text {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-bottom: 3px;
+  font-family: "SmoochSans", sans-serif;
+  text-align: center;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 1px;
+  animation: text_713 3.5s ease both infinite;
+}
+
+/* Main loader (fixed bar) */
+.load {
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+  height: 20px; /* height of the bar */
+  background-color: #ffffff;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+/* Moving thumb inside loader */
+.load-thumb {
+  position: absolute;
+  top: 5px; /* spacing from top */
+  bottom: 5px; /* spacing from bottom */
+  width: 15px;
+  background-color: #000000;
+  border-radius: 50px;
+  animation: thumb-move 2s ease-in-out infinite alternate;
+}
+
+/* Text animation */
+@keyframes text_713 {
+  0%, 100% {
+    letter-spacing: 1px;
+  }
+  40%, 90% {
+    letter-spacing: 3px;
+  }
+}
+
+/* Thumb moving left to right */
+@keyframes thumb-move {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: calc(100% - 15px); /* width of the thumb */
+  }
+}
+
+
+
+
+

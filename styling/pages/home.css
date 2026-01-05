@@ -1,0 +1,161 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: self-start;
+  height: auto;
+  
+}
+.logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    margin-left: 0px;
+   
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0px;
+    width: 300px;
+}
+.right{
+       display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    
+    margin-left: -50px;
+}
+.total{
+    height: 20px;
+    background-color: rgb(197, 194, 194);
+    padding: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.target{
+    height: 20px;
+    background-color: rgb(197, 194, 194);
+     padding: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.streak{
+     height: 20px;
+     color: rgb(255, 255, 255);
+    background-color: rgb(197, 194, 194);
+     padding: 7px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+/* .white-glow {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
+} */
+
+
+.transparent-box {
+  background: rgba(0, 0, 0, 0.15); /* transparent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.memeBox{
+ 
+    border-radius: 20px;
+    margin-top: 15px;
+    width: 300px;
+    height: 430px;
+
+    background-color: rgb(65, 66, 67);
+}
+.footerNav{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+     background-color: rgb(65, 66, 67);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    margin-top: 36px;
+    
+}
+svg{
+  fill: rgb(255, 255, 255); 
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 22px;
+  color: rgba(188, 185, 185, 0.6);
+  transition: color 0.3s ease;
+}
+
+/* Dash hidden by default */
+.dash {
+  width: 22px;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Active state */
+.nav-item.active i {
+  color: white;
+}
+
+.nav-item.active .dash {
+  opacity: 1;
+}
