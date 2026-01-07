@@ -15,7 +15,7 @@
             <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
            
             <input type="text" placeholder="Search Friends">
-            <button class="add">+</button>
+            <button class="add" onclick="goToMeme()">+</button>
                
             
            
@@ -32,14 +32,36 @@
            <div class="fourth">
               <div class="friends">45<br>Friends</div>
                  <div class="meme">3<br>Memes</div>
-                 <div class="edit">edit</div>
+                 <div class="edit" onclick="goToEdit()">edit</div>
            </div>
           <div class="memebox">
-            
+         <div class="memes">
+          <img src="/assests/memes/1500x900_164267-36758ad0cf0a0f2bbfd72ad324a6cb71.webp">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/monkey-thinking-meme-template-27--kClqt8PzKNph-full.jpg">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/supermeme_hero_image.png">
+         </div>
+          <div class="memes">
+          <img src="/assests/memes/1500x900_164267-36758ad0cf0a0f2bbfd72ad324a6cb71.webp">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/monkey-thinking-meme-template-27--kClqt8PzKNph-full.jpg">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/supermeme_hero_image.png">
+         </div>
           </div>
+          
 
 
-       <div class="footerNav">
+
+       
+
+    
+    <div class="footerNav">
   <div class="nav-item " onclick="setActiveNav(this)">
     <svg xmlns="http://www.w3.org/2000/svg" value="home"  viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/></svg>
     <span class="dash"></span>
@@ -56,10 +78,72 @@
   </div>
 </div>
 
+<div class="profile-overlay" id="profileOverlay">
+  <div class="profile-card">
 
+    <!-- CLOSE X -->
+    <span class="close-x" onclick="closePopup()">✕</span>
+
+    <!-- HEADER -->
+    <div class="profile-header">
+      <img src="/assests/logo.png" class="pfp" />
+      <p class="username">vansom_13</p>
     </div>
+
+    <!-- STATS ROW 1 -->
+    <div class="stats-row">
+      <div class="stat-box">3000<br><span>Score</span></div>
+      <div class="stat-box">12<br><span>Rank</span></div>
+      <div class="stat-box">🔥50<br><span>Streak</span></div>
+    </div>
+
+    <!-- STATS ROW 2 -->
+    <div class="stats-row">
+      <div class="stat-box">45<br><span>Friends</span></div>
+      <div class="stat-box">3<br><span>Memes</span></div>
+
+      <!-- ADD FRIEND -->
+      <div class="stat-box add-friend" onclick="addFriend(this)">
+        Add Friend
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
 <script src="/scripting/utils/routing.js"></script>
-   
+  <script>
+  const searchInput = document.querySelector(".primary input");
+  const profileOverlay = document.getElementById("profileOverlay");
+
+  // ENTER key (keyboard + mobile)
+  searchInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const value = searchInput.value.trim();
+      if (!value) return;
+
+      // SHOW POPUP
+      profileOverlay.style.display = "flex";
+    }
+  });
+
+  function closePopup() {
+    profileOverlay.style.display = "none";
+  }
+
+  function addFriend(el) {
+    el.classList.toggle("added");
+    el.textContent = el.classList.contains("added")
+      ? "Added ✓"
+      : "Add Friend";
+  }
+</script>
+
+
 
 </body>
 </html>

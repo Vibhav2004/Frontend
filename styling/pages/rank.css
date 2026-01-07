@@ -311,7 +311,9 @@ margin-top: 10px;
 }
 .RankBox{
   overflow-y: scroll;
-   flex: 1; 
+
+   height: 338px; 
+   
 }
 
 .col2 {

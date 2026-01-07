@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWIPENOW</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styling/pages/edit.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+           <div class="primary">
+            <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+           
+            
+           </div>
+           </div>
+         <div class="img-dropdown">
+  <div class="dropdown-btn" id="dropdownBtn">Select Image <span>↓</span></dix>
+
+  <div class="dropdown-menu" id="dropdownMenu">
+
+  <!-- Row 1 : Alex (Male) -->
+  <div class="flex">
+    <img src="/assests/pfp/2.png" data-name="Alex - Normal">
+    <img src="/assests/pfp/headShock2.png" data-name="Alex - Shocked">
+    <img src="/assests/pfp/headFocus2.png" data-name="Alex - Focused">
+  </div>
+
+  <!-- Row 2 : Ryan (Male) -->
+  <div class="flex">
+    <img src="/assests/pfp/head3.png" data-name="Ryan - Calm">
+    <img src="/assests/pfp/3.png" data-name="Ryan - Smiling">
+    <img src="/assests/pfp/headFocus3.png" data-name="Ryan - Focused">
+  </div>
+
+  <!-- Row 3 : Robot -->
+  <div class="flex">
+    <img src="/assests/pfp/headShock1.png" data-name="Robot - Alert">
+    <img src="/assests/pfp/head1.png" data-name="Robot - Neutral">
+    <img src="/assests/pfp/headFocus1.png" data-name="Robot - Processing">
+  </div>
+
+  <!-- Row 4 : Emma (Female) -->
+  <div class="flex">
+    <img src="/assests/pfp/headShock4.png" data-name="Emma - Shocked">
+    <img src="/assests/pfp/head4.png" data-name="Emma - Normal">
+    <img src="/assests/pfp/headFocus4.png" data-name="Emma - Focused">
+  </div>
+
+  <!-- Row 5 : Zombie -->
+  <div class="flex">
+    <img src="/assests/pfp/headFocus.png" data-name="Zombie - Focused">
+    <img src="/assests/pfp/headShock.png" data-name="Zombie - Shocked">
+    <img src="/assests/pfp/head.png" data-name="Zombie - Neutral">
+  </div>
+
+  <!-- Row 6 : Luna (Female) -->
+  <div class="flex">
+    <img src="/assests/pfp/head5.png" data-name="Luna - Normal">
+    <img src="/assests/pfp/headFocus5.png" data-name="Luna - Focused">
+    <img src="/assests/pfp/headShock5.png" data-name="Luna - Shocked">
+  </div>
+
+</div>
+
+</div>
+         </div>
+<div class="info">
+    <button class="username" value="username" onclick="goToactualEdit()">vansom_13</button>
+    <button class="email" value="email" onclick="goToactualEdit()">vibhavkhichi13@gmail.com</button>
+    <button class="password" value="password" onclick="goToactualEdit()">********</button>
+</div>
+
+          <div class="buttons">
+             <button onclick="gotoProfile()">Back</button>
+            <button>Logout</button>
+            <button id="delete">Delete</button>
+
+          </div>
+          
+          
+
+
+
+       
+
+    
+    
+<script src="/scripting/utils/routing.js"></script>
+   
+<script>
+  const btn = document.getElementById("dropdownBtn");
+  const menu = document.getElementById("dropdownMenu");
+
+  // Toggle dropdown
+  btn.addEventListener("click", () => {
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+
+  // Image click handler
+  menu.addEventListener("click", (e) => {
+    if (e.target.tagName === "IMG") {
+      const name = e.target.dataset.name;
+      btn.textContent = name + " ↓";
+      menu.style.display = "none";
+    }
+  });
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".img-dropdown")) {
+      menu.style.display = "none";
+    }
+  });
+</script>
+
+
+</body>
+</html>

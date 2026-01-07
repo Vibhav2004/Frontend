@@ -1,0 +1,273 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+     font-family: "SmoochSans", sans-serif;
+}
+body {
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center; /* ✅ NOT self-start */
+  min-height: 100vh;       /* ✅ IMPORTANT */
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: black;
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    margin-left: 0px;
+   
+}
+.header{
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    gap: 0px;
+    width: 300px;
+     z-index: 10;
+     
+
+}
+.primary{
+       display: flex;
+    
+    align-items: center;
+    gap: 0px;
+    
+    margin-left: 0px;
+}
+input{
+     width: 220px;
+  height: 36px;
+  margin-top: 8px;
+  padding: 5px 10px;
+letter-spacing: 1px;
+display: flex;
+justify-content: center;
+align-items: center;
+  font-size: 18px;
+  color: white;
+  background: black;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.add{
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+.actualedit{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+button{
+     width: 100%;
+  padding: 10px;
+  background: #111;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+.buttons button{
+        width: 80px;
+    padding: 10px;
+   background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 5px;
+}
+.buttons{
+    margin-top: 30px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* From Uiverse.io by Fundiman */ 
+.file-upload-form {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  margin-left: 30px;
+  align-items: center;
+  justify-content: center;
+  /* Dark background for the form */
+}
+
+.file-upload-label input {
+  display: none;
+}
+
+.file-upload-label svg {
+  height: 50px;
+  fill: #666; /* Lighter gray for the SVG fill */
+  margin-bottom: 20px;
+}
+
+.file-upload-label {
+  cursor: pointer;
+  background-color: #333; /* Darker background for the label */
+  padding: 30px 70px;
+  border-radius: 40px;
+  border: 2px dashed #666; /* Lighter gray dashed border */
+  box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.5); /* Adjusted shadow */
+  color: #eee; /* Text color for the label */
+}
+
+.file-upload-design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.browse-button {
+  background-color: #666; /* Lighter gray for the button */
+  padding: 5px 15px;
+  border-radius: 10px;
+  color: #eee; /* Off-white text for better contrast */
+  transition: all 0.3s;
+}
+
+.browse-button:hover {
+  background-color: #888; /* Slightly lighter gray on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* From Uiverse.io by satyamchaudharydev */ 
+.spinner {
+ --size: 30px;
+ --first-block-clr: #ffffff;
+ --second-block-clr: #ffffff;
+ --clr: #111;
+ width: 100px;
+ height: 100px;
+ display: none;
+margin-left: 100px;
+  position: relative;
+}
+#imagePreview{
+    width: 100%;
+    height: 100%;
+    margin-left: 0px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.imgcontainer{
+width: 200px;
+border: 1px solid white;
+height: fit-content;
+margin-left: 45px;
+margin-top: 20px;
+border-radius: 10px;
+}
+.spinner::after,.spinner::before {
+ box-sizing: border-box;
+ position: absolute;
+ content: "";
+ width: var(--size);
+ height: var(--size);
+ top: 50%;
+ animation: up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+ left: 50%;
+ background: var(--first-block-clr);
+}
+
+.spinner::after {
+ background: var(--second-block-clr);
+ top: calc(50% - var(--size));
+ left: calc(50% - var(--size));
+ animation: down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+@keyframes down {
+ 0%, 100% {
+  transform: none;
+ }
+
+ 25% {
+  transform: translateX(100%);
+ }
+
+ 50% {
+  transform: translateX(100%) translateY(100%);
+ }
+
+ 75% {
+  transform: translateY(100%);
+ }
+}
+
+@keyframes up {
+ 0%, 100% {
+  transform: none;
+ }
+
+ 25% {
+  transform: translateX(-100%);
+ }
+
+ 50% {
+  transform: translateX(-100%) translateY(-100%);
+ }
+
+ 75% {
+  transform: translateY(-100%);
+ }
+}

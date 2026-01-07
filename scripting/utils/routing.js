@@ -9,6 +9,37 @@ const routeToLogin = () => {
 
   window.location.href = "/pages/login.html";
 };
+const goToEdit=() => {
+  document.querySelectorAll("input").forEach(input => {
+    input.value = "";
+  });
+
+  window.location.href = "/pages/edit.html";
+};
+
+const goToactualEdit=() => {
+  document.querySelectorAll("input").forEach(input => {
+    input.value = "";
+  });
+
+  window.location.href = "/pages/actualedit.html";
+};
+
+const goToMeme=() => {
+  document.querySelectorAll("input").forEach(input => {
+    input.value = "";
+  });
+
+  window.location.href = "/pages/uplodememe.html";
+};
+
+const gotoProfile=() => {
+  document.querySelectorAll("input").forEach(input => {
+    input.value = "";
+  });
+
+  window.location.href = "/pages/profile.html";
+};
 const routeToOTP = () => {
   document.querySelectorAll("input").forEach(input => {
     input.value = "";
@@ -58,4 +89,21 @@ const verifyOTP = () => {
 }
 
 
+   function handleUpload(event) {
+    const spinner = document.querySelector(".spinner");
+    const uploadBtn = event.target;
 
+    // hide upload button
+    uploadBtn.style.display = "none";
+
+    // show spinner
+    spinner.style.display = "block";
+
+    // simulate upload delay (5 seconds)
+    setTimeout(() => {
+      spinner.style.display = "none";
+
+      // redirect to profile page
+      gotoProfile();
+    }, 5000);
+  }

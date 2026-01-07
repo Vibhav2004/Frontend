@@ -159,3 +159,71 @@ svg{
 .nav-item.active .dash {
   opacity: 1;
 }
+
+
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup box */
+.popup-content {
+  width: 300px;
+  background-color: #111;
+  border-radius: 15px;
+  padding: 20px;
+  position: relative;
+  text-align: left;
+  color: white;
+  font-size: 20px;
+  font-family: "SmoochSans", sans-serif;
+  animation: popupFade 0.5s ease forwards;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Popup animation */
+@keyframes popupFade {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.popup-content h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.popup-content ul {
+  margin-top: 10px;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+.popup-content li strong {
+  color: #ffd700; /* gold for emphasis */
+}
+

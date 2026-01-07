@@ -18,6 +18,22 @@
                 <div class="streak transparent-box">🔥50</div>
             </div>
         </div>
+<!-- Instruction Popup -->
+<div id="instructionPopup" class="popup-overlay">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">✕</span>
+    <h2>Instructions</h2>
+    <ul>
+      <li>Minimum <strong>50 swipes</strong> needed to maintain your streak 🔥.</li>
+      <li>Swipe <strong>left</strong> for dislike and <strong>right</strong> for like.</li>
+      <li>Each swipe adds <strong>5 points</strong> to your score.</li>
+      <li>Check your streak, targets, and total points at the top.</li>
+      <li>Enjoy memes and keep swiping!</li>
+    </ul>
+  </div>
+</div>
+
+
         <div class="memeBox">
 
         </div>
@@ -41,7 +57,19 @@
 
     </div>
 <script src="/scripting/utils/routing.js"></script>
-   
+<script>
+  // Close popup
+  function closePopup() {
+    document.getElementById("instructionPopup").style.display = "none";
+  }
+
+  // Show popup on page load
+  window.onload = function() {
+    document.getElementById("instructionPopup").style.display = "flex";
+  }
+</script>
+
+
 
 </body>
 </html>
