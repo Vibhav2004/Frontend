@@ -1,0 +1,674 @@
+/* Mobile-first media queries (empty) */
+
+/* 360px */
+@media (min-width: 360px) {
+    .footerNav{
+    
+    width: 360px;
+     
+
+}
+input{
+  
+    width: 300px;
+   
+}
+.RankBox{
+width: 350px;
+margin-left: 25px;
+   
+}
+.colName{
+    gap: 5px;
+   
+ margin-left: 50px;
+}
+}
+
+/* 370px */
+@media (min-width: 370px) {
+    .footerNav{
+    
+    width: 370px;
+
+}
+input{
+  
+    width: 320px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 350px;
+margin-left: 28px;
+   
+}
+.colName{
+    gap: 15px;
+   
+ margin-left: 50px;
+}
+}
+
+/* 380px */
+@media (min-width: 380px) {
+    .footerNav{
+    
+    width: 380px;
+
+}
+input{
+  
+    width: 320px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 350px;
+margin-left: 34px;
+   
+}
+.colName{
+    gap: 15px;
+   
+ margin-left: 50px;
+}
+}
+
+/* 390px */
+@media (min-width: 390px) {
+    .footerNav{
+    
+    width: 390px;
+
+}
+input{
+  
+    width: 330px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 350px;
+margin-left: 36px;
+   
+}
+.colName{
+    gap: 15px;
+   
+ margin-left: 50px;
+}
+}
+
+/* 400px */
+@media (min-width: 400px) {
+    .footerNav{
+    
+    width: 400px;
+
+}
+input{
+  
+    width: 340px;
+   margin-left: 0px;
+}
+.RankBox{
+
+background-color: rgb(0, 0, 0);
+margin-left: 35px;
+   
+}
+.card{
+width: 300px;
+}
+.loss{
+width: 300px;
+}
+.gain{
+width: 300px;
+}
+.colName{
+    gap: 20px;
+    
+   
+ margin-left: 60px;
+}
+}
+
+/* 410px */
+@media (min-width: 410px) {
+    .footerNav{
+    
+    width: 410px;
+
+}
+input{
+  
+    width: 350px;
+   margin-left: 0px;
+}
+.RankBox{
+
+background-color: rgb(0, 0, 0);
+margin-left: 35px;
+   
+}
+.card{
+width: 300px;
+}
+.loss{
+width: 300px;
+}
+.gain{
+width: 300px;
+}
+.colName{
+    gap: 20px;
+    
+   
+ margin-left: 60px;
+}
+}
+
+/* 420px */
+@media (min-width: 420px) {
+    .footerNav{
+    
+    width: 420px;
+
+}
+input{
+  
+    width: 360px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 360px;
+background-color: rgb(0, 0, 0);
+margin-left: 30px;
+   
+}
+.card{
+width: 320px;
+}
+.loss{
+width: 320px;
+}
+.gain{
+width: 320px;
+}
+.colName{
+    gap: 37px;
+    
+   
+ margin-left: 60px;
+}
+}
+
+/* 430px */
+@media (min-width: 430px) {
+    .footerNav{
+    
+    width: 430px;
+
+}
+input{
+  
+    width: 370px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 360px;
+background-color: rgb(0, 0, 0);
+margin-left: 40px;
+   
+}
+.card{
+width: 320px;
+}
+.loss{
+width: 320px;
+}
+.gain{
+width: 320px;
+}
+.colName{
+    gap: 37px;
+    
+   
+ margin-left: 60px;
+}
+}
+
+/* 440px */
+@media (min-width: 440px) {
+     .footerNav{
+    
+    width: 440px;
+
+}
+input{
+  
+    width: 380px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 360px;
+background-color: rgb(0, 0, 0);
+margin-left: 40px;
+   
+}
+.card{
+width: 320px;
+}
+.loss{
+width: 320px;
+}
+.gain{
+width: 320px;
+}
+.colName{
+    gap: 37px;
+    
+   
+ margin-left: 60px;
+}
+}
+
+/* 450px */
+@media (min-width: 450px) {
+     .footerNav{
+    
+    width: 450px;
+
+}
+input{
+  
+    width: 380px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 360px;
+background-color: rgb(0, 0, 0);
+margin-left: 47px;
+   
+}
+.card{
+width: 320px;
+}
+.loss{
+width: 320px;
+}
+.gain{
+width: 320px;
+}
+.colName{
+    gap: 40px;
+    
+   
+ margin-left: 65px;
+}
+}
+
+/* 460px */
+@media (min-width: 460px) {
+    .footerNav{
+    
+    width: 460px;
+
+}
+input{
+  
+    width: 390px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 360px;
+background-color: rgb(0, 0, 0);
+margin-left: 50px;
+   
+}
+.card{
+width: 320px;
+}
+.loss{
+width: 320px;
+}
+.gain{
+width: 320px;
+}
+.colName{
+    gap: 40px;
+    
+   
+ margin-left: 65px;
+}
+}
+
+/* 470px */
+@media (min-width: 470px) {
+    .footerNav{
+    
+    width: 470px;
+
+}
+input{
+  
+    width: 400px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 400px;
+background-color: rgb(0, 0, 0);
+margin-left: 40px;
+   
+}
+.card{
+width: 350px;
+}
+.loss{
+width: 350px;
+}
+.gain{
+width: 350px;
+}
+.colName{
+    gap: 40px;
+    
+   
+ margin-left: 65px;
+}
+}
+
+/* 480px */
+@media (min-width: 480px) {
+     .footerNav{
+    
+    width: 480px;
+
+}
+input{
+  
+    width: 410px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 400px;
+background-color: rgb(0, 0, 0);
+margin-left: 45px;
+   
+}
+.card{
+width: 350px;
+}
+.loss{
+width: 350px;
+}
+.gain{
+width: 350px;
+}
+.colName{
+    gap: 53px;
+    
+   
+ margin-left: 70px;
+}
+}
+
+/* 490px */
+@media (min-width: 490px) {
+     .footerNav{
+    
+    width: 490px;
+
+}
+input{
+  
+    width: 420px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 400px;
+background-color: rgb(0, 0, 0);
+margin-left: 55px;
+   
+}
+.card{
+width: 350px;
+}
+.loss{
+width: 350px;
+}
+.gain{
+width: 350px;
+}
+.colName{
+    gap: 60px;
+    
+   
+ margin-left: 70px;
+}
+}
+
+/* 500px */
+@media (min-width: 500px) {
+       .footerNav{
+    
+    width: 500px;
+
+}
+input{
+  
+    width: 430px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 400px;
+background-color: rgb(0, 0, 0);
+margin-left: 55px;
+   
+}
+.card{
+width: 350px;
+}
+.loss{
+width: 350px;
+}
+.gain{
+width: 350px;
+}
+.colName{
+    gap: 60px;
+    
+   
+ margin-left: 70px;
+}
+}
+
+/* 510px */
+@media (min-width: 510px) {
+       .footerNav{
+    
+    width: 510px;
+
+}
+input{
+  
+    width: 430px;
+   margin-left: 0px;
+}
+.RankBox{
+width: 400px;
+background-color: rgb(0, 0, 0);
+margin-left: 60px;
+   
+}
+.card{
+width: 350px;
+}
+.loss{
+width: 350px;
+}
+.gain{
+width: 350px;
+}
+.colName{
+    gap: 60px;
+    
+   
+ margin-left: 70px;
+}
+}
+
+/* 520px */
+@media (min-width: 520px) {}
+
+/* 530px */
+@media (min-width: 530px) {}
+
+/* 540px */
+@media (min-width: 540px) {}
+
+/* 550px */
+@media (min-width: 550px) {}
+
+/* 560px */
+@media (min-width: 560px) {}
+
+/* 570px */
+@media (min-width: 570px) {}
+
+/* 580px */
+@media (min-width: 580px) {}
+
+/* 590px */
+@media (min-width: 590px) {}
+
+/* 600px */
+@media (min-width: 600px) {}
+
+/* 610px */
+@media (min-width: 610px) {}
+
+/* 620px */
+@media (min-width: 620px) {}
+
+/* 630px */
+@media (min-width: 630px) {}
+
+/* 640px */
+@media (min-width: 640px) {}
+
+/* 650px */
+@media (min-width: 650px) {}
+
+/* 660px */
+@media (min-width: 660px) {}
+
+/* 670px */
+@media (min-width: 670px) {}
+
+/* 680px */
+@media (min-width: 680px) {}
+
+/* 690px */
+@media (min-width: 690px) {}
+
+/* 700px */
+@media (min-width: 700px) {}
+
+/* 710px */
+@media (min-width: 710px) {}
+
+/* 720px */
+@media (min-width: 720px) {}
+
+/* 730px */
+@media (min-width: 730px) {}
+
+/* 740px */
+@media (min-width: 740px) {}
+
+/* 750px */
+@media (min-width: 750px) {}
+
+/* 760px */
+@media (min-width: 760px) {}
+
+/* 770px */
+@media (min-width: 770px) {}
+
+/* 780px */
+@media (min-width: 780px) {}
+
+/* 790px */
+@media (min-width: 790px) {}
+
+/* 800px */
+@media (min-width: 800px) {}
+
+/* 810px */
+@media (min-width: 810px) {}
+
+/* 820px */
+@media (min-width: 820px) {}
+
+/* 830px */
+@media (min-width: 830px) {}
+
+/* 840px */
+@media (min-width: 840px) {}
+
+/* 850px */
+@media (min-width: 850px) {}
+
+/* 860px */
+@media (min-width: 860px) {}
+
+/* 870px */
+@media (min-width: 870px) {}
+
+/* 880px */
+@media (min-width: 880px) {}
+
+/* 890px */
+@media (min-width: 890px) {}
+
+/* 900px */
+@media (min-width: 900px) {}
+
+/* 910px */
+@media (min-width: 910px) {}
+
+/* 920px */
+@media (min-width: 920px) {}
+
+/* 930px */
+@media (min-width: 930px) {}
+
+/* 940px */
+@media (min-width: 940px) {}
+
+/* 950px */
+@media (min-width: 950px) {}
+
+/* 960px */
+@media (min-width: 960px) {}
+
+/* 970px */
+@media (min-width: 970px) {}
+
+/* 980px */
+@media (min-width: 980px) {}
+
+/* 990px */
+@media (min-width: 990px) {}
+
+/* 1000px */
+@media (min-width: 1000px) {}
+
+/* 1010px */
+@media (min-width: 1010px) {}
+
+/* 1020px */
+@media (min-width: 1020px) {}
+
+/* 1024px */
+@media (min-width: 1024px) {}

@@ -16,7 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: self-start;
-  height: auto;
+  height: 100dvh;
   
 }
 .logo{
@@ -28,10 +28,11 @@ body {
 }
 .header{
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
     align-items: center;
+  flex-shrink: 0;
     gap: 0px;
-    width: 300px;
+   
 }
 .right{
        display: flex;
@@ -103,24 +104,27 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .memeBox{
- 
+  flex-shrink: 1;
+  overflow: hidden;
     border-radius: 20px;
     margin-top: 15px;
     width: 300px;
     height: 430px;
-
+   margin-left: 10px;
     background-color: rgb(65, 66, 67);
 }
+
+
 .footerNav{
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 320px;
      background-color: rgb(65, 66, 67);
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 5px;
     margin-top: 36px;
-    
+    flex-shrink: 0;
 }
 svg{
   fill: rgb(255, 255, 255); 
@@ -226,4 +230,8 @@ svg{
 .popup-content li strong {
   color: #ffd700; /* gold for emphasis */
 }
+
+
+
+
 
