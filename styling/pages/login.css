@@ -99,10 +99,19 @@ input {
 
   outline: none;
 }
-
+.flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .redirect{
-     text-align: center;
-     font-size: 20px;
+   font-size: 20px;
+  flex-wrap: nowrap;
+  
+  letter-spacing: 3px;
+}
+span{
+  color: blue;
 }
 span{
     font-weight: bold;

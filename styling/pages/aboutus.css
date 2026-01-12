@@ -1,0 +1,74 @@
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup box */
+.popup-content {
+  width: 300px;
+  background: #2a2929;
+  
+  border-radius: 15px;
+  padding: 20px;
+  position: relative;
+  animation: popupFade 0.4s ease forwards;
+  text-align: center;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Text area */
+.policy-text {
+  font-size: 16px;
+  text-align: left;
+  line-height: 1.6;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+/* Contact grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Circle icons */
+.contact-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.contact-circle:hover {
+  transform: scale(1.1);
+}
+
+/* Popup animation */
+@keyframes popupFade {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}

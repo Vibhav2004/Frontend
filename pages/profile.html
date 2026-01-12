@@ -6,6 +6,8 @@
     <title>SWIPENOW</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/styling/pages/profile.css">
+    <link rel="stylesheet" href="/styling/responsive/profileresponsive.css">
+    <link rel="stylesheet" href="/styling/heightResponsive/profileheightresponsive.css">
 
 </head>
 <body>
@@ -13,9 +15,11 @@
         <div class="header">
            <div class="primary">
             <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
-           
-            <input type="text" placeholder="Search Friends">
-            <button class="add" onclick="goToMeme()">+</button>
+           <div class="primarysecond">
+
+             <input type="text" placeholder="Search Friends">
+             <button class="add" onclick="goToMeme()">+</button>
+            </div>
                
             
            
@@ -24,6 +28,7 @@
            <img src="/assests/pfp/head1.png" class="pfp">
            <p class="username">vansom_13</p>
            </div>
+           <div class="flex">
            <div class="third">
               <div class="Score">3000<br>Score</div>
                  <div class="rank">12<br>Rank</div>
@@ -33,6 +38,8 @@
               <div class="friends">45<br>Friends</div>
                  <div class="meme">3<br>Memes</div>
                  <div class="edit" onclick="goToEdit()">edit</div>
+           </div>
+           </div>
            </div>
           <div class="memebox">
          <div class="memes">

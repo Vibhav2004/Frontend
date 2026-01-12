@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWIPENOW</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styling/pages/edit.css">
+ <link rel="stylesheet" href="/styling/pages/aboutus.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+           <div class="primary">
+            <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+           
+            
+           </div>
+           </div>
+         
+         
+<div class="info">
+  <button onclick="openPolicy('privacy')">Privacy Policy</button>
+  <button onclick="openPolicy('terms')">Terms & Conditions</button>
+  <button onclick="openPolicy('refund')">Refund Policy</button>
+  <button onclick="openPolicy('contact')">Connect To Us</button>
+</div>
+
+
+          <div class="buttons">
+             <button onclick="gotoProfile()">Back</button>
+           
+
+          </div>
+     <!-- Policy Popup -->
+<div id="policyPopup" class="popup-overlay" style="display:none;">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePolicy()">✕</span>
+
+    <h2 id="popupTitle">Title</h2>
+
+    <!-- Text content -->
+    <div id="popupText" class="policy-text"></div>
+
+    <!-- Contact grid -->
+    <div id="contactGrid" class="contact-grid" style="display:none;">
+      <div class="contact-circle">IG</div>
+      <div class="contact-circle">DC</div>
+      <div class="contact-circle">TW</div>
+      <div class="contact-circle">EM</div>
+    </div>
+  </div>
+</div>
+     
+
+    
+<script src="/scripting/utils/routing.js"></script>
+   
+<script>
+  function openPolicy(type) {
+    const popup = document.getElementById("policyPopup");
+    const title = document.getElementById("popupTitle");
+    const text = document.getElementById("popupText");
+    const grid = document.getElementById("contactGrid");
+
+    grid.style.display = "none";
+    text.style.display = "block";
+
+    if (type === "privacy") {
+      title.innerText = "Privacy Policy";
+      text.innerHTML = `
+        We collect minimal user data such as email and username.<br><br>
+        Payment data is securely processed by Razorpay.<br><br>
+        We do not sell or misuse user data.
+      `;
+    }
+
+    if (type === "terms") {
+      title.innerText = "Terms & Conditions";
+      text.innerHTML = `
+        Users must be 13+ years old.<br><br>
+        Minimum swipes are required to maintain streaks.<br><br>
+        Abuse or automation may result in account suspension.
+          Users must be 13+ years old.<br><br>
+        Minimum swipes are required to maintain streaks.<br><br>
+        Abuse or automation may result in account suspension.
+          Users must be 13+ years old.<br><br>
+        Minimum swipes are required to maintain streaks.<br><br>
+        Abuse or automation may result in account suspension.
+      `;
+    }
+
+    if (type === "refund") {
+      title.innerText = "Refund Policy";
+      text.innerHTML = `
+        Refunds are processed only for failed or duplicate payments.<br><br>
+        Approved refunds are credited within 5–7 business days.
+      `;
+    }
+
+    if (type === "contact") {
+      title.innerText = "Connect With Us";
+      text.style.display = "none";
+      grid.style.display = "grid";
+    }
+
+    popup.style.display = "flex";
+  }
+
+  function closePolicy() {
+    document.getElementById("policyPopup").style.display = "none";
+  }
+</script>
+
+
+
+</body>
+</html>

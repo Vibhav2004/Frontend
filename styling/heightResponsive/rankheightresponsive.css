@@ -1,0 +1,252 @@
+/* MIN-HEIGHT MEDIA QUERIES (mobile-first) */
+
+@media (min-height: 650px) {
+    .RankBox{
+        margin-bottom: 18px;
+    }
+}
+
+@media (min-height: 660px) {
+    .RankBox{
+        height: 348px;
+    }
+}
+
+@media (min-height: 670px) {}
+
+@media (min-height: 680px) {
+    .RankBox{
+        height: 358px
+    }
+}
+
+@media (min-height: 690px) {
+    .RankBox{
+        height: 368px
+    }
+}
+
+@media (min-height: 700px) {
+     .RankBox{
+        height: 378px
+    }
+
+}
+
+@media (min-height: 710px) {
+     .RankBox{
+        height: 388px
+    }
+    
+}
+
+@media (min-height: 720px) {
+     .RankBox{
+        height: 398px
+    }
+}
+
+@media (min-height: 730px) {
+    .RankBox{
+        height: 408px
+    }
+}
+
+@media (min-height: 740px) {
+    .RankBox{
+        height: 418px
+    }
+}
+
+@media (min-height: 750px) {
+    .RankBox{
+        height: 428px
+    }
+}
+
+@media (min-height: 760px) {
+    .RankBox{
+        height: 438px
+    }
+}
+
+@media (min-height: 770px) {
+    .RankBox{
+        height: 448px
+    }
+}
+
+@media (min-height: 780px) {
+     .RankBox{
+        height: 458px
+    }
+}
+
+@media (min-height: 790px) {
+    .RankBox{
+        height: 468px
+    }
+}
+
+@media (min-height: 800px) {
+    .RankBox{
+        height: 478px
+    }
+}
+
+@media (min-height: 810px) {
+    .RankBox{
+        height: 488px
+    }
+}
+
+@media (min-height: 820px) {
+    .RankBox{
+        height: 498px
+    }
+}
+
+@media (min-height: 830px) {
+     .RankBox{
+        height: 508px
+    }
+}
+
+@media (min-height: 840px) {
+    .RankBox{
+        height: 518px
+    }
+}
+
+@media (min-height: 850px) {
+    .RankBox{
+        height: 528px
+    }
+}
+
+@media (min-height: 860px) {
+    .RankBox{
+        height: 538px
+    }
+}
+
+@media (min-height: 870px) {
+     .RankBox{
+        height: 548px
+    }
+}
+
+@media (min-height: 880px) {
+    .RankBox{
+        height: 558px
+    }
+}
+
+@media (min-height: 890px) {
+    .RankBox{
+        height: 568px
+    }
+}
+
+@media (min-height: 900px) {
+    .RankBox{
+        height: 578px
+    }
+}
+
+@media (min-height: 910px) {
+     .RankBox{
+        height: 588px
+    }
+}
+
+@media (min-height: 920px) {
+     .RankBox{
+        height: 598px
+    }
+}
+
+@media (min-height: 930px) {
+    .RankBox{
+        height: 608px
+    }
+}
+
+@media (min-height: 940px) {
+    .RankBox{
+        height: 618px
+    }
+}
+
+@media (min-height: 950px) {
+    .RankBox{
+        height: 628px
+    }
+}
+
+@media (min-height: 960px) {
+    .RankBox{
+        height: 638px
+    }
+}
+
+@media (min-height: 970px) {
+    .RankBox{
+        height: 648px
+    }
+}
+
+@media (min-height: 980px) {
+    .RankBox{
+        height: 658px
+    }
+}
+
+@media (min-height: 990px) {
+     .RankBox{
+        height: 668px
+    }
+}
+
+@media (min-height: 1000px) {
+    .RankBox{
+        height: 678px
+    }
+
+}
+
+@media (min-height: 1010px) {
+    .RankBox{
+        height: 688px
+    }
+}
+
+@media (min-height: 1020px) {
+    .RankBox{
+        height: 698px
+    }
+}
+
+@media (min-height: 1030px) {
+    .RankBox{
+        height: 708px
+    }
+}
+
+@media (min-height: 1040px) {
+    .RankBox{
+        height: 718px
+    }
+}
+
+@media (min-height: 1050px) {
+    .RankBox{
+        height: 728px
+    }
+}
+
+@media (min-height: 1060px) {
+    .RankBox{
+        height: 738px
+    }
+}

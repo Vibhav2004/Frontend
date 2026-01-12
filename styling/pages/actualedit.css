@@ -26,12 +26,11 @@ body {
   flex-direction: column;
   background: black;
 }
-
 .logo{
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 150px;
-    margin-left: 0px;
+    margin-left: 59px;
    
 }
 .header{

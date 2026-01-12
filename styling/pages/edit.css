@@ -25,13 +25,21 @@ body {
   display: flex;
   flex-direction: column;
   background: black;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
-
+.flex1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 20px;
+}
 .logo{
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 150px;
-    margin-left: 0px;
+    margin-left: 59px;
    
 }
 .header{

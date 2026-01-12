@@ -572,7 +572,7 @@
   /* empty */
   .footerNav {
     transform: translateX(0px);
-    width: 680px;
+    width: 690px;
   }
   .memeBox {
    
@@ -971,63 +971,4 @@ svg{
 }
 }
 
-/* 920px */
-@media (min-width: 920px) {
-  /* empty */
-}
-
-/* 930px */
-@media (min-width: 930px) {
-  /* empty */
-}
-
-/* 940px */
-@media (min-width: 940px) {
-  /* empty */
-}
-
-/* 950px */
-@media (min-width: 950px) {
-  /* empty */
-}
-
-/* 960px */
-@media (min-width: 960px) {
-  /* empty */
-}
-
-/* 970px */
-@media (min-width: 970px) {
-  /* empty */
-}
-
-/* 980px */
-@media (min-width: 980px) {
-  /* empty */
-}
-
-/* 990px */
-@media (min-width: 990px) {
-  /* empty */
-}
-
-/* 1000px */
-@media (min-width: 1000px) {
-  /* empty */
-}
-
-/* 1010px */
-@media (min-width: 1010px) {
-  /* empty */
-}
-
-/* 1020px */
-@media (min-width: 1020px) {
-  /* empty */
-}
-
-/* 1024px - Desktop */
-@media (min-width: 1024px) {
-  
-}
 

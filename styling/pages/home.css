@@ -17,7 +17,7 @@ body {
   justify-content: center;
   align-items: self-start;
   height: 100dvh;
-  
+  overflow-y: hidden;
 }
 .logo{
     width: 100px;
@@ -94,7 +94,11 @@ body {
 /* .white-glow {
   filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
 } */
-
+.meme{
+  width: 100%;
+  height: 100%;
+   object-fit: contain;
+}
 
 .transparent-box {
   background: rgba(0, 0, 0, 0.15); /* transparent white */
@@ -235,3 +239,100 @@ svg{
 
 
 
+/* Streak popup container */
+.streak-popup {
+  width: 300px;
+  background-color: #111;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Title & count */
+.streak-title {
+  font-size: 24px;
+}
+
+.streak-count {
+  font-size: 22px;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+/* Week line */
+.streak-line {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 20px 0;
+}
+
+.streak-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  background: rgba(255, 215, 0, 0.3);
+  transform: translateY(-50%);
+}
+
+/* Week circle */
+.week {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 1;
+}
+
+/* Completed */
+.week.active {
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+}
+
+/* 🔥 Week completed animation */
+@keyframes weekComplete {
+  0% {
+    transform: scale(0.4);
+    box-shadow: 0 0 0 rgba(255,215,0,0);
+  }
+  60% {
+    transform: scale(1.25);
+    box-shadow: 0 0 18px rgba(255,215,0,1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255,215,0,0.8);
+  }
+}
+
+/* Pulse animation */
+@keyframes streakPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); box-shadow: 0 0 14px rgba(255,215,0,0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Applied dynamically */
+.week.completed {
+  animation: weekComplete 0.6s ease forwards;
+}
+
+.week.current {
+  animation: streakPulse 1.6s ease-in-out infinite;
+}
+
+/* Footer text */
+.streak-subtext {
+  font-size: 14px;
+  opacity: 0.8;
+}

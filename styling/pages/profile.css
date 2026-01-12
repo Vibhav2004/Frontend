@@ -16,14 +16,16 @@ body {
 
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* ✅ NOT self-start */
+  /* ✅ NOT self-start */
   min-height: 100vh;       /* ✅ IMPORTANT */
 }
 
 .container {
-  height: 100vh;
+  
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
+  overflow-x: hidden;
   background: black;
 }
 
@@ -35,23 +37,22 @@ body {
    
 }
 .header{
-    display: block;
-    justify-content: space-between;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    
+    
     background-color: rgb(0, 0, 0);
     gap: 0px;
-    width: 300px;
+    width: 320px;
      z-index: 10;
      
 
 }
 .primary{
-       display: flex;
+    display: flex;
+    justify-content: space-between;
     
     align-items: center;
-    gap: 0px;
-    
-    margin-left: 0px;
 }
 input{
     border-radius: 10px;
@@ -85,25 +86,24 @@ input{
     transform: translateY(0px);
   }
 }
-
+.primarysecond{
+  display: flex;
+  gap: 5px;
+}
 .floating {
   animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 .footerNav{
-    display: flex;
+       display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 320px;
      background-color: rgb(65, 66, 67);
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 5px;
-    /* margin-top: 70px; */
-    padding-right: -20px;
-   margin-bottom: 0px;
-     flex-shrink: 0;
-             /* match your footer height */
-  background: #4a4a4a;
-  display: flex;
+    margin-top: 4px;
+    flex-shrink: 0;
+ 
   
 
 }
@@ -111,6 +111,7 @@ input{
   width: 295px;
   height:fit-content;
   border-radius: 10px;
+  margin-left: 10px;
   margin-top: 15px;
   background-color: rgb(0, 0, 0) ;
   overflow-x: hidden;
@@ -186,8 +187,9 @@ svg{
 }
 .secondary{
     display: flex;
-    justify-content:flex-start;
     align-items: center;
+    margin-left: 15px;
+    gap: 10px;
 }
 .pfp{
     width: 75px;
@@ -205,7 +207,7 @@ svg{
     justify-content: center;
     align-items: center;
     margin-top: 15px;
-    gap: 30px;
+    gap: 15px;
 }
 .Score{
     display: flex;
@@ -244,7 +246,7 @@ svg{
     justify-content: center;
     align-items: center;
     margin-top: 15px;
-    gap: 30px;
+    gap: 15px;
 }
 .friends{
      display: flex;
@@ -284,11 +286,15 @@ display: block;
   height: 275px;          /* fills remaining space */
   overflow-y: scroll;  /* enables vertical scrolling */
   margin-top: 20px;
+  background-color: rgb(0, 0, 0);
   overflow-x: hidden;
   /* background-color: aqua; */
 }
 
-
+.flex{
+  display: flex;
+  flex-direction: column;
+}
 
 
 

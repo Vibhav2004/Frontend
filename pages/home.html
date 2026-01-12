@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/styling/pages/home.css">
      <link rel="stylesheet" href="/styling/responsive/homeresponsive.css">
+     <link rel="stylesheet" href="/styling/heightResponsive/homeheightresponsive.css">
 </head>
 <body>
     <div class="app">
@@ -16,7 +17,7 @@
 
                 <div class="total transparent-box">3000</div>
                 <div class="target transparent-box">50/50</div>
-                <div class="streak transparent-box">🔥50</div>
+                <div class="streak transparent-box" onclick="openStreakPopup()">🔥50</div>
             </div>
         </div>
 <!-- Instruction Popup -->
@@ -36,7 +37,7 @@
 
 
         <div class="memeBox">
-
+          <img src="/assests/memes/supermeme_hero_image.png" class="meme">
         </div>
        <div class="footerNav">
   <div class="nav-item active" onclick="setActiveNav(this)">
@@ -57,6 +58,65 @@
 
 
     </div>
+
+   <!-- Streak Popup -->
+<div id="streakPopup" class="popup-overlay" style="display:none;">
+  <div class="popup-content streak-popup">
+    <span class="close-btn" onclick="closeStreakPopup()">✕</span>
+
+    <h2 class="streak-title" >🔥 Streak</h2>
+    <div class="streak-count" id="streakCount">50 Days</div>
+
+    <div class="streak-line" id="streakLine">
+      <div class="week">1</div>
+      <div class="week">2</div>
+      <div class="week">3</div>
+      <div class="week">4</div>
+      <div class="week">5</div>
+      <div class="week">6</div>
+      <div class="week">7</div>
+    </div>
+
+    <p class="streak-subtext">Complete all weeks to keep your streak 🔥</p>
+  </div>
+</div>
+
+<script>
+  const TOTAL_WEEKS = 7;
+  const streakDays = 50; // example
+  const completedWeeks = Math.floor(streakDays / 7);
+
+  function openStreakPopup() {
+    document.getElementById("streakPopup").style.display = "flex";
+    renderStreak();
+  }
+
+  function closeStreakPopup() {
+    document.getElementById("streakPopup").style.display = "none";
+  }
+
+  function renderStreak() {
+    const weeks = document.querySelectorAll(".week");
+
+    weeks.forEach((week, index) => {
+      week.classList.remove("active", "completed", "current");
+
+      if (index < completedWeeks) {
+        week.classList.add("active");
+      }
+
+      // latest completed week → play animation
+      if (index === completedWeeks - 1) {
+        week.classList.add("completed", "current");
+      }
+    });
+
+    document.getElementById("streakCount").innerText =
+      `🔥 ${streakDays} Days`;
+  }
+</script>
+
+
 <script src="/scripting/utils/routing.js"></script>
 <script>
   // Close popup
