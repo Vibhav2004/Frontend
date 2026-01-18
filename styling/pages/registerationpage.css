@@ -145,6 +145,22 @@ input {
   align-items: center;
   justify-content: center;
 }
+select{
+  display: block;
+  margin: 14px auto;
+  padding: 5px 16px;
+  width: 80%;
+
+  font-family: "SmoochSans", sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+
+  color: #ffffff;
+  background: #000000;
+
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+}
 .terms{
   font-size: 20px;
   flex-wrap: nowrap;

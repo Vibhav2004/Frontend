@@ -18,25 +18,27 @@
            <div class="primarysecond">
 
              <input type="text" placeholder="Search Friends">
-             <button class="add" onclick="goToMeme()">+</button>
+             <button class="add" onclick="openAddPopup()">+</button>
+
+
             </div>
                
             
            
            </div>
            <div class="secondary">
-           <img src="/assests/pfp/head1.png" class="pfp">
-           <p class="username">vansom_13</p>
+           <img src="/assests/pfp/head1.png" class="pfp" id="profilePic">
+           <p class="username" id="usernameText"></p>
            </div>
            <div class="flex">
            <div class="third">
-              <div class="Score">3000<br>Score</div>
-                 <div class="rank">12<br>Rank</div>
-                 <div class="streak">🔥50<br>Streak</div>
+              <div class="Score" id="scoreBox">3000<br>Score</div>
+                 <div class="rank" id="rankBox"><br>Swipes</div>
+                 <div class="streak" id="streakBox"><br>Streak</div>
            </div>
            <div class="fourth">
-              <div class="friends">45<br>Friends</div>
-                 <div class="meme">3<br>Memes</div>
+              <div class="friends" id="friendsBox"><br>Friends</div>
+                 <div class="meme" id="memeBox"><br>Memes</div>
                  <div class="edit" onclick="goToEdit()">edit</div>
            </div>
            </div>
@@ -94,29 +96,75 @@
     <!-- HEADER -->
     <div class="profile-header">
       <img src="/assests/pfp/2.png" class="pfp" />
-      <p class="username">vansom_13</p>
+      <p class="username" id="usernameTexts"></p>
     </div>
 
     <!-- STATS ROW 1 -->
     <div class="stats-row">
-      <div class="stat-box">3000<br><span>Score</span></div>
-      <div class="stat-box">12<br><span>Rank</span></div>
-      <div class="stat-box">🔥50<br><span>Streak</span></div>
+      <div class="stat-box" id="scoreBoxs"><br><span>Score</span></div>
+      <div class="stat-box" id="rankBoxs">12<br><span>Swipes</span></div>
+      <div class="stat-box" id="streakBoxs">🔥50<br><span>Streak</span></div>
     </div>
 
     <!-- STATS ROW 2 -->
     <div class="stats-row">
-      <div class="stat-box">45<br><span>Friends</span></div>
-      <div class="stat-box">3<br><span>Memes</span></div>
+      <div class="stat-box" id="friendsBoxs">45<br><span>Friends</span></div>
+      <div class="stat-box" id="memeBoxs">3<br><span>Memes</span></div>
 
       <!-- ADD FRIEND -->
-      <div class="stat-box add-friend" onclick="addFriend(this)">
+      <div class="stat-box add-friend" onclick="postUserData(this);">
         Add Friend
       </div>
     </div>
 
   </div>
 </div>
+
+
+
+
+
+
+
+<!-- ADD FRIEND POPUP -->
+<div class="add-popup-overlay" id="addPopup">
+  <div class="add-popup-card">
+    <span class="close-x" onclick="closeAddPopup()">✕</span>
+
+    <h3>Coming Soon</h3>
+   <p>Soon you will be able to uplode your own memes</p>
+  </div>
+</div>
+
+<script>
+function openAddPopup() {
+  document.getElementById("addPopup").style.display = "flex";
+}
+
+function closeAddPopup() {
+  document.getElementById("addPopup").style.display = "none";
+}
+
+function addFriendFromPopup() {
+  const input = document.getElementById("addFriendInput");
+  const username = input.value.trim();
+
+  if (!username) {
+    alert("Enter a username");
+    return;
+  }
+
+  // reuse your existing logic
+  postUserData({
+    value: username
+  });
+
+  input.value = "";
+  closeAddPopup();
+}
+</script>
+
+
 
 
 
@@ -150,7 +198,208 @@
   }
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", loadProfile);
+
+function loadProfile() {
+  const username = sessionStorage.getItem("username");
+  if (!username) {
+    console.error("No session username found");
+    return;
+  }
+
+  fetch(`http://localhost:8080/profile/${username}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch profile");
+      return res.json();
+    })
+    .then(data => updateUI(data))
+    .catch(err => console.error(err));
+}
+
+function updateUI(user) {
+  // PROFILE INFO
+  document.getElementById("usernameText").textContent = `@${user.username}`;
+  document.getElementById("profilePic").src = "/assests/pfp/3.png";
+
+  // MAIN STATS
+  document.getElementById("scoreBox").innerHTML =
+    `${user.score}<br>Score`;
+
+  document.getElementById("rankBox").innerHTML =
+    `${user.swipes}<br>Swipes`;
+
+  document.getElementById("streakBox").innerHTML =
+    `${user.streak}🔥<br>Streak`;
+
+  // SECONDARY STATS
+  document.getElementById("friendsBox").innerHTML =
+    `${user.friends ||0}<br>Friends`;
+
+  document.getElementById("memeBox").innerHTML =
+    `${user.memes || 0}<br>Memes`;
+}
+
+// function goToEdit() {
+//   window.location.href = "/edit-profile.html";
+// }
+</script>
 
 
+
+<script>
+const searchInputs = document.querySelector(".primary input");
+const profileOverlays = document.getElementById("profileOverlay");
+console.log(searchInput);
+
+/* ===============================
+   SEARCH USER PROFILE
+================================ */
+
+searchInputs.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+
+    const searchedUser = searchInputs.value.trim();
+    if (!searchedUser) return;
+     if(searchedUser != sessionStorage.getItem("username")){
+      // alert("You cannot search yourself");
+      fetchUserProfile(searchedUser);
+      // return;
+     }else{
+      return;
+     }
+    
+  }
+});
+
+function fetchUserProfile(username) {
+  fetch(`http://localhost:8080/profile/${username}`)
+    .then(res => {
+      if (!res.ok) throw new Error("User not found");
+      return res.json();
+    })
+    .then(data => {
+      document.getElementById("usernameTexts").textContent = `@${data.username}`;
+  // document.getElementById("profilePics").src = "/assests/pfp/3.png";
+
+  // MAIN STATS
+  document.getElementById("scoreBoxs").innerHTML =
+    `${data.score}<br>Score`;
+
+  document.getElementById("rankBoxs").innerHTML =
+    `${data.swipes}<br>Swipes`;
+
+  document.getElementById("streakBoxs").innerHTML =
+    `${data.streak}🔥<br>Streak`;
+
+  // SECONDARY STATS
+  document.getElementById("friendsBoxs").innerHTML =
+    `${data.friends ||0}<br>Friends`;
+
+  document.getElementById("memeBoxs").innerHTML =
+    `${data.memes || 0}<br>Memes`;
+      profileOverlays.style.display = "flex"; // show popup
+    })
+    .catch(err => {
+      console.error(err);
+      alert("User not found");
+    });
+}
+
+/* ===============================
+   UI HELPERS
+================================ */
+
+function closePopup() {
+  profileOverlay.style.display = "none";
+}
+
+
+</script>
+
+
+<script>
+function postUserData(el) {
+  const searchInput = document.querySelector(".primary input");
+  const data = {
+      friend1: sessionStorage.getItem("username"),
+      friend2: searchInput.value.trim()
+  };
+
+  fetch("http://localhost:8080/add-friends", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data)
+  })
+  .then(res => {
+      if (!res.ok) throw new Error("Request failed");
+      return res.json();
+  })
+  .then(response => {
+      console.log("Server response:", response);
+      el.classList.add("added");
+      el.textContent = "Friends";
+  })
+  .catch(err => {
+      console.error("POST error:", err);
+      alert("Failed to add friend");
+  });
+}
+
+</script>
+
+
+
+
+<script>
+  function fetchUserProfile(username) {
+  fetch(`http://localhost:8080/profile/${username}`)
+    .then(res => {
+      if (!res.ok) throw new Error("User not found");
+      return res.json();
+    })
+    .then(data => {
+      document.getElementById("usernameTexts").textContent = `@${data.username}`;
+      document.getElementById("scoreBoxs").innerHTML = `${data.score}<br>Score`;
+      document.getElementById("rankBoxs").innerHTML = `${data.swipes}<br>Swipes`;
+      document.getElementById("streakBoxs").innerHTML = `${data.streak}🔥<br>Streak`;
+      document.getElementById("friendsBoxs").innerHTML = `${data.friends ||0}<br>Friends`;
+      document.getElementById("memeBoxs").innerHTML = `${data.memes || 0}<br>Memes`;
+
+      // ✅ Check if already friends
+      const myUsername = sessionStorage.getItem("username");
+      if (username === myUsername) {
+        // Searching yourself → hide button
+        document.querySelector(".add-friend").style.display = "none";
+      } else {
+        document.querySelector(".add-friend").style.display = "flex";
+        checkFriendshipStatus(myUsername, username);
+      }
+
+      profileOverlay.style.display = "flex"; // show popup
+    })
+    .catch(err => {
+      console.error(err);
+      alert("User not found");
+    });
+}
+function checkFriendshipStatus(myUsername, otherUsername) {
+  fetch(`http://localhost:8080/friends/check?username1=${myUsername}&username2=${otherUsername}`)
+    .then(res => res.json())
+    .then(isFriend => {
+      const addBtn = document.querySelector(".add-friend");
+      if (isFriend) {
+        addBtn.classList.add("added");
+        addBtn.textContent = "Friends";
+      } else {
+        addBtn.classList.remove("added");
+        addBtn.textContent = "Add Friend";
+      }
+    })
+    .catch(err => console.error("Error checking friendship:", err));
+}
+
+</script>
 </body>
 </html>

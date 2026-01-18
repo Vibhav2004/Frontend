@@ -972,3 +972,9 @@ svg{
 }
 
 
+@media (max-width: 12000px){
+  .memeBox{
+     background-color: rgb(0, 0, 0);
+  }
+
+}

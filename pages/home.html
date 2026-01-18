@@ -15,9 +15,9 @@
             <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
             <div class="right">
 
-                <div class="total transparent-box">3000</div>
-                <div class="target transparent-box">50/50</div>
-                <div class="streak transparent-box" onclick="openStreakPopup()">🔥50</div>
+                <!-- <div class="total transparent-box" id="swipe"></div>
+                
+                <div class="streak transparent-box" id="streak" onclick="openStreakPopup()">🔥</div> -->
             </div>
         </div>
 <!-- Instruction Popup -->
@@ -37,7 +37,7 @@
 
 
         <div class="memeBox">
-          <img src="/assests/memes/supermeme_hero_image.png" class="meme">
+          
         </div>
        <div class="footerNav">
   <div class="nav-item active" onclick="setActiveNav(this)">
@@ -80,6 +80,11 @@
     <p class="streak-subtext">Complete all weeks to keep your streak 🔥</p>
   </div>
 </div>
+<div class="swipe-reaction heart">❤️</div>
+<div class="swipe-reaction cross">✖</div>
+<div class="meme-loader" id="memeLoader">
+  <div class="spinner"></div>
+</div>
 
 <script>
   const TOTAL_WEEKS = 7;
@@ -116,6 +121,71 @@
   }
 </script>
 
+<script>
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec?limit=100&page=1";
+
+async function fetchMemes() {
+  try {
+    const res = await fetch(API_URL);
+    const json = await res.json();
+
+    const memes = json.data
+      .filter(item => item.url && item.nsfw === false)
+      .slice(0, 100);
+
+    renderMemes(memes);
+  } catch (err) {
+    console.error("Meme fetch failed:", err);
+  }
+}
+
+function renderMemes(memes) {
+  const memeBox = document.querySelector(".memeBox");
+  memeBox.innerHTML = "";
+  currentIndex = 0;
+
+  memes.forEach((meme, index) => {
+    const card = document.createElement("div");
+    card.className = "meme-card";
+    card.style.zIndex = memes.length - index;
+
+    if (index === 0) card.classList.add("active");
+
+    // 🚫 Hide until fully loaded
+    card.style.visibility = "hidden";
+
+    const img = new Image();
+    img.src = meme.url;
+    img.alt = meme.title || "meme";
+    img.decoding = "async";
+
+    img.onload = () => {
+      card.appendChild(img);
+
+      // ✅ SHOW ONLY AFTER COMPLETE LOAD
+      card.style.visibility = "visible";
+    };
+
+    img.onerror = () => {
+      card.remove(); // broken image safety
+    };
+
+    memeBox.appendChild(card);
+  });
+
+  enableSwipe();
+}
+
+fetchMemes();
+</script>
+
+<script src="/scripting/services/swipecount.js"></script>
+
+
+
+
+
 
 <script src="/scripting/utils/routing.js"></script>
 <script>
@@ -126,11 +196,30 @@
 
   // Show popup on page load
   window.onload = function() {
-    document.getElementById("instructionPopup").style.display = "flex";
+    // Check if this is the first time user (swipes, score, and streak are all 0)
+    const rightSwipesCount = localStorage.getItem("rightSwipesCount");
+    const streakCount = localStorage.getItem("streakCount");
+    const score = localStorage.getItem("score");
+
+    // If the user has not swiped, has no score, and no streak, show the popup
+    if ((rightSwipesCount === null || rightSwipesCount == 0) &&
+        (streakCount === null || streakCount == 0) &&
+        (score === null || score == 0)) {
+
+      // Only show the popup if it's the user's first time
+      const firstTimeUser = localStorage.getItem("firstTimeUser");
+      if (!firstTimeUser) {
+        // Display the popup
+        document.getElementById("instructionPopup").style.display = "flex";
+        // Set the firstTimeUser flag in localStorage so it won't show again
+        localStorage.setItem("firstTimeUser", "false");
+      }
+    }
   }
 </script>
 
 
-
+<script src="/scripting/services/home.js"></script>
+<!-- <script src="/scripting/services/homesession.js"></script> -->
 </body>
 </html>
