@@ -1,10 +1,12 @@
 console.log("hello world")
-let username=localStorage.getItem("username");    
-console.log(username);
+let usernamess=sessionStorage.getItem("username");    
+console.log(usernamess);
 
 document.getElementById("swipe").innerText=`Swipes : 0`;
-// window.onload = function () {
-//   fetch(`http://localhost:8080/profile/${username}`, 
+// user()
+//  function user() {
+    
+//  fetch(API.getProfile(usernamess), 
 //  {
 //         method: 'GET',
 //         headers: {
@@ -17,10 +19,12 @@ document.getElementById("swipe").innerText=`Swipes : 0`;
 //   let swipe2= data.swipes;
 // let streak2=data.streak;
 //     console.log(swipe2);
+//     console.log("OMG",data.username);
+    
 //     document.getElementById("swipe").innerText=`Swipes : ${swipe2}`;
 //     document.getElementById("streak").innerText=`${streak2}🔥`;
 
 // })
-// };
 
+//  }
 

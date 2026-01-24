@@ -10,7 +10,11 @@ async function registerUser() {
         alert("Username, Email and Password are required!");
         return;
     }
-
+if(sessionStorage.getItem("userType") === "guest"){
+    alert("login to see access all features");
+    sessionStorage.removeItem("userType");
+    window.location.href = "/pages/register.html";
+}
     // Prepare payload
     const payload = {
         username: username,
@@ -20,7 +24,7 @@ async function registerUser() {
     };
 
     try {
-        const response = await fetch('http://localhost:8080/Register-User', {
+        const response = await fetch(API.registerUser(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,7 +36,9 @@ async function registerUser() {
 
         if (response.ok) {
             alert("User registered successfully!");
-            localStorage.setItem("username", username);
+            // sessionStorage.removeItem("userType");
+            
+            sessionStorage.setItem("username", username);
              window.location.href = "/pages/home.html"; // redirect to login page
         } else {
             alert("Error: " + (data.message || "Failed to register"));

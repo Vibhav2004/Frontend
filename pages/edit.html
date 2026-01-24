@@ -18,7 +18,7 @@
            </div>
            </div>
          <div class="img-dropdown">
-  <div class="dropdown-btn" id="dropdownBtn">Select Image <span>↓</span></dix>
+  <div class="dropdown-btn" id="dropdownBtn" onclick="saveProfilePic()">Select Image <span>↓</span></dix>
 
   <div class="dropdown-menu" id="dropdownMenu">
 
@@ -69,14 +69,15 @@
 </div>
          </div>
 <div class="info">
-    <button class="username" value="username" onclick="goToactualEdit()">vansom_13</button>
-    <button class="email" value="email" onclick="goToactualEdit()">vibhavkhichi13@gmail.com</button>
-    <button class="password" value="password" onclick="goToactualEdit()">********</button>
+  <button class="username" id="username" >Guest_67</button>
+  <button class="email" id="email" >Guest67@gmail.com</button>
+  <button class="password" onclick="sendOtpAndRedirect('password')">********</button>
 </div>
+
 
           <div class="buttons">
              <button onclick="gotoProfile()">Back</button>
-            <button>Logout</button>
+            <button onclick="loggingOut()">Logout</button>
             <button id="delete">Delete</button>
 
           </div>
@@ -84,10 +85,11 @@
 
             <a href="aboutus.html">Know About Us</a>   
           </div>
-
-    
+ 
+  <script src="/scripting/services/home.js"></script>  
 <script src="/scripting/utils/routing.js"></script>
-   
+ <script src="/scripting/services/profilepic.js"></script>  
+ <script src="/scripting/API/apiHandler.js"></script>
 <script>
   const btn = document.getElementById("dropdownBtn");
   const menu = document.getElementById("dropdownMenu");
@@ -112,6 +114,66 @@
       menu.style.display = "none";
     }
   });
+</script>
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+  const username = sessionStorage.getItem("username");
+  console.log(username);
+  
+  fetch(API.getProfile(username))
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch profile");
+      return res.json();
+    })
+    .then(data =>{
+      console.log(data);
+      updateUIs(data)
+    } )
+    .catch(err => console.error(err));
+});
+
+function updateUIs(user) {
+  // PROFILE INFO
+  document.getElementById("email").textContent = `${user.email}`;
+   document.getElementById("username").textContent = `@${user.username}`;
+  
+
+ 
+}
+
+</script>
+
+
+
+
+
+
+<script>
+  const sendOtpAndRedirect = async (actionType) => {
+  const email = document.querySelector(".email").innerText.trim();
+  console.log("hello",email);
+  
+  try {
+    const response = await fetch(API.sendOtp(email), {
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error("OTP send failed");
+    }
+
+    sessionStorage.setItem("otpEmail", email);
+    sessionStorage.setItem("otpAction", actionType);
+
+    window.location.href = "/pages/otp.html";
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send OTP");
+  }
+};
+
 </script>
 
 

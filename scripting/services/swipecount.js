@@ -4,6 +4,7 @@
 let currentIndex = 0;
 let startX = 0;
 let currentCard = null;
+let keyLocked = false;
 
 /* ---- Counters ---- */
 let rightSwipesForStreak = 0;   // ONLY for streak (50 rights)
@@ -19,6 +20,34 @@ const STREAK_COOLDOWN = 24 * 60 * 60 * 1000; // 24 hrs
  const username = sessionStorage.getItem("username");
 console.log(username);
 
+const swipeBox = document.getElementById("swipe");
+const MAX_SWIPE = 100;
+const STORAGE_KEY = "swipeCount";
+
+// 🔄 Load saved value on page load
+let swipeCount = Number(sessionStorage.getItem(STORAGE_KEY)) || 0;
+updateSwipeUI();
+
+// ➕ Call this whenever a swipe happens
+function incrementSwipe() {
+  swipeCount++;
+  
+  if(swipeCount==50){
+    alert("insights Updated Successfully");
+  }
+  if (swipeCount > MAX_SWIPE ) {
+    
+    swipeCount = 0; // 🔁 reset after 100
+  }
+
+  sessionStorage.setItem(STORAGE_KEY, swipeCount);
+  updateSwipeUI();
+}
+
+// 🎯 Update UI
+function updateSwipeUI() {
+  swipeBox.textContent = `Swipes:${swipeCount}`;
+}
 
 /* ================================
    ENABLE SWIPE
@@ -98,6 +127,7 @@ function showStreakPopup() {
 function swipe(direction) {
   const heart = document.querySelector(".swipe-reaction.heart");
   const cross = document.querySelector(".swipe-reaction.cross");
+incrementSwipe();
 
   /* ---- Count ALL swipes ---- */
   totalSwipesForAPI++;
@@ -111,7 +141,7 @@ function swipe(direction) {
 
     /* 🔥 STREAK CHECK */
     /* 🔥 STREAK CHECK */
-if (rightSwipesForStreak >= STREAK_RIGHT_TARGET && canIncreaseStreak()) {
+if (rightSwipesForStreak >= STREAK_RIGHT_TARGET || canIncreaseStreak()) {
   streakIncrement++;
 
   // Store exact time in milliseconds for 24hr lock
@@ -121,7 +151,7 @@ if (rightSwipesForStreak >= STREAK_RIGHT_TARGET && canIncreaseStreak()) {
   rightSwipesForStreak = 0;
 
   // Show popup
-  showStreakPopup()
+  // showStreakPopup()
   console.log("🔥 Streak incremented! Next increment allowed after 24hrs.");
 }
 
@@ -168,7 +198,7 @@ async function updateBackend() {
   console.log("📡 Sending payload:", payload);
 
   try {
-    const response = await fetch("http://localhost:8080/update", {
+    const response = await fetch(API.updateUser(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -185,23 +215,50 @@ async function updateBackend() {
 
   } catch (err) {
     console.error("❌ Update failed:", err);
+    window.location.href = "/pages/login.html";
   }
 }
+
+
+document.addEventListener("keydown", (e) => {
+  if (keyLocked) return;
+  if (!currentCard) return;
+
+  if (e.key === "ArrowRight") {
+    keyLocked = true;
+    swipe("right");
+  }
+
+  if (e.key === "ArrowLeft") {
+    keyLocked = true;
+    swipe("left");
+  }
+
+  if (e.key === " ") {
+    keyLocked = true;
+    downloadCurrentMeme();
+  }
+});
+
+
+document.addEventListener("keyup", () => {
+  keyLocked = false;
+});
 
 /* ================================
    INIT
 ================================ */
 window.addEventListener("load", () => {
   enableSwipe();
-  fetch("http://localhost:8080/All-User", 
- {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response     => response.json())
-    .then(data => {
-    console.log(data);
-    })
+//   fetch("http://localhost:8080/All-User", 
+//  {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     })
+//     .then(response     => response.json())
+//     .then(data => {
+//     console.log(data);
+//     })
 }); 

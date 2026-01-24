@@ -40,13 +40,7 @@ const gotoProfile=() => {
 
   window.location.href = "/pages/profile.html";
 };
-const routeToOTP = () => {
-  document.querySelectorAll("input").forEach(input => {
-    input.value = "";
-  });
 
-  window.location.href = "/pages/otp.html";
-};
 
 
 const verifyOTP = () => {
@@ -107,3 +101,35 @@ const verifyOTP = () => {
       gotoProfile();
     }, 5000);
   }
+
+
+  function goToHome() {
+
+    sessionStorage.setItem("userType", "guest");
+    window.location.href = "/pages/home.html";
+    };
+
+
+
+
+
+
+const routeToOTP = () => {
+  
+    
+
+  window.location.href = "/pages/otp.html";
+    sendOtp();
+};  
+
+
+
+
+
+
+
+function loggingOut() {
+  sessionStorage.clear();
+  window.location.href = "/pages/login.html";
+  
+}

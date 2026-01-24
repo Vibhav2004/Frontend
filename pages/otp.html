@@ -25,7 +25,7 @@
     <input placeholder="" type="tel" maxlength="1">
     <input placeholder="" type="tel" maxlength="1">
   </div>
-        <button id="registered" onclick="verifyOTP()">VERIFY</button>
+        <button id="registered" onclick="verifyOtp()">VERIFY</button>
 <div class="loader hidden" id="loader">
   <div class="circle">
     <div class="dot"></div>
@@ -56,7 +56,74 @@
    <script src="/scripting/utils/routing.js">
   
 </script>
+<script>
+  // Select all OTP input fields
+const otpInputs = document.querySelectorAll(".inputs input");
 
+// Add auto-focus functionality
+otpInputs.forEach((input, index) => {
+  input.addEventListener("input", () => {
+    // Move to next input if current has a value
+    if (input.value.length === input.maxLength && index < otpInputs.length - 1) {
+      otpInputs[index + 1].focus();
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    // Move to previous input on Backspace if current is empty
+    if (e.key === "Backspace" && input.value.length === 0 && index > 0) {
+      otpInputs[index - 1].focus();
+    }
+  });
+});
+
+// Your existing verifyOtp function
+const verifyOtp = async () => {
+  let otp = "";
+
+  // Combine the values from all 4 inputs
+  otpInputs.forEach(input => {
+    otp += input.value;
+  });
+
+  if (otp.length !== 4) {
+    alert("Please enter a 4-digit OTP");
+    return;
+  }
+
+  const email = sessionStorage.getItem("otpEmail");
+  const action = sessionStorage.getItem("otpAction");
+
+  try {
+    const response = await fetch("http://192.168.73.1:8081/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: `email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`
+    });
+
+    const message = await response.text();
+
+    if (message.toLowerCase().includes("success")) {
+      if (action === "password") {
+        window.location.href = "/pages/actualeditPassword.html";
+      } 
+      // else if (action === "email") {
+      //   window.location.href = "/pages/actualeditEmail.html";
+      // } else {
+      //   window.location.href = "/pages/actualeditUserName.html";
+      // }
+    } else {
+      alert("Invalid or expired OTP");
+    }
+  } catch (error) {
+    console.error("OTP verification failed:", error);
+    alert("OTP verification failed. Please try again.");
+  }
+};
+
+</script>
 
  
 

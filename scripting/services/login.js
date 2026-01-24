@@ -1,3 +1,9 @@
+if(sessionStorage.getItem("userType") === "guest"){
+    alert("login to see access all features");
+    sessionStorage.removeItem("userType");
+    window.location.href = "/pages/login.html";
+}
+
 async function loginUser() {
     // Get form values
     
@@ -20,7 +26,7 @@ async function loginUser() {
     };
 
     try {
-        const response = await fetch('http://localhost:8080/Login-User', {
+        const response = await fetch(API.loginUser(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +41,8 @@ async function loginUser() {
             console.log(data.username);
             
            sessionStorage.setItem("username", data.username);
-
+           sessionStorage.setItem("email", data.email);
+           localStorage.setItem("email", data.email);
             window.location.href = "/pages/home.html"; // redirect to login page
         } else {
             alert("Error: " + (data.message || "Failed to register"));
