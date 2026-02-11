@@ -105,7 +105,7 @@ const verifyOTP = () => {
 
   function goToHome() {
 
-    sessionStorage.setItem("userType", "guest");
+    localStorage.setItem("userType", "guest");
     window.location.href = "/pages/home.html";
     };
 
@@ -128,8 +128,10 @@ const routeToOTP = () => {
 
 
 
+
+
+
 function loggingOut() {
-  sessionStorage.clear();
-  window.location.href = "/pages/login.html";
-  
+  localStorage.clear(); // or remove specific keys
+  window.location.replace("/pages/login.html");
 }

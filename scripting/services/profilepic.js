@@ -8,7 +8,7 @@ function saveProfilePic() {
 console.log(fileName);
 
       // Optional: get display name
-      const useR = sessionStorage.getItem("username");
+      const useR = localStorage.getItem("username");
 
       fetch(API.uploadPFP(), {
         method: 'POST',

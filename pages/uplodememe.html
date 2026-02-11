@@ -1,109 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SWIPENOW</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/styling/pages/uplodememe.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SWIPENOW - Upload Meme</title>
 
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-           
-           </div>
+  <link rel="stylesheet" href="/styling/pages/uplodememe.css">
+  <link rel="icon" href="/assests/icon/favicon-96x96.png">
 
-<div class="info">
-    <p class="actualedit">Uplode MEME</p>
-    <!-- From Uiverse.io by Fundiman --> 
-<form class="file-upload-form">
-  <label for="file" class="file-upload-label">
-    <div class="file-upload-design">
-      <svg viewBox="0 0 640 512" height="1em">
-        <path
-          d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"
-        ></path>
-      </svg>
-      <p>Drag and Drop</p>
-      <p>or</p>
-      <span class="browse-button">Browse file</span>
-    </div>
-    <input id="file" type="file" accept="image/*" />
-  </label>
-</form>
-
-<!-- Image Preview -->
-<div class="imgcontainer">
-
-    <img id="imagePreview" style="display:none;" />
-</div>
-
-
-<div class="flex">
-<input 
-        type="" 
-        id="usernameInput" 
-        class="username-input" 
-        placeholder="Enter Caption"
-    />
-</div>
-
-    
-</div>
-
-          <div class="buttons">
-            <button >Back</button>
-           <button onclick="handleUpload(event)">Uplode</button>
-
-
-            
-
-          </div>
-          <!-- From Uiverse.io by satyamchaudharydev --> 
-
-<div class="spinner"></div>
-          
-          
-
-
-
-       
-
-    
-    
-<script src="/scripting/utils/routing.js"></script>
-   
-<script>
-  const fileInput = document.getElementById("file");
-  const imagePreview = document.getElementById("imagePreview");
-
-  fileInput.addEventListener("change", function () {
-    const file = this.files[0];
-
-    // If no file selected
-    if (!file) return;
-
-    // Allow only images
-    if (!file.type.startsWith("image/")) {
-      alert("Only image files are allowed!");
-      fileInput.value = "";
-      imagePreview.style.display = "none";
-      return;
+  <style>
+    #popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      z-index: 9999;
+      display: none;
     }
+  </style>
+</head>
 
-    // Preview image
+<body>
+
+<div class="container">
+  <p class="actualedit">Upload MEME</p>
+
+  <form class="file-upload-form">
+    <label class="file-upload-label">
+      <input id="file" type="file" accept="image/*" hidden />
+      <div class="file-upload-design">
+        <p>Drag & Drop or Browse</p>
+      </div>
+    </label>
+  </form>
+
+  <div class="imgcontainer">
+    <img id="imagePreview" style="display:none;max-width:300px;" />
+  </div>
+
+  <div class="flex">
+    <input type="text" class="username-input" id="titleInput" placeholder="Enter Caption" />
+  </div>
+
+  <div class="buttons">
+    <button type="button" onclick="history.back()">Back</button>
+    <button id="uploadBtn" disabled>Upload</button>
+  </div>
+</div>
+
+<div id="popup"></div>
+
+<!-- TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+
+<!-- NSFWJS -->
+<script src="https://cdn.jsdelivr.net/npm/nsfwjs@4.2.1/dist/browser/nsfwjs.min.js"></script>
+
+<script>
+let nsfwModel = null;
+let compressedFile = null;
+
+const fileInput = document.getElementById("file");
+const imagePreview = document.getElementById("imagePreview");
+const uploadBtn = document.getElementById("uploadBtn");
+const popup = document.getElementById("popup");
+
+/* ================= POPUP ================= */
+function showPopup(text, color) {
+  popup.innerHTML = `${text} <span style="margin-left:10px;cursor:pointer">✖</span>`;
+  popup.style.background = color;
+  popup.style.display = "block";
+  popup.onclick = () => popup.style.display = "none";
+  setTimeout(() => popup.style.display = "none", 4000);
+}
+
+/* ================= IMAGE COMPRESSION ================= */
+async function compressImage(file, minKB = 50, maxKB = 75) {
+  return new Promise((resolve) => {
+    const img = new Image();
     const reader = new FileReader();
-    reader.onload = function (e) {
-      imagePreview.src = e.target.result;
-      imagePreview.style.display = "block";
+
+    reader.onload = e => img.src = e.target.result;
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      const maxWidth = 1024;
+      let { width, height } = img;
+
+      if (width > maxWidth) {
+        height = height * (maxWidth / width);
+        width = maxWidth;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      let quality = 0.9;
+
+      function tryCompress() {
+        canvas.toBlob(blob => {
+          const sizeKB = blob.size / 1024;
+
+          if (sizeKB > maxKB && quality > 0.3) {
+            quality -= 0.05;
+            tryCompress();
+          } else {
+            resolve(new File([blob], file.name, {
+              type: "image/jpeg",
+              lastModified: Date.now()
+            }));
+          }
+        }, "image/jpeg", quality);
+      }
+
+      tryCompress();
     };
 
     reader.readAsDataURL(file);
   });
+}
+
+/* ================= LOAD NSFW MODEL ================= */
+window.addEventListener("load", async () => {
+  try {
+    nsfwModel = await nsfwjs.load("/assests/models/");
+    showPopup("✅ NSFW Scanner Ready", "#2ecc71");
+  } catch {
+    showPopup("❌ NSFW Model Load Failed", "#e74c3c");
+  }
+});
+
+/* ================= FILE CHANGE ================= */
+fileInput.addEventListener("change", async (e) => {
+  let file = e.target.files[0];
+  if (!file) return;
+
+  if (!nsfwModel) {
+    showPopup("⏳ Model still loading...", "#f39c12");
+    return;
+  }
+
+  // 📦 ORIGINAL SIZE (MB)
+  const originalMB = file.size / (1024 * 1024);
+
+  showPopup("⏳ Compressing image...", "#3498db");
+
+  // 🔥 COMPRESS
+  compressedFile = await compressImage(file);
+
+  const compressedKB = compressedFile.size / 1024;
+  const reducedPercent = ((file.size - compressedFile.size) / file.size) * 100;
+
+  console.log(
+    `📦 Original: ${originalMB.toFixed(2)} MB`
+  );
+  console.log(
+    `📉 Compressed: ${compressedKB.toFixed(1)} KB`
+  );
+  console.log(
+    `🔥 Reduced: ${reducedPercent.toFixed(1)}%`
+  );
+
+  showPopup(`📉 Compressed to: ${compressedKB.toFixed(1)} KB`, "#2ecc71");
+
+  // Preview compressed image
+  imagePreview.src = URL.createObjectURL(compressedFile);
+  imagePreview.style.display = "block";
+
+  imagePreview.onload = async () => {
+    const predictions = await nsfwModel.classify(imagePreview);
+
+    console.log("🧠 NSFW Model Predictions:");
+    predictions.forEach(p => {
+      console.log(`${p.className}: ${(p.probability * 100).toFixed(2)}%`);
+    });
+
+    const isUnsafe = predictions.some(p =>
+      ["Porn", "Hentai", "Sexy"].includes(p.className) &&
+      p.probability > 0.7
+    );
+
+    uploadBtn.disabled = isUnsafe;
+    uploadBtn.style.opacity = isUnsafe ? "0.5" : "1";
+
+    showPopup(
+      isUnsafe ? "❌ NOT SAFE (NSFW)" : "✅ SAFE TO UPLOAD",
+      isUnsafe ? "#e74c3c" : "#2ecc71"
+    );
+  };
+});
+
+// /* ================= UPLOAD ================= */
+// uploadBtn.addEventListener("click", () => {
+//   if (!compressedFile || uploadBtn.disabled) {
+//     showPopup("❌ Upload Blocked", "#e74c3c");
+//     return;
+//   }
+
+//   alert("🚀 Upload compressed image to backend");
+// });
+
+
+/* ================= UPLOAD TO SPRING BOOT ================= */
+uploadBtn.addEventListener("click", async () => {
+  const title = document.getElementById("titleInput").value.trim();
+
+  const postedBy = localStorage.getItem("username") || "Anonymous";
+console.log(postedBy);
+
+  if (!compressedFile || !title || !postedBy || uploadBtn.disabled) {
+    showPopup("❌ Upload blocked or missing info", "#e74c3c");
+    return;
+  }
+
+  showPopup("⏳ Uploading meme...", "#3498db");
+const today = new Date();
+const postedDate = today.toISOString().split('T')[0];
+ const formData = new FormData();
+formData.append("file", compressedFile);
+formData.append("title", title);
+formData.append("postedBy", postedBy);
+
+try {
+    const response = await fetch("http://localhost:8081/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Upload failed:", errorText);
+        showPopup("❌ Upload failed", "#e74c3c");
+        return;
+    }
+
+    const data = await response.json(); // now safe
+    console.log("Meme uploaded:", data);
+    showPopup("✅ Upload successful", "#2ecc71");
+} catch (err) {
+    console.error(err);
+    showPopup("❌ Upload failed", "#e74c3c");
+}
+
+});
 </script>
-
-
 
 </body>
 </html>

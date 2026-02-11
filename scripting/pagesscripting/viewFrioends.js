@@ -1,5 +1,5 @@
 function viewFriends() {
-  const username = sessionStorage.getItem("username");
+  const username = localStorage.getItem("username");
 
   fetch(API.getFriendsList(username))
     .then(res => {
@@ -84,8 +84,9 @@ function showFriendsPopup(friends, username) {
     });
 
     // pfp
-    const pfp = document.createElement("img");
-pfp.src = `/assests/pfp/${sessionStorage.getItem("pfp") || "2.png"}`; // use default if missing
+    const pfp = document.createElement("img"); 
+    
+pfp.src = `/assests/pfp/${localStorage.getItem("pfp")}`; // use default if missing
 Object.assign(pfp.style, {
   width: "40px",
   height: "40px",

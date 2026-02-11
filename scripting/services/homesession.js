@@ -1,8 +1,8 @@
-console.log("hello world")
-let usernamess=sessionStorage.getItem("username");    
-console.log(usernamess);
+// console.log("hello world")
+// let usernamess=sessionStorage.getItem("username");    
+// console.log(usernamess);
 
-document.getElementById("swipe").innerText=`Swipes : 0`;
+// document.getElementById("swipe").innerText=`Swipes : 0`;
 // user()
 //  function user() {
     

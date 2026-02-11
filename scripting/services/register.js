@@ -4,23 +4,33 @@ async function registerUser() {
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
     const country = document.getElementById('country').value;
-
+    let swipes=0
+    let streak=0
+    let score=0
     // Basic validation
     if (!username || !email || !password) {
         alert("Username, Email and Password are required!");
         return;
     }
-if(sessionStorage.getItem("userType") === "guest"){
+if(localStorage.getItem("userType") === "guest"){
     alert("login to see access all features");
-    sessionStorage.removeItem("userType");
-    window.location.href = "/pages/register.html";
+      swipes=localStorage.getItem("GuestTotalSwipes");
+      streak=localStorage.getItem("GuestStreakIncrement");
+      score=localStorage.getItem("GuestRightSwipes")*3+localStorage.getItem("GuestStreakIncrement")*5 ;
+    localStorage.removeItem("userType");
+    
 }
+
+  
     // Prepare payload
     const payload = {
         username: username,
         email: email,
         password: password,
-        country: country || null // if empty, send null
+        country: country || null, // if empty, send null
+        swipes:swipes || 0,
+        streak:streak || 0,
+        score:score || 0
     };
 
     try {
@@ -37,8 +47,10 @@ if(sessionStorage.getItem("userType") === "guest"){
         if (response.ok) {
             alert("User registered successfully!");
             // sessionStorage.removeItem("userType");
-            
-            sessionStorage.setItem("username", username);
+            localStorage.setItem("isLoggedIn", "true");
+
+
+            localStorage.setItem("username", username);
              window.location.href = "/pages/home.html"; // redirect to login page
         } else {
             alert("Error: " + (data.message || "Failed to register"));

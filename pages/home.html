@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWIPENOW</title>
+        <link
+  rel="preload"
+  href="/assests/SmoochSans-VariableFont_wght.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+    <link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/styling/pages/home.css">
      <link rel="stylesheet" href="/styling/responsive/homeresponsive.css">
@@ -12,7 +20,7 @@
 <body>
     <div class="app">
         <div class="header">
-            <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+            <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png"  onclick="openPopup()" alt="SWIPENOW Logo">
             <div class="right">
 
                  <div class="total transparent-box" id="swipe"></div>
@@ -84,12 +92,60 @@
 <div class="swipe-reaction cross">✖</div>
 
 
+
+
+
+<!-- SNAPSHOT POPUP -->
+<div class="snapshot-overlay" id="snapshotOverlay">
+  <div class="snapshot-wrapper">
+
+ 
+
+    <!-- CARD TO CAPTURE -->
+    <div class="snapshot-card" id="snapshotCard">
+      <img src="/assests/pfp/head1.png" class="snapshot-pfp" id="snapPfp">
+
+      <h2 id="snapUsername"></h2>
+
+      <div class="snapshot-stats">
+        <div><b id="snapScore"></b><span>Score</span></div>
+        <div><b id="snapSwipes"></b><span>Swipes</span></div>
+        <div><b id="snapStreak"></b><span>Streak</span></div>
+      </div>
+      
+
+      <p class="snapshot-brand">SWIPENOW</p>
+    </div>
+
+    <!-- DOWNLOAD -->
+    <button class="snapshot-download" onclick="routeToRegister()">
+      Save You Stats
+    </button>
+
+  </div>
+</div>
+
+
+<script>
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    if (userType === "guest") {
+
+  alert("You are logged in as Guest");
+  localStorage.setItem("username",userType)
+    
+}
+    window.location.replace("index.html");
+  }
+</script>
+<script src="/scripting/pagesscripting/instructionpopup.js"></script>
 <script src="/scripting/API/apiHandler.js"></script>
 <script src="/scripting/pagesscripting/streakpopup.js"></script>
-<script src="/scripting/pagesscripting/memeFetch.js"></script>
 <script src="/scripting/services/swipecount.js"></script>
+<script src="/scripting/pagesscripting/memeFetch.js"></script>
+<script src="/global.js"></script>
+
 <script src="/scripting/utils/routing.js"></script>
-<script src="/scripting/pagesscripting/instructionpopup.js"></script>
+
 <script src="/scripting/services/home.js"></script>
 <script src="/scripting/services/homesession.js"></script>
 </body>

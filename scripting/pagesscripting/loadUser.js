@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", loadProfile);
 
 function loadProfile() {
-  const username = sessionStorage.getItem("username");
+  const username = localStorage.getItem("username");
   if (!username) {
     console.error("No session username found");
     return;

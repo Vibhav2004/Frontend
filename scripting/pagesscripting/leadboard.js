@@ -1,7 +1,7 @@
 
 let allUsers = []; // store API data globally
 let Friend = []; // store API data globally
-const sessionUser = sessionStorage.getItem("username");
+const sessionUser = localStorage.getItem("username");
 document.addEventListener("DOMContentLoaded", () => {
     Globalleadboard();
 });
@@ -177,14 +177,14 @@ function Localleadboard() {
 };
 
 function loadLocalRanking() {
-    const user = sessionStorage.getItem("username");
+    const user = localStorage.getItem("username");
     fetch(API.getFriendsList(user), {
         method: "GET",
         headers: { "Content-Type": "application/json" }
     })
     .then(res => res.ok ? res.json() : Promise.reject(res.status))
     .then(users => {
-        sessionStorage.setItem("pfps",users.pfp)
+        localStorage.setItem("pfps",users.pfp)
         Friend = users;
         filterLeaderboardlocal("score"); // default sort by score
     })

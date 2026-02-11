@@ -167,3 +167,64 @@ button:hover {
   align-items: center;
   gap: 20px;
 }
+
+
+
+#pwa-install-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.pwa-hidden {
+  display: none !important;
+}
+
+.pwa-card {
+  background: #111;
+  color: white;
+  width: 320px;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  animation: pop 0.25s ease;
+}
+
+.pwa-card img {
+  width: 72px;
+  margin-bottom: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#installBtn {
+  background: #000000;
+  border: 1px solid white;
+  color: white;
+}
+
+#closeBtn {
+  background: #333;
+  color: white;
+}
+
+@keyframes pop {
+  from { transform: scale(.9); opacity: 0 }
+  to { transform: scale(1); opacity: 1 }
+}

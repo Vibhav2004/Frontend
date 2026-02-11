@@ -15,7 +15,7 @@
       document.getElementById("memeBoxs").innerHTML = `${data.memes || 0}<br>Memes`;
 
       // ✅ Check if already friends
-      const myUsername = sessionStorage.getItem("username");
+      const myUsername = localStorage.getItem("username");
       if (username === myUsername) {
         // Searching yourself → hide button
         document.querySelector(".add-friend").style.display = "none";

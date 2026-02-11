@@ -12,7 +12,7 @@ searchInputs.addEventListener("keydown", function (event) {
 
     const searchedUser = searchInputs.value.trim();
     if (!searchedUser) return;
-     if(searchedUser != sessionStorage.getItem("username")){
+     if(searchedUser != localStorage.getItem("username")){
       // alert("You cannot search yourself");
       fetchUserProfile(searchedUser);
       // return;

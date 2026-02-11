@@ -2,7 +2,7 @@
 function postUserData(el) {
   const searchInput = document.querySelector(".primary input");
   const data = {
-      friend1: sessionStorage.getItem("username"),
+      friend1: localStorage.getItem("username"),
       friend2: searchInput.value.trim()
   };
 

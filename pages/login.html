@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SWIPENOW</title>
+  <link
+  rel="preload"
+  href="/assests/SmoochSans-VariableFont_wght.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+  <link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
   <link rel="stylesheet" href="/styling/pages/login.css">
   
 </head>
@@ -14,19 +22,54 @@
     <p class="heading">LOGIN NOW</p>
 
     
-    <input type="email" id="email" placeholder="Enter Email" >  
+    <input type="email" id="email"  class="email" placeholder="Enter Email" >  
     <input type="password" id="password" placeholder="Enter Password" >
      <button id="registered" onclick="loginUser()">LOGIN</button>
      <div class="flex">
 
        <p class="redirect">No Account? <span onclick="routeToRegister()">Create now</span></p>
      </div>
+      <div class="flex">
+
+       <p class="redirect"><span onclick="generateOtp()">Forgot Password</span></p>
+     </div>
 
 
    
 </div>
+<script>
+  function generateOtp() {
+    console.log("hello");
     
+
+ const email = document.querySelector(".email").value.trim();
+
+  console.log("hello",email);
   
+  try {
+    const response =  fetch(API.sendOtp(email), {
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error("OTP send failed");
+    }
+
+    localStorage.setItem("otpEmail", email);
+    localStorage.setItem("otpAction", actionType);
+
+    window.location.href = "/pages/otp.html";
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send OTP");
+  }
+
+  }
+  
+</script>
+    
+  <script src="/global.js"></script>
 <script src="/scripting/API/apiHandler.js"></script>   
 <script src="/scripting/utils/routing.js"></script>
 <script src="/scripting/services/login.js"></script>

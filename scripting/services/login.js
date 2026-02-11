@@ -1,6 +1,6 @@
-if(sessionStorage.getItem("userType") === "guest"){
+if(localStorage.getItem("userType") === "guest"){
     alert("login to see access all features");
-    sessionStorage.removeItem("userType");
+    localStorage.removeItem("userType");
     window.location.href = "/pages/login.html";
 }
 
@@ -39,9 +39,12 @@ async function loginUser() {
         if (response.ok) {
             alert("Successfully Logged in");
             console.log(data.username);
-            
-           sessionStorage.setItem("username", data.username);
-           sessionStorage.setItem("email", data.email);
+            localStorage.setItem("isLoggedIn", "true");
+
+
+           localStorage.setItem("username", data.username);
+           localStorage.setItem("email", data.email);
+           localStorage.setItem("pfp", data.pfp);
            localStorage.setItem("email", data.email);
             window.location.href = "/pages/home.html"; // redirect to login page
         } else {

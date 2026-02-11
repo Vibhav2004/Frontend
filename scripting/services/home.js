@@ -1,16 +1,16 @@
-const userType = sessionStorage.getItem("userType");
-const usernames = sessionStorage.getItem("username");
+const userType = localStorage.getItem("userType");
+const usernames = localStorage.getItem("username");
 
 if (userType !== "guest" && usernames) {
   // ✅ Logged-in user
- alert(`Welcome back, ${usernames}!`);
- sessionStorage.removeItem("userType");
+ 
+ localStorage.removeItem("userType");
 
 }
 else if (userType === "guest") {
 
   alert("You are logged in as Guest");
-  sessionStorage.setItem("username",userType)
+  localStorage.setItem("username",userType)
     
 }
 else {
