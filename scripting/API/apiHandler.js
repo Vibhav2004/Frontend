@@ -1,6 +1,7 @@
 // const BASE_URL = "http://192.168.73.1:8081"; 
 // const BASE_URL = "http://192.168.29.171:8081";
-const BASE_URL = "http://localhost:8081";
+// const BASE_URL = "http://localhost:8081";
+const BASE_URL = "https://backend-jrlr.onrender.com";
 // const BASE_URL = "http://192.168.24.60:8081";
 // const BASE_URL="https://alica-uncrumpled-undangerously.ngrok-free.dev"
 // change to your backend IP when needed
