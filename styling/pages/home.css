@@ -1,0 +1,734 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: self-start;
+  height: 100dvh;
+  overflow-y: hidden;
+}
+.logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    margin-left: 0px;
+   
+}
+.header{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+  flex-shrink: 0;
+    gap: 0px;
+   
+}
+.right{
+       display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    
+    margin-left: -50px;
+}
+.total{
+    height: 20px;
+    background-color: rgb(197, 194, 194);
+    padding: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.target{
+    height: 20px;
+    background-color: rgb(197, 194, 194);
+     padding: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.streak{
+     height: 20px;
+     color: rgb(255, 255, 255);
+    background-color: rgb(197, 194, 194);
+     padding: 7px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+/* .white-glow {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
+} */
+.meme{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+   object-fit: contain;
+}
+
+.transparent-box {
+  background: rgba(0, 0, 0, 0.15); /* transparent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.memeBox{
+  flex-shrink: 1;
+  overflow: hidden;
+    border-radius: 20px;
+    margin-top: 15px;
+    width: 330px;
+    height: 430px;
+   margin-left: 10px;
+   
+}
+
+
+.footerNav{
+    display: flex;
+    justify-content: space-around;
+    width: 320px;
+     background-color: rgb(65, 66, 67);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    margin-top: 36px;
+    flex-shrink: 0;
+}
+svg{
+  fill: rgb(255, 255, 255); 
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 22px;
+  color: rgba(188, 185, 185, 0.6);
+  transition: color 0.3s ease;
+}
+
+/* Dash hidden by default */
+.dash {
+  width: 22px;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Active state */
+.nav-item.active i {
+  color: white;
+}
+
+.nav-item.active .dash {
+  opacity: 1;
+}
+
+
+
+/* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  z-index: 999;
+}
+
+/* Popup box */
+.popup-content {
+  width: 300px;
+  background-color: #111;
+  border-radius: 15px;
+  padding: 20px;
+
+  position: relative;
+  text-align: left;
+  color: white;
+  font-size: 20px;
+  font-family: "SmoochSans", sans-serif;
+  animation: popupFade 0.5s ease forwards;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Popup animation */
+@keyframes popupFade {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.popup-content h2 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.popup-content ul {
+  margin-top: 10px;
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+.popup-content li strong {
+  color: #ffd700; /* gold for emphasis */
+}
+
+.meme-card {
+  position: relative;
+}
+
+.meme-username {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+}
+
+
+
+
+/* Streak popup container */
+.streak-popup {
+  width: 300px;
+  background-color: #111;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Title & count */
+.streak-title {
+  font-size: 24px;
+}
+
+.streak-count {
+  font-size: 22px;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+/* Week line */
+.streak-line {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 20px 0;
+}
+
+.streak-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  background: rgba(255, 215, 0, 0.3);
+  transform: translateY(-50%);
+}
+
+/* Week circle */
+.week {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 1;
+}
+
+/* Completed */
+.week.active {
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+}
+
+/* 🔥 Week completed animation */
+@keyframes weekComplete {
+  0% {
+    transform: scale(0.4);
+    box-shadow: 0 0 0 rgba(255,215,0,0);
+  }
+  60% {
+    transform: scale(1.25);
+    box-shadow: 0 0 18px rgba(255,215,0,1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255,215,0,0.8);
+  }
+}
+
+/* Pulse animation */
+@keyframes streakPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); box-shadow: 0 0 14px rgba(255,215,0,0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Applied dynamically */
+.week.completed {
+  animation: weekComplete 0.6s ease forwards;
+}
+
+.week.current {
+  animation: streakPulse 1.6s ease-in-out infinite;
+}
+
+/* Footer text */
+.streak-subtext {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+
+
+.memeBox {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 160px);
+  overflow: hidden;
+}
+
+.meme-card {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+  will-change: transform;
+}
+
+.meme-card.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* swipe outcomes */
+.meme-card.swipe-right {
+  transform: translateX(120%) rotate(15deg);
+  opacity: 0;
+}
+
+.meme-card.swipe-left {
+  transform: translateX(-120%) rotate(-15deg);
+  opacity: 0;
+}
+
+.show{
+  display: block;
+}
+
+
+
+.meme-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+}
+
+
+.swipe-reaction {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  font-size: 90px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.swipe-reaction.show {
+  animation: pop 0.45s ease-out forwards;
+}
+
+.heart {
+  color: #ff2d55;
+}
+
+.cross {
+  color: #ffffff;
+}
+
+@keyframes pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+
+.meme-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  /* width: 300px; */
+  height: 500px;
+  /* margin-top: 200px;
+  margin-left: 100px; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ffffff;
+  border-top: 4px solid #000000;
+  border-radius: 50%;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
+
+
+
+/* Overlay */
+.snapshot-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+/* Wrapper */
+.snapshot-wrapper {
+  position: relative;
+}
+
+/* CARD */
+.snapshot-card {
+  width: 300px;
+  padding: 22px;
+  background: radial-gradient(
+    circle at top,
+    #111 0%,
+    #000 70%
+  );
+  border-radius: 22px;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  text-align: center;
+}
+
+/* Close */
+.snapshot-close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.snapshot-close:hover {
+  opacity: 1;
+}
+
+/* Avatar */
+.snapshot-pfp {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Username */
+#snapUsername {
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+/* Stats Grid */
+.snapshot-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Stat Pill */
+.snapshot-stats div {
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  padding: 10px 0;
+}
+
+.snapshot-stats b {
+  display: block;
+  font-size: 18px;
+}
+
+.snapshot-stats span {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* Bottom Row */
+.snapshot-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* CTA */
+.snapshot-friends {
+  background: #1db954;
+  color: black;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 10px 0;
+}
+
+/* Branding */
+.snapshot-brand {
+  margin-top: 14px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.5;
+}
+
+/* Download Button (NOT CAPTURED) */
+.snapshot-download {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, #000000, #000000);
+  color: #ffffff;
+  border: 1px solid rgb(109, 109, 109);
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+
+  /* Animations */
+  animation:
+    floatBtn 3s ease-in-out infinite,
+    glowPulse 2s ease-in-out infinite;
+      animation: urgentPulse 0.9s ease-in-out infinite;
+  border-color: #ff3b3b;
+  color: #ff3b3b;
+}
+
+@keyframes urgentPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255,59,59,0);
+  }
+  30% {
+    transform: scale(1.04);
+    box-shadow: 0 0 16px rgba(255,59,59,0.7);
+  }
+  60% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255,59,59,0);
+  }
+}
+
+
+
+
+/* Floating motion */
+@keyframes floatBtn {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 red 0;
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 green 0;
+  }
+}
+
+/* Hover = pop */
+.snapshot-download:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(29,185,84,0.9);
+}
+
+/* Click feedback */
+.snapshot-download:active {
+  transform: scale(0.97);
+}
+
+
+
+
+
+
+/* Center the quota card in the viewport */
+.memeBox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Quota card styling */
+.meme-card.quota-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 85%;
+  max-width: 360px;
+  padding: 28px 24px;
+
+  background: linear-gradient(135deg, #000000, #000000);
+  color: #fff;
+  border-radius: 16px;
+
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  z-index: 9999;
+}
+
+/* Title */
+.meme-card.quota-card h2 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+/* Subtitle */
+.meme-card.quota-card p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  margin: 0;
+}
+.meme-card.quota-card {
+  animation: fadeInScale 0.35s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+.meme-card.quota-card #midnightCounter {
+  color: #ffcc00;
+  margin-top: 12px;
+  font-family: "Arial", sans-serif;
+}

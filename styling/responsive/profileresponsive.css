@@ -1,0 +1,1148 @@
+@media (min-width: 360px) {
+ .footerNav{
+    width: 360px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 20px;
+ 
+ }
+ .secondary{
+   margin-left: 20px;
+   gap: 5px;
+ }
+ .third{
+   margin-left: 20px;
+ }
+  .fourth{
+   margin-left: 20px;
+ }
+ .primary{
+   width: 360px;
+   gap: 50px;
+   
+ }
+}
+@media (min-width: 370px) {
+    .footerNav{
+    width: 370px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 20px;
+ 
+ }
+ .secondary{
+   margin-left: 20px;
+   gap: 5px;
+ }
+ .third{
+   margin-left: 20px;
+ }
+  .fourth{
+   margin-left: 20px;
+ }
+ .primary{
+   width: 370px;
+   gap: 50px;
+   
+ }
+}
+@media (min-width: 380px) {
+    .footerNav{
+    width: 380px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 30px;
+ 
+ }
+ .secondary{
+   margin-left: 20px;
+   gap: 5px;
+ }
+ .third{
+   margin-left: 20px;
+ }
+  .fourth{
+   margin-left: 20px;
+ }
+ .primary{
+   width: 380px;
+
+   
+ }
+}
+@media (min-width: 390px) {
+   .footerNav{
+    width: 390px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 35px;
+ 
+ }
+ .secondary{
+   margin-left: 20px;
+   gap: 5px;
+ }
+ .third{
+   margin-left: 20px;
+ }
+  .fourth{
+   margin-left: 20px;
+ }
+ .primary{
+   width: 390px;
+
+   
+ }
+}
+@media (min-width: 400px) {
+   .footerNav{
+    width: 400px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 40px;
+ 
+ }
+ .secondary{
+   margin-left: 20px;
+   gap: 5px;
+ }
+ .third{
+   margin-left: 20px;
+ }
+  .fourth{
+   margin-left: 20px;
+ }
+ .primary{
+   width: 400px;
+
+   
+ }
+}
+@media (min-width: 410px) {
+      .footerNav{
+    width: 410px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 45px;
+ 
+ }
+ .secondary{
+   margin-left: 20px;
+   gap: 5px;
+ }
+ .third{
+   margin-left: 20px;
+ }
+  .fourth{
+   margin-left: 20px;
+ }
+ .primary{
+   width: 410px;
+
+   
+ }
+}
+@media (min-width: 420px) {
+   .footerNav{
+    width: 420px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 50px;
+ 
+ }
+ .primary{
+   width: 420px;
+
+   
+ }
+}
+@media (min-width: 430px) {
+   .footerNav{
+    width: 430px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 55px;
+ 
+ }
+ .primary{
+   width: 430px;
+
+   
+ }
+}
+@media (min-width: 440px) {
+   .footerNav{
+    width: 440px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 60px;
+ 
+ }
+ .primary{
+   width: 440px;
+
+   
+ }
+}
+@media (min-width: 450px) {
+   .footerNav{
+    width: 450px;
+    
+ }
+ .memebox{
+    width: 320px;
+    margin-left: 65px;
+ 
+ }
+ .primary{
+   width: 450px;
+
+   
+ }
+}
+@media (min-width: 460px) {
+    .footerNav{
+    width: 460px;
+    
+ }
+ .memebox{
+    width: 340px;
+    margin-left: 60px;
+ 
+ }
+ .memes{
+   width: 320px;
+ }
+ .primary{
+   width: 460px;
+
+   
+ }
+}
+@media (min-width: 470px) {
+   .footerNav{
+    width: 470px;
+    
+ }
+ .memebox{
+    width: 340px;
+    margin-left: 60px;
+ 
+ }
+ .memes{
+   width: 320px;
+ }
+ .primary{
+   width: 470px;
+
+   
+ }
+}
+@media (min-width: 480px) {
+   .footerNav{
+    width: 480px;
+    
+ }
+ .memebox{
+    width: 360px;
+    margin-left: 58px;
+ 
+ }
+ .memes{
+   width: 340px;
+ }
+ .primary{
+   width: 480px;
+
+   
+ }
+}
+@media (min-width: 490px) {
+    .footerNav{
+    width: 490px;
+    
+ }
+ .memebox{
+    width: 360px;
+    margin-left: 65px;
+ 
+ }
+ .memes{
+   width: 340px;
+ }
+ .primary{
+   width: 490px;
+
+   
+ }
+}
+@media (min-width: 500px) {
+   .footerNav{
+    width: 500px;
+    
+ }
+ .memebox{
+    width: 360px;
+    margin-left: 70px;
+ 
+ }
+ .memes{
+   width: 340px;
+ }
+ .primary{
+   width: 500px;
+
+   
+ }
+}
+@media (min-width: 510px) {
+   .footerNav{
+    width: 510px;
+    
+ }
+ .memebox{
+    width: 360px;
+    margin-left: 70px;
+ 
+ }
+ .memes{
+   width: 340px;
+ }
+ .primary{
+   width: 510px;
+
+   
+ }
+}
+@media (min-width: 520px) {
+   .footerNav{
+    width: 520px;
+    
+ }
+ .memebox{
+    width: 370px;
+    margin-left: 70px;
+ 
+ }
+ .memes{
+   width: 350px;
+ }
+ .primary{
+   width: 520px;
+
+   
+ }
+}
+@media (min-width: 530px) {
+   .footerNav{
+    width: 530px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 65px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 530px;
+
+   
+ }
+}
+@media (min-width: 540px) {
+   .footerNav{
+    width: 540px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 70px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 540px;
+
+   
+ }
+}
+@media (min-width: 550px) {
+   .footerNav{
+    width: 550px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 75px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 550px;
+
+   
+ }
+}
+@media (min-width: 560px) {
+   .footerNav{
+    width: 560px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 80px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 560px;
+
+   
+ }
+}
+@media (min-width: 570px) {
+   .footerNav{
+    width: 570px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 85px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 570px;
+
+   
+ }
+}
+@media (min-width: 580px) {
+   .footerNav{
+    width: 580px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 90px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 580px;
+
+   
+ }
+}
+@media (min-width: 590px) {
+   .footerNav{
+    width: 590px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 95px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 590px;
+
+   
+ }
+}
+@media (min-width: 600px) {
+   .footerNav{
+    width: 600px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 100px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 600px;
+
+   
+ }
+
+}
+@media (min-width: 610px) {
+   .footerNav{
+    width: 610px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 105px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 610px;
+
+   
+ }
+}
+@media (min-width: 620px) {
+   .footerNav{
+    width: 620px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 110px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 620px;
+
+   
+ }
+}
+@media (min-width: 630px) {
+   .footerNav{
+    width: 630px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 115px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 630px;
+
+   
+ }
+}
+@media (min-width: 640px) {
+   .footerNav{
+    width: 640px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 120px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 640px;
+ 
+ }
+}
+@media (min-width: 650px) {
+   .footerNav{
+    width: 650px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 125px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 650px;
+ 
+ }
+}
+
+@media (min-width: 660px) {
+    .footerNav{
+    width: 660px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 130px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 660px;
+ 
+ }
+}
+@media (min-width: 670px) {
+   .footerNav{
+    width: 670px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 135px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 670px;
+ 
+ }
+}
+@media (min-width: 680px) {
+   .footerNav{
+    width: 680px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 140px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 680px;
+ 
+ }
+
+}
+@media (min-width: 690px) {
+   .footerNav{
+    width: 690px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 145px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 690px;
+ 
+ }
+ 
+}
+@media (min-width: 700px) {
+    .footerNav{
+    width: 700px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 150px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 700px;
+ 
+ }
+
+}
+@media (min-width: 710px) {
+   .footerNav{
+    width: 710px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 155px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 710px;
+ 
+ }
+ 
+}
+@media (min-width: 720px) {
+   .footerNav{
+    width: 720px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 160px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 720px;
+ 
+ }
+
+}
+@media (min-width: 730px) {
+   .footerNav{
+    width: 730px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 165px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 730px;
+ 
+ }
+ 
+}
+@media (min-width: 740px) {
+   .footerNav{
+    width: 740px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 170px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 740px;
+ 
+ }
+ 
+}
+@media (min-width: 750px) {
+   .footerNav{
+    width: 750px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 175px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 750px;
+ 
+ }
+
+}
+@media (min-width: 760px) {
+    .footerNav{
+    width: 760px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 180px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 760px;
+ 
+ }
+
+}
+@media (min-width: 770px) {
+    .footerNav{
+    width: 770px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 185px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 770px;
+ 
+ }
+
+}
+@media (min-width: 780px) {
+    .footerNav{
+    width: 780px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 190px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 780px;
+ 
+ }
+
+}
+@media (min-width: 790px) {
+    .footerNav{
+    width: 790px;
+    
+ }
+ .memebox{
+    width: 390px;
+    margin-left: 195px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 370px;
+ }
+ .primary{
+   width: 790px;
+ 
+ }
+
+}
+@media (min-width: 800px) {
+   .footerNav{
+    width: 800px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 175px;
+    height: 330px;
+ 
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 800px;
+ 
+ }
+
+}
+@media (min-width: 810px) {
+   .footerNav{
+    width: 810px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 180px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 810px;
+ 
+ }
+
+}
+@media (min-width: 820px) {
+   .footerNav{
+    width: 820px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 185px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 820px;
+ 
+ }
+
+}
+@media (min-width: 830px) {
+   .footerNav{
+    width: 830px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 190px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 830px;
+ 
+ }
+
+}
+@media (min-width: 840px) {
+   .footerNav{
+    width: 840px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 195px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 840px;
+ 
+ }
+
+}
+@media (min-width: 850px) {
+   .footerNav{
+    width: 850px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 200px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 850px;
+ 
+ }
+
+}
+@media (min-width: 860px) {
+   .footerNav{
+    width: 860px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 205px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 860px;
+ 
+ }
+ 
+}
+@media (min-width: 870px) {
+   .footerNav{
+    width: 870px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 210px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 870px;
+ 
+ }
+
+}
+@media (min-width: 880px) {
+   .footerNav{
+    width: 880px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 215px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 880px;
+ 
+ }
+}
+@media (min-width: 890px) {
+   .footerNav{
+    width: 890px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 220px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 890px;
+ 
+ }
+}
+@media (min-width: 900px) {
+   .footerNav{
+    width: 900px;
+    
+ }
+ .memebox{
+    width: 450px;
+    margin-left: 225px;
+    height: 330px;
+ 
+ }
+ input{
+   width: 250px;
+ }
+ .memes{
+   width: 430px;
+ }
+ .primary{
+   width: 900px;
+ 
+ }
+}
+@media (min-width: 910px) {
+   .footerNav{
+    width: 320px;
+ 
+    
+ }
+ input{
+   width: 150px;
+ }
+
+
+ .memebox{
+    width: 320px;
+    margin-left: 0px;
+    height: 275px;
+ 
+ }
+  .memes{
+   width: 295px;
+ }
+  .primary{
+   width: 320px;
+ gap: 0px;
+ }
+}

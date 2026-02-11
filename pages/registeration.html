@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWIPENOW</title>
+  <link
+  rel="preload"
+  href="/assests/SmoochSans-VariableFont_wght.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+  <link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
+  <link rel="stylesheet" href="/styling/pages/registerationpage.css">
+  <!-- <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000"> -->
+
+</head>
+<body>
+    
+  <div class="container">
+    <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+    <p class="heading">REGISTER NOW</p>
+
+    <input type="text" id="username" placeholder="Enter Username" maxlength="15">
+    <input type="email" id="email" placeholder="Enter Email" >  
+    <input type="password" id="password" placeholder="Enter Password" >
+   <select name="country" id="country">
+  <option value="">Select Country</option>
+</select>
+
+     <button id="registered"  onclick="registerUser()">Register</button>
+     
+   
+
+
+   
+</div>
+    <div class="flex1">
+      <p>Already have an Account? <span onclick="routeToLogin()">login</span></p>
+       <p class="terms" onclick="openTerms()">terms and condition</p>
+     </div>
+  
+
+     <!-- Terms & Conditions Popup -->
+<div id="termsPopup" class="popup-overlay" style="display:none;">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closeTerms()">✕</span>
+
+    <h2 class="popup-title">Terms & Conditions</h2>
+
+    <div class="terms-box">
+      <p>
+        • You must be at least 13 years old to use SWIPENOW.<br><br>
+        • Swiping activity is tracked to maintain streaks.<br><br>
+        • Abuse, bots, or automation will lead to account suspension.<br><br>
+        • Your data is stored securely and never sold.<br><br>
+        • Streaks reset if minimum swipe target is not met.
+      </p>
+    </div>
+
+    <label class="checkbox-container">
+      <input type="checkbox" id="acceptTerms" onchange="toggleTermsButton()">
+      <span>I agree to the Terms & Conditions</span>
+    </label>
+
+    <button id="acceptBtn" disabled onclick="closeTerms()">Accept</button>
+  </div>
+</div>
+<script src="/scripting/API/apiHandler.js"></script>
+ <script src="/scripting/components/countries.js"></script>  
+<script src="/scripting/utils/routing.js"></script>
+<script src="/scripting/pagesscripting/terms.js"></script>
+<script src="/scripting/services/register.js"></script>
+<script src="/global.js"></script>
+</body>
+
+</html>

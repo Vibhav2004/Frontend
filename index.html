@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWIPENOW</title>
+
+  <!-- PWA Manifest -->
+ <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+<link
+  rel="preload"
+  href="/assests/SmoochSans-VariableFont_wght.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+<link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
+
+
+<link rel="apple-touch-icon" href="assests/icon/apple-touch-icon.png">
+
+<link rel="icon" href="assests/icon/favicon.ico" sizes="any">
+<link rel="icon" href="assests/icon/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assests/icon/favicon-96x96.png" sizes="96x96" type="image/png">
+
+
+
+
+  <link rel="stylesheet" href="styling/base/body.css">
+  <link rel="stylesheet" href="styling/components/loading.css">
+</head>
+<body>
+  <div class="container">
+    <p class="heading">Welcome to SWIPENOW</p>
+    <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+    <p>Swipe. Score. Dominate the meme board.</p>
+    <p>COMING SOON</p>
+<div class="loader" id="loader">
+  <div class="loader-text">Loading...</div>
+  <div class="load">
+    <div class="load-thumb"></div>
+  </div>
+</div>
+<div class="button-group" id="buttonGroup">
+  <button id="GuestBtn" onclick="goToHome()">Guest</button>
+  <button id="registerBtn" onclick="routeToRegister()">Register</button>
+</div>
+
+
+  </div>
+
+    <script src="/scripting/components/loading.js"></script>
+    <script src="/scripting/utils/routing.js"></script>
+   <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("SW registered"))
+      .catch(err => console.error("SW error", err));
+  });
+}
+</script>
+<script>
+  if (localStorage.getItem("isLoggedIn") === "true") {
+    
+    window.location.replace("/pages/home.html");
+  }
+</script>
+
+
+<script src="/global.js"></script>
+<div id="pwa-install-popup" class="pwa-hidden">
+  <div class="pwa-card">
+    <img src="/assests/logo-removebg-preview.png" alt="App Icon">
+    <h3>Install SwipeNow</h3>
+    <p> A full app experience right at your palm.</p>
+
+    <div class="actions">
+      <button id="installBtn">Install</button>
+      <button id="closeBtn">Not now</button>
+    </div>
+  </div>
+</div>
+<script>
+  function showInstallPopup() {
+  document.getElementById("pwa-install-popup").classList.remove("pwa-hidden");
+}
+
+document.getElementById("installBtn")?.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  const { outcome } = await deferredPrompt.userChoice;
+  console.log("Install choice:", outcome);
+
+  deferredPrompt = null;
+  document.getElementById("pwa-install-popup").classList.add("pwa-hidden");
+});
+
+document.getElementById("closeBtn")?.addEventListener("click", () => {
+  document.getElementById("pwa-install-popup").classList.add("pwa-hidden");
+});
+window.addEventListener("appinstalled", () => {
+  console.log("PWA installed");
+  document.getElementById("pwa-install-popup")?.remove();
+});
+
+</script>
+</body>
+</html>

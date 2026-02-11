@@ -1,0 +1,339 @@
+/* MIN-HEIGHT MEDIA QUERIES (mobile-first) */
+
+@media (min-height: 650px) {
+   .memeBox{
+ 
+ margin-bottom: 45px;
+  
+}
+}
+
+@media (min-height: 660px) {
+    .memeBox{
+ 
+ margin-bottom: 55px;
+  
+}
+}
+
+@media (min-height: 670px) {
+    .memeBox{
+ 
+ margin-bottom: 65px;
+  
+}
+}
+
+@media (min-height: 680px) {
+     .memeBox{
+ height: 468px;
+ margin-bottom: 0px;
+  
+}
+}
+
+@media (min-height: 690px) {
+.memeBox{
+
+ margin-bottom: 48px;
+  
+}
+
+
+}
+
+@media (min-height: 700px) {
+    .memeBox{
+
+ margin-bottom: 58px;
+  
+}
+}
+
+@media (min-height: 710px) {
+     .memeBox{
+
+ margin-bottom: 68px;
+  
+}
+}
+
+@media (min-height: 720px) {
+    .memeBox{
+
+ margin-bottom: 78px;
+  
+}
+}
+
+@media (min-height: 730px) {
+    .memeBox{
+
+ margin-bottom: 88px;
+  
+}
+}
+
+@media (min-height: 740px) {
+    .memeBox{
+
+ margin-bottom: 98px;
+  
+}
+}
+
+@media (min-height: 750px) {
+    .memeBox{
+
+ margin-bottom: 108px;
+  
+}
+}
+
+@media (min-height: 760px) {
+    .memeBox{
+
+ margin-bottom: 118px;
+  
+}
+}
+
+@media (min-height: 770px) {
+    .memeBox{
+
+ height: 558px;
+  margin-bottom: 0px;
+}
+}
+
+@media (min-height: 780px) {
+     .memeBox{
+
+ 
+  margin-bottom: 48px;
+}
+}
+
+@media (min-height: 790px) {
+    .memeBox{
+
+ 
+  margin-bottom: 58px;
+}
+}
+
+@media (min-height: 800px) {
+    .memeBox{
+
+ 
+  margin-bottom: 68px;
+}
+}
+
+@media (min-height: 810px) {
+    .memeBox{
+
+ 
+  margin-bottom: 78px;
+}
+}
+
+@media (min-height: 820px) {
+     .memeBox{
+
+ 
+  margin-bottom: 88px;
+}
+}
+
+@media (min-height: 830px) {
+    .memeBox{
+
+ 
+  margin-bottom: 98px;
+}
+}
+
+@media (min-height: 840px) {
+    .memeBox{
+
+ 
+  margin-bottom: 108px;
+}
+}
+
+@media (min-height: 850px) {
+    .memeBox{
+
+ 
+  margin-bottom: 118px;
+}
+}
+
+@media (min-height: 860px) {
+    .memeBox{
+
+ 
+  margin-bottom: 128px;
+}
+}
+
+@media (min-height: 870px) {
+     .memeBox{
+
+ 
+  margin-bottom: 138px;
+}
+}
+
+@media (min-height: 880px) {
+    .memeBox{
+
+ height: 668px;
+  margin-bottom: 0px;
+}
+}
+
+@media (min-height: 890px) {
+    .memeBox{
+
+
+  margin-bottom: 48px;
+}
+}
+
+@media (min-height: 900px) {
+    .memeBox{
+
+
+  margin-bottom: 58px;
+}
+}
+
+@media (min-height: 910px) {
+    .memeBox{
+
+
+  margin-bottom: 68px;
+}
+}
+
+@media (min-height: 920px) {
+    .memeBox{
+
+
+  margin-bottom: 78px;
+}
+}
+
+@media (min-height: 930px) {
+    .memeBox{
+
+
+  margin-bottom: 88px;
+}
+}
+
+@media (min-height: 940px) {
+    .memeBox{
+
+
+  margin-bottom: 98px;
+}
+}
+
+@media (min-height: 950px) {
+    .memeBox{
+
+
+  margin-bottom: 108px;
+}
+}
+
+@media (min-height: 960px) {
+     .memeBox{
+
+
+  margin-bottom: 118px;
+}
+}
+
+@media (min-height: 970px) {
+    .memeBox{
+
+
+  margin-bottom: 128px;
+}
+}
+
+@media (min-height: 980px) {
+    .memeBox{
+
+
+  margin-bottom: 138px;
+}
+}
+
+@media (min-height: 990px) {
+    .memeBox{
+
+height: 758px;
+  margin-bottom: 58px;
+}
+}
+
+@media (min-height: 1000px) {
+    .memeBox{
+
+
+  margin-bottom: 68px;
+}
+}
+
+@media (min-height: 1010px) {
+    .memeBox{
+
+
+  margin-bottom: 78px;
+}
+}
+
+@media (min-height: 1020px) {
+    .memeBox{
+
+
+  margin-bottom: 88px;
+}
+}
+
+@media (min-height: 1030px) {
+    .memeBox{
+
+
+  margin-bottom: 98px;
+}
+}
+
+@media (min-height: 1040px) {
+    .memeBox{
+
+
+  margin-bottom: 108px;
+}
+}
+
+@media (min-height: 1050px) {
+    .memeBox{
+
+
+  margin-bottom: 118px;
+}
+}
+
+@media (min-height: 1060px) {
+    .memeBox{
+
+height: 848px;
+  margin-bottom: 0px;
+}
+}

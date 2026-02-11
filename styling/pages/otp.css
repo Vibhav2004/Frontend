@@ -1,0 +1,196 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  
+}
+button{
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-family: "SmoochSans", sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+button:hover {
+    background-color: #000000;
+    color: #ffffff;
+    border: 0.5px solid #ffffff;
+}
+.container{
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    /* border: 1px white solid; */
+    padding: 20px;
+    width: 250px;
+   
+    border-radius: 20px;
+    
+}
+.heading{
+   text-align: center;
+   font-size: 40px;
+   font-weight: lighter;
+}
+.logo{
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+   margin-left: 0px;
+   
+}
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.white-glow {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
+}
+
+
+
+
+
+/* From Uiverse.io by Yaya12085 */ 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  background: #000000;
+
+  border-radius: 10px;
+  box-shadow: 0px 87px 78px -39px rgba(0,0,0,0.4);
+  max-width: 320px;
+}
+
+.info {
+  margin-bottom: 10px;
+}
+
+.title {
+text-align: center;
+   font-size: 40px;
+   font-weight: lighter;
+   margin-left: 20px;
+}
+
+.description {
+  color: #fff;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.container .inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.container .inputs input {
+  height: 2.5em;
+  width: 2.5em;
+  outline: none;
+  text-align: center;
+  font-size: 1.5em;
+  color: #fff;
+  border-radius: 0.3em;
+  border: 1px solid rgba(253, 253, 253, 0.363);
+  background-color: rgb(255 255 255 / 0.05);
+}
+
+.container .inputs input:focus {
+  border: 1px solid rgb(99 102 241);
+}
+
+.resend {
+ text-align: center;
+    font-size: 20px;
+     font-family: "SmoochSans", sans-serif;
+}
+
+.resend-action {
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 6px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+.resend-action:hover {
+  text-decoration: underline #2b8af7;
+}
+
+.validate {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  text-decoration: none;
+  background-color: #606c88;
+  padding: 10px 20px;
+  margin: 8px 0 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: .3s ease;
+}
+
+.validate:hover {
+  background-color: #3f4c6b;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: #3f4c6b;
+  height: 30px;
+  width: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .3s ease;
+}
+
+.close:hover {
+  background-color: rgba(255, 0, 0, 0.603);
+}
+
+
+

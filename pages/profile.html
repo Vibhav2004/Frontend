@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWIPENOW</title>
+    <link
+  rel="preload"
+  href="/assests/SmoochSans-VariableFont_wght.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+    <link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styling/pages/profile.css">
+    <link rel="stylesheet" href="/styling/responsive/profileresponsive.css">
+    <link rel="stylesheet" href="/styling/heightResponsive/profileheightresponsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+           <div class="primary">
+            <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+           <div class="primarysecond">
+
+             <input type="text" placeholder="Search Friends">
+             <button class="add" onclick="goToMeme()">+</button>
+            
+             <svg id="enableNotify" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M320 64C302.3 64 288 78.3 288 96L288 99.2C215 114 160 178.6 160 256L160 277.7C160 325.8 143.6 372.5 113.6 410.1L103.8 422.3C98.7 428.6 96 436.4 96 444.5C96 464.1 111.9 480 131.5 480L508.4 480C528 480 543.9 464.1 543.9 444.5C543.9 436.4 541.2 428.6 536.1 422.3L526.3 410.1C496.4 372.5 480 325.8 480 277.7L480 256C480 178.6 425 114 352 99.2L352 96C352 78.3 337.7 64 320 64zM258 528C265.1 555.6 290.2 576 320 576C349.8 576 374.9 555.6 382 528L258 528z"/></svg>
+            </div>
+               
+            
+           
+           </div>
+           <div class="secondary">
+           <img src="/assests/pfp/head1.png" class="pfp" id="profilePic">
+           <p class="username" id="usernameText"></p>
+           <svg onclick="snapShot()" class="snapshots" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M96 96C60.7 96 32 124.7 32 160L32 480C32 515.3 60.7 544 96 544L544 544C579.3 544 608 515.3 608 480L608 160C608 124.7 579.3 96 544 96L96 96zM176 352L240 352C284.2 352 320 387.8 320 432C320 440.8 312.8 448 304 448L112 448C103.2 448 96 440.8 96 432C96 387.8 131.8 352 176 352zM152 256C152 225.1 177.1 200 208 200C238.9 200 264 225.1 264 256C264 286.9 238.9 312 208 312C177.1 312 152 286.9 152 256zM392 208L504 208C517.3 208 528 218.7 528 232C528 245.3 517.3 256 504 256L392 256C378.7 256 368 245.3 368 232C368 218.7 378.7 208 392 208zM392 304L504 304C517.3 304 528 314.7 528 328C528 341.3 517.3 352 504 352L392 352C378.7 352 368 341.3 368 328C368 314.7 378.7 304 392 304z"/></svg>
+           </div>
+           <div class="flex">
+           <div class="third">
+              <div class="Score" id="scoreBox"><br>Score</div>
+                 <div class="rank" id="rankBox"><br>Swipes</div>
+                 <div class="streak" id="streakBox"><br>Streak</div>
+           </div>
+           <div class="fourth">
+              <div class="friends" id="friendsBox" onClick="viewFriends()"><br>Friends</div>
+                 <div class="meme" id="memeBox"><br>Memes</div>
+                 <div class="edit" onclick="goToEdit()">edit</div>
+           </div>
+           </div>
+           </div>
+          <div class="memebox">
+         <!-- <div class="memes">
+          <img src="/assests/memes/1500x900_164267-36758ad0cf0a0f2bbfd72ad324a6cb71.webp">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/monkey-thinking-meme-template-27--kClqt8PzKNph-full.jpg">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/supermeme_hero_image.png">
+         </div>
+          <div class="memes">
+          <img src="/assests/memes/1500x900_164267-36758ad0cf0a0f2bbfd72ad324a6cb71.webp">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/monkey-thinking-meme-template-27--kClqt8PzKNph-full.jpg">
+         </div>
+         <div class="memes">
+          <img src="/assests/memes/supermeme_hero_image.png">
+         </div> -->
+          </div>
+          
+
+
+
+       
+
+    
+    <div class="footerNav">
+  <div class="nav-item " onclick="setActiveNav(this)">
+    <svg xmlns="http://www.w3.org/2000/svg" value="home"  viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/></svg>
+    <span class="dash"></span>
+  </div>
+
+  <div class="nav-item " onclick="setActiveNav(this)">
+    <svg xmlns="http://www.w3.org/2000/svg" value="rank" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M353.8 118.1L330.2 70.3C326.3 62 314.1 61.7 309.8 70.3L286.2 118.1L233.9 125.6C224.6 127 220.6 138.5 227.5 145.4L265.5 182.4L256.5 234.5C255.1 243.8 264.7 251 273.3 246.7L320.2 221.9L366.8 246.3C375.4 250.6 385.1 243.4 383.6 234.1L374.6 182L412.6 145.4C419.4 138.6 415.5 127.1 406.2 125.6L353.9 118.1zM288 320C261.5 320 240 341.5 240 368L240 528C240 554.5 261.5 576 288 576L352 576C378.5 576 400 554.5 400 528L400 368C400 341.5 378.5 320 352 320L288 320zM80 384C53.5 384 32 405.5 32 432L32 528C32 554.5 53.5 576 80 576L144 576C170.5 576 192 554.5 192 528L192 432C192 405.5 170.5 384 144 384L80 384zM448 496L448 528C448 554.5 469.5 576 496 576L560 576C586.5 576 608 554.5 608 528L608 496C608 469.5 586.5 448 560 448L496 448C469.5 448 448 469.5 448 496z"/></svg>
+    <span class="dash"></span>
+  </div>
+
+  <div class="nav-item active" onclick="setActiveNav(this)">
+   <svg xmlns="http://www.w3.org/2000/svg" value="profile" viewBox="0 0 640 640"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z"/></svg>
+    <span class="dash"></span>
+  </div>
+</div>
+
+<div class="profile-overlay" id="profileOverlay">
+  <div class="profile-card">
+
+    <!-- CLOSE X -->
+    <span class="close-x" onclick="closePopup()">✕</span>
+
+    <!-- HEADER -->
+    <div class="profile-header">
+      <img id="profilePics" class="pfp" src="/assests/pfp/2.png" alt="Profile Pic">
+
+      <p class="username" id="usernameTexts"></p>
+      
+    </div>
+
+    <!-- STATS ROW 1 -->
+    <div class="stats-row">
+      <div class="stat-box" id="scoreBoxs"><br><span>Score</span></div>
+      <div class="stat-box" id="rankBoxs">12<br><span>Swipes</span></div>
+      <div class="stat-box" id="streakBoxs">🔥50<br><span>Streak</span></div>
+    </div>
+
+    <!-- STATS ROW 2 -->
+    <div class="stats-row">
+      <div class="stat-box" id="friendsBoxs">45<br><span>Friends</span></div>
+      <div class="stat-box" id="memeBoxs">3<br><span>Memes</span></div>
+
+      <!-- ADD FRIEND -->
+      <div class="stat-box add-friend" onclick="postUserData(this);">
+        Add Friend
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- ADD FRIEND POPUP -->
+<div class="add-popup-overlay" id="addPopup">
+  <div class="add-popup-card">
+    <span class="close-x" onclick="closeAddPopup()">✕</span>
+
+    <h3>Coming Soon</h3>
+   <p>Soon you will be able to uplode your own memes</p>
+ 
+  </div>
+</div>
+
+
+
+
+
+<!-- SNAPSHOT POPUP -->
+<div class="snapshot-overlay" id="snapshotOverlay">
+  <div class="snapshot-wrapper">
+
+    <!-- CLOSE -->
+    <span class="snapshot-close" onclick="closeSnapshot()">✕</span>
+
+    <!-- CARD TO CAPTURE -->
+    <div class="snapshot-card" id="snapshotCard">
+      <img  class="snapshot-pfp" id="snapPfp">
+
+      <h2 id="snapUsername"></h2>
+
+      <div class="snapshot-stats">
+        <div><b id="snapScore"></b><span>Score</span></div>
+        <div><b id="snapSwipes"></b><span>Swipes</span></div>
+        <div><b id="snapStreak"></b><span>Streak</span></div>
+      </div>
+      
+
+      <p class="snapshot-brand">SWIPENOW</p>
+    </div>
+
+    <!-- DOWNLOAD -->
+    <button class="snapshot-download" onclick="downloadSnapshot()">
+      Download
+    </button>
+
+  </div>
+</div>
+
+<script type="module" src="/notify.js"></script>
+
+<!-- <script src="/scripting/pagesscripting/uploadememe.js"></script> -->
+<script src="/scripting/pagesscripting/searchFriend.js"></script>
+<script src="/scripting/services/home.js"></script>
+<script src="/scripting/pagesscripting/viewFrioends.js"></script>
+<script src="/scripting/pagesscripting/leadboard.js"></script>
+<script src="/global.js"></script>
+<script src="/scripting/utils/routing.js"></script>
+<script src="/scripting/pagesscripting/friendpopup.js"></script>
+
+<script src="/scripting/pagesscripting/loadUser.js"></script>
+
+<script src="/scripting/API/apiHandler.js"></script>
+
+<script>
+  async function loadMemes() {
+  try {
+    const user = localStorage.getItem("username");
+    const token = localStorage.getItem("auth_token");  // Retrieve token if needed
+
+    if (!user) {
+      console.error("No username found in localStorage");
+      return;  // Early return if there's no user
+    }
+
+    console.log("Loading memes for user:", user);  // Debug log
+
+    const response = await fetch(`http://localhost:8081/urls/${user}`, {
+      method: 'GET'
+      
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch memes");
+    }
+
+    const memeUrls = await response.json();
+    renderMemes(memeUrls);
+  } catch (error) {
+    console.error("Error loading memes:", error);
+  }
+}
+
+function renderMemes(urls) {
+ const container = document.querySelector(".memebox");
+
+  container.innerHTML = "";  // Clear existing memes
+
+  if (!urls || urls.length === 0) {
+    container.innerHTML = "<p>No memes found.</p>";  // Display a message if no memes are found
+    return;
+  }
+
+  urls.forEach(url => {
+    const memeDiv = document.createElement("div");
+    memeDiv.className = "memes";
+
+    const img = document.createElement("img");
+    img.src = url;
+    img.loading = "lazy";  // Performance boost
+    img.alt = "Meme";
+
+    memeDiv.appendChild(img);
+    container.appendChild(memeDiv);
+  });
+}
+
+// Load memes when page loads
+document.addEventListener("DOMContentLoaded", loadMemes);
+
+</script>
+
+
+
+<script>
+  function snapShot() {
+  // Fill data dynamically
+   document.getElementById("snapPfp").src=document.getElementById("profilePic").src;
+  document.getElementById("snapUsername").innerText =
+    document.getElementById("usernameText").innerText;
+
+  document.getElementById("snapScore").innerText =
+    document.getElementById("scoreBox").innerText.split("\n")[0];
+
+  document.getElementById("snapSwipes").innerText =
+    document.getElementById("rankBox").innerText.split("\n")[0];
+
+  document.getElementById("snapStreak").innerText =
+    document.getElementById("streakBox").innerText.split("\n")[0];
+
+  document.getElementById("snapshotOverlay").style.display = "flex";
+}
+
+function closeSnapshot() {
+  document.getElementById("snapshotOverlay").style.display = "none";
+}
+
+function downloadSnapshot() {
+  const card = document.getElementById("snapshotCard");
+
+  html2canvas(card, {
+    backgroundColor: "#000"
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "swipenow-stats.jpg";
+    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    link.click();
+  });
+}
+
+</script>
+
+
+
+<script src="/scripting/pagesscripting/addfriends.js"></script>
+
+
+
+
+<script src="/scripting/pagesscripting/checkfriendship.js"></script>
+</body>
+</html>

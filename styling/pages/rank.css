@@ -1,0 +1,443 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+     font-family: "SmoochSans", sans-serif;
+}
+body {
+
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: self-start;
+  height: 100dvh;
+  overflow-y: hidden;
+  
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 150px;
+    margin-left: 0px;
+   
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0px;
+    width: 100%;
+     z-index: 10;
+}
+.right{
+       display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    
+    margin-left: -50px;
+}
+.total{
+    height: 20px;
+    background-color: rgb(197, 194, 194);
+    padding: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  
+}
+.target{
+    height: 20px;
+    background-color: rgb(197, 194, 194);
+     padding: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.streak{
+     height: 20px;
+     color: rgb(255, 255, 255);
+    background-color: rgb(197, 194, 194);
+     padding: 7px;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+/* .white-glow {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
+} */
+
+
+.transparent-box {
+  background: rgba(0, 0, 0, 0.15); /* transparent white */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.memeBox{
+ 
+    border-radius: 20px;
+    margin-top: 15px;
+    width: 300px;
+    height: 300px;
+
+    background-color: rgb(65, 66, 67);
+}
+.footerNav{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+     background-color: rgb(65, 66, 67);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    margin-top: 0px;
+   margin-bottom: 20px;
+     flex-shrink: 0;
+             /* match your footer height */
+  background: #4a4a4a;
+  display: flex;
+
+}
+svg{
+  fill: rgb(255, 255, 255); 
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.nav-item i {
+  font-size: 22px;
+  color: rgba(188, 185, 185, 0.6);
+  transition: color 0.3s ease;
+}
+
+/* Dash hidden by default */
+.dash {
+  width: 22px;
+  height: 3px;
+  background: white;
+  border-radius: 5px;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Active state */
+.nav-item.active i {
+  color: white;
+}
+
+.nav-item.active .dash {
+  opacity: 1;
+}
+.primary{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.primarysecond{
+  display: flex;
+  gap: 5px;
+}
+.secondary{
+    display: flex;
+     justify-content: space-around;
+    align-items: center;
+    
+    margin-top: 15px;
+}
+.header{
+    display: block;
+   
+    
+}
+.pbutton{
+    margin-left: 10px;
+    width: 80px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    opacity: 0.7;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sbutton{
+    margin-left: 10px;
+    width: 80px;
+    height: 30px;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    opacity: 0.7;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searching{
+     display: flex;
+     justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+input{
+    border-radius: 10px;
+    height: 30px;
+    padding: 3px;
+    width: 300px;
+    margin-left: 20px;
+    font-size: 18px;
+}
+.colName{
+    display: flex;
+   
+    border-radius: 5px;
+    align-items: center;
+    margin-left: 30px;
+    padding-top: 10PX;
+    padding-bottom: 10PX;
+    width: 100%;
+}
+.col{
+    font-size: 20px;
+    margin-left: 45px;
+    height: 100%;
+    text-align: center;
+   
+     font-family: "SmoochSans", sans-serif;
+}
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px 0;
+
+  color: rgb(255, 255, 255);
+   margin-top: 10px;
+  /* softer red background */
+  background-color: rgba(0, 0, 0, 0.15);
+
+  border-radius: 5px;
+
+  /* shining border effect */
+  border: 1.5px solid rgba(195, 195, 195, 0.8);
+  box-shadow: 
+    0 0 6px rgba(44, 44, 44, 0.6),
+    0 0 12px rgba(233, 232, 232, 0.3);
+}
+.loss {
+  display: flex;
+  align-items: center;
+justify-content: space-between;
+  width: 100%;
+  padding: 5px 0;
+
+  color: rgb(255, 255, 255);
+   margin-top: 10px;
+  /* softer red background */
+  background-color: rgba(255, 0, 0, 0.15);
+
+  border-radius: 5px;
+
+  /* shining border effect */
+  border: 1.5px solid rgba(255, 0, 0, 0.8);
+  box-shadow: 
+    0 0 6px rgba(255, 0, 0, 0.6),
+    0 0 12px rgba(255, 0, 0, 0.3);
+}
+.gain {
+  display: flex;
+  align-items: center;
+justify-content: space-between;
+  width: 100%;
+  padding: 5px 0;
+margin-top: 10px;
+  color: rgb(255, 255, 255);
+
+  /* softer green background */
+  background-color: rgba(0, 255, 0, 0.15);
+
+  border-radius: 5px;
+
+  /* shining green border */
+  border: 1.5px solid rgba(0, 200, 0, 0.9);
+  box-shadow: 
+    0 0 6px rgba(0, 200, 0, 0.6),
+    0 0 12px rgba(0, 200, 0, 0.3);
+}
+.RankBox{
+  overflow-y: scroll;
+  margin-left: 5px;
+   height: 340px; 
+   margin-bottom: 0px;
+   width: 320px;
+   align-items: center;
+
+}
+
+.col2 {
+  font-size: 20px;
+   max-width: 33%;
+  text-align: center;
+
+  padding: 15px;
+  margin-left: 20px;
+
+  font-family: "SmoochSans", sans-serif;
+
+  /* ✅ wrapping fixes */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.col1{
+  font-size: 20px;
+   max-width: 33%;
+  text-align: center;
+
+  padding: 15px;
+  margin-left: 20px;
+
+  font-family: "SmoochSans", sans-serif;
+
+}
+
+.card,
+.loss,
+.gain {
+  position: relative;
+  padding-left: 35px; /* space for badge */
+  width: 270px;
+}
+.badge {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #111;
+  white-space: nowrap;
+}
+
+/* common badge */
+.rank-badge {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  padding: 4px 7px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+}
+
+/* loss badge */
+.loss-badge {
+  color: #ff3b3b;
+  border: 1px solid #ff3b3b;
+  box-shadow: 0 0 6px rgba(255, 59, 59, 0.6);
+}
+
+/* gain badge */
+.gain-badge {
+  color: #00ff6a;
+  border: 1px solid #00ff6a;
+  box-shadow: 0 0 6px rgba(0, 255, 106, 0.6);
+}
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #ffffff
+  );
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #ffffff
+  );
+}
+
+
+.highlight {
+    outline: 2px solid #22c55e;
+    background-color: rgba(34, 197, 94, 0.1);
+}
+
+
+.actives{
+    outline: 2px solid #3b82f6;
+    background-color: rgba(59, 130, 246, 0.1);
+    color: white;
+    letter-spacing: 2px;  
+  }

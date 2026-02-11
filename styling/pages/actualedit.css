@@ -1,0 +1,184 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+*{
+    margin: 0;
+    padding: 0;
+     font-family: "SmoochSans", sans-serif;
+}
+body {
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center; /* ✅ NOT self-start */
+  min-height: 100vh;       /* ✅ IMPORTANT */
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: black;
+}
+.logo{
+    width: 200px;
+    height: 200px;
+    border-radius: 150px;
+    margin-left: 59px;
+   
+}
+.header{
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    gap: 0px;
+    width: 300px;
+     z-index: 10;
+     
+
+}
+.primary{
+       display: flex;
+    
+    align-items: center;
+    gap: 0px;
+    
+    margin-left: 0px;
+}
+input{
+    border-radius: 10px;
+    height: 30px;
+    padding: 3px;
+    width: 150px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 18px;
+}
+.add{
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+button{
+     width: 100%;
+  padding: 10px;
+  background: #111;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+.buttons button{
+        width: 80px;
+    padding: 10px;
+   background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 5px;
+}
+.buttons{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+.actualedit{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/* ================= USERNAME DROPDOWN ================= */
+
+.username-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Username button (keep your existing button style, just refine) */
+.username {
+  width: 340px;
+  text-align: center;
+  letter-spacing: 5px;
+  background: #111;
+}
+
+/* Hidden input dropdown */
+.username-input {
+  width: 220px;
+  height: 36px;
+  margin-top: 8px;
+  padding: 5px 10px;
+letter-spacing: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+  font-size: 18px;
+  color: white;
+  background: black;
+
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  outline: none;
+
+  display: none;
+  animation: dropdownFade 0.25s ease forwards;
+}
+
+/* Input focus glow */
+.username-input:focus {
+  border-color: white;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+/* Smooth dropdown animation */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

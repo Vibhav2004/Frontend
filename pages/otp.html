@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SWIPENOW</title>
+  <link
+  rel="preload"
+  href="/assests/SmoochSans-VariableFont_wght.ttf"
+  as="font"
+  type="font/ttf"
+  crossorigin
+/>
+  <link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
+  <link rel="stylesheet" href="/styling/pages/otp.css">
+  <link rel="stylesheet" href="/styling/components/loading2.css">
+</head>
+<body>
+    
+ <div class="container">
+    <img class="logo floating white-glow" src="/assests/logo-removebg-preview.png" alt="SWIPENOW Logo">
+   
+
+
+
+  <div class="info">
+  <span class="title">OTP Verification</span>
+<p class="description">Please enter the code we have sent you. </p>
+   </div>
+    <div class="inputs">
+    <input placeholder="" type="tel" maxlength="1">
+    <input placeholder="" type="tel" maxlength="1">
+    <input placeholder="" type="tel" maxlength="1">
+    <input placeholder="" type="tel" maxlength="1">
+  </div>
+        <button id="registered" onclick="verifyOtp()">VERIFY</button>
+<div class="loader hidden" id="loader">
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+  <div class="circle">
+    <div class="dot"></div>
+    <div class="outline"></div>
+  </div>
+</div>
+<p class="resend">You don't receive the code ?<a class="resend-action">resend</a></p>
+
+
+
+
+   
+</div>
+    
+   
+   <script src="/scripting/utils/routing.js">
+  
+</script>
+<script>
+  // Select all OTP input fields
+const otpInputs = document.querySelectorAll(".inputs input");
+
+// Add auto-focus functionality
+otpInputs.forEach((input, index) => {
+  input.addEventListener("input", () => {
+    // Move to next input if current has a value
+    if (input.value.length === input.maxLength && index < otpInputs.length - 1) {
+      otpInputs[index + 1].focus();
+    }
+  });
+
+  input.addEventListener("keydown", (e) => {
+    // Move to previous input on Backspace if current is empty
+    if (e.key === "Backspace" && input.value.length === 0 && index > 0) {
+      otpInputs[index - 1].focus();
+    }
+  });
+});
+
+// Your existing verifyOtp function
+const verifyOtp = async () => {
+  let otp = "";
+
+  // Combine the values from all 4 inputs
+  otpInputs.forEach(input => {
+    otp += input.value;
+  });
+
+  if (otp.length !== 4) {
+    alert("Please enter a 4-digit OTP");
+    return;
+  }
+
+  const email = localStorage.getItem("otpEmail");
+  const action = localStorage.getItem("otpAction");
+
+  try {
+    const response = await fetch("http://localhost:8081/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: `email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`
+    });
+
+    const message = await response.text();
+
+    if (message.toLowerCase().includes("success")) {
+      if (action === "password") {
+        window.location.href = "/pages/actualeditPassword.html";
+      } 
+      // else if (action === "email") {
+      //   window.location.href = "/pages/actualeditEmail.html";
+      // } else {
+      //   window.location.href = "/pages/actualeditUserName.html";
+      // }
+    } else {
+      alert("Invalid or expired OTP");
+    }
+  } catch (error) {
+    console.error("OTP verification failed:", error);
+    alert("OTP verification failed. Please try again.");
+  }
+};
+
+</script>
+<script src="/global.js"></script>
+ 
+
+</body>
+
+</html>
