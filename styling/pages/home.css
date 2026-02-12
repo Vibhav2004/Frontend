@@ -16,7 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: self-start;
-  
+  height: 100dvh;
   overflow-y: hidden
 }
 .logo{

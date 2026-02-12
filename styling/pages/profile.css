@@ -17,7 +17,7 @@ body {
   display: flex;
   justify-content: center;
   /* ✅ NOT self-start */
-  min-height: 100vh;       /* ✅ IMPORTANT */
+  height: 100dvh;       /* ✅ IMPORTANT */
 }
 
 .container {
