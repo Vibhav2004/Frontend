@@ -17,7 +17,7 @@
      <link rel="stylesheet" href="/styling/responsive/homeresponsive.css">
      <link rel="stylesheet" href="/styling/heightResponsive/homeheightresponsive.css">
  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
+<!-- <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
@@ -30,7 +30,29 @@
       OneSignal.showSlidedownPrompt(); // Opens the permission dialog
     }
   });
+</script> -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "42d4b147-37f6-4d4b-90af-7b0727be1048",
+    });
+
+    // Get the current subscription status
+    const subscriptionStatus = await OneSignal.getSubscriptionStatus();
+
+    console.log(subscriptionStatus);
+    // subscriptionStatus looks like:
+    // { subscribed: true/false, pushPermission: "default"|"granted"|"denied" }
+
+    if (!subscriptionStatus.subscribed) {
+      // Ask user to allow notifications
+      OneSignal.showSlidedownPrompt(); // This opens the permission dialog
+    }
+  });
 </script>
+
 </head>
 <body>
     <div class="app">
