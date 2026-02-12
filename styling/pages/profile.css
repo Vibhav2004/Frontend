@@ -281,14 +281,23 @@ svg{
     height: 40px;
     background-color: rgb(0, 0, 0);
 }
-.memebox {
+/* .memebox {
 display: block;    
   height: 275px;          /* fills remaining space */
-  overflow-y: scroll;  /* enables vertical scrolling */
-  margin-top: 20px;
+  /* overflow-y: scroll;  /* enables vertical scrolling */
+  /* margin-top: 20px;
   background-color: rgb(0, 0, 0);
-  overflow-x: hidden;
+  overflow-x: hidden; */ */
   /* background-color: aqua; */
+/* } */ */
+.memebox {
+  flex: 1;                 /* fills remaining space in container */
+  min-height: 250px;       /* minimum for small screens */
+  max-height: 70dvh;       /* never taller than 70% of viewport */
+  overflow-y: auto;        /* scroll inside memebox only */
+  margin-top: 20px;
+  background-color: black;
+  overflow-x: hidden;
 }
 
 .flex{
