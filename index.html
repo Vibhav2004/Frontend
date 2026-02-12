@@ -31,8 +31,15 @@
     await OneSignal.init({
       appId: "42d4b147-37f6-4d4b-90af-7b0727be1048",
     });
+
+    // Ask the user to allow notifications
+    const isPushEnabled = await OneSignal.isPushNotificationsEnabled();
+    if (!isPushEnabled) {
+      OneSignal.showSlidedownPrompt(); // Opens the permission dialog
+    }
   });
 </script>
+
 
 
 
