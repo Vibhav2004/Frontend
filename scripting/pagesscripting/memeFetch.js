@@ -440,117 +440,117 @@ function removeLoader(container) {
 
 
 /* ================= FETCH MEMES (NO REPEAT EVER) ================= */
+ async function fetchDailyMemes() {
+   console.log("📦 Fetching daily memes...");
+
+   const res = await fetch(`${API_BASE}?limit=${DAILY_LIMIT}&t=${Date.now()}`);
+   const json = await res.json();
+
+   let memes = json.data
+     .filter(m => m.url && m.nsfw === false);
+
+   // 🔥 Load permanently used meme URLs
+   const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+
+   // 🔥 Remove already shown memes (across all previous days)
+   memes = memes.filter(m => !usedUrls.includes(m.url));
+
+   // Shuffle for randomness
+  memes.sort(() => Math.random() - 0.5);
+
+   // Limit to daily limit
+   
+   //   // 🔥 Save newly used URLs permanently
+   memes = memes.slice(0, DAILY_LIMIT);
+   const MAX_HISTORY = 5000; // prevent unlimited growth
+
+   let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
+
+   if (updatedUsedUrls.length > MAX_HISTORY) {
+     updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
+   }
+
+   localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
+
+   console.log(`✅ Fresh memes fetched: ${memes.length}`);
+
+   return memes.map(m => ({
+     url: m.url,
+     title: m.title || "meme"
+   }));
+ }
+
+
+
+
 // async function fetchDailyMemes() {
-//   console.log("📦 Fetching daily memes...");
+//   console.log("📦 Fetching memes from BOTH APIs...");
 
-//   const res = await fetch(`${API_BASE}?limit=${DAILY_LIMIT}&t=${Date.now()}`);
-//   const json = await res.json();
+//   try {
+//     /* ================= FETCH BOTH APIS IN PARALLEL ================= */
+//     const [scriptRes, localRes] = await Promise.all([
+//       fetch(`${API_BASE}?limit=${SCRIPT_API_LIMIT}&t=${Date.now()}`),
+//       fetch(LOCAL_API)
+//     ]);
 
-//   let memes = json.data
-//     .filter(m => m.url && m.nsfw === false);
+//     const scriptJson = await scriptRes.json();
+//     const localJson = await localRes.json();
 
-//   // 🔥 Load permanently used meme URLs
-//   const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+//     /* ================= FORMAT SCRIPT API ================= */
+//     let scriptMemes = scriptJson.data
+//       .filter(m => m.url && m.nsfw === false)
+//       .slice(0, SCRIPT_API_LIMIT)
+//       .map(m => ({
+//         url: m.url,
+//         title: m.title || "meme"
+//       }));
 
-//   // 🔥 Remove already shown memes (across all previous days)
-//   memes = memes.filter(m => !usedUrls.includes(m.url));
+//     /* ================= FORMAT LOCAL API ================= */
+//     // assuming your backend returns List<String> (urls only)
+//     let localMemes = localJson
+//       .slice(0, LOCAL_API_LIMIT)
+//       .map(url => ({
+//         url: url,
+//         title: "meme"
+//       }));
 
-//   // Shuffle for randomness
-//   memes.sort(() => Math.random() - 0.5);
+//     /* ================= MERGE BOTH ================= */
+//     let memes = [...scriptMemes, ...localMemes];
 
-//   // Limit to daily limit
-//   memes = memes.slice(0, DAILY_LIMIT);
+//     /* ================= REMOVE DUPLICATES ================= */
+//     const uniqueMap = new Map();
+//     memes.forEach(m => uniqueMap.set(m.url, m));
+//     memes = Array.from(uniqueMap.values());
 
-//   // 🔥 Save newly used URLs permanently
-//   const MAX_HISTORY = 5000; // prevent unlimited growth
+//     /* ================= REMOVE PREVIOUSLY USED ================= */
+//     const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+//     memes = memes.filter(m => !usedUrls.includes(m.url));
 
-//   let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
+//     /* ================= SHUFFLE ================= */
+//     memes.sort(() => Math.random() - 0.5);
 
-//   if (updatedUsedUrls.length > MAX_HISTORY) {
-//     updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
+//     /* ================= FINAL DAILY LIMIT ================= */
+//     memes = memes.slice(0, DAILY_LIMIT);
+
+//     /* ================= SAVE USED URLS ================= */
+//     const MAX_HISTORY = 5000;
+//     let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
+
+//     if (updatedUsedUrls.length > MAX_HISTORY) {
+//       updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
+//     }
+
+//     localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
+
+//     console.log(`✅ Total fresh memes loaded: ${memes.length}`);
+
+//     return memes;
+
+//   } catch (error) {
+//     console.error("❌ Error fetching memes:", error);
+//     return [];
 //   }
-
-//   localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
-
-//   console.log(`✅ Fresh memes fetched: ${memes.length}`);
-
-//   return memes.map(m => ({
-//     url: m.url,
-//     title: m.title || "meme"
-//   }));
 // }
-
-
-
-
-async function fetchDailyMemes() {
-  console.log("📦 Fetching memes from BOTH APIs...");
-
-  try {
-    /* ================= FETCH BOTH APIS IN PARALLEL ================= */
-    const [scriptRes, localRes] = await Promise.all([
-      fetch(`${API_BASE}?limit=${SCRIPT_API_LIMIT}&t=${Date.now()}`),
-      fetch(LOCAL_API)
-    ]);
-
-    const scriptJson = await scriptRes.json();
-    const localJson = await localRes.json();
-
-    /* ================= FORMAT SCRIPT API ================= */
-    let scriptMemes = scriptJson.data
-      .filter(m => m.url && m.nsfw === false)
-      .slice(0, SCRIPT_API_LIMIT)
-      .map(m => ({
-        url: m.url,
-        title: m.title || "meme"
-      }));
-
-    /* ================= FORMAT LOCAL API ================= */
-    // assuming your backend returns List<String> (urls only)
-    let localMemes = localJson
-      .slice(0, LOCAL_API_LIMIT)
-      .map(url => ({
-        url: url,
-        title: "meme"
-      }));
-
-    /* ================= MERGE BOTH ================= */
-    let memes = [...scriptMemes, ...localMemes];
-
-    /* ================= REMOVE DUPLICATES ================= */
-    const uniqueMap = new Map();
-    memes.forEach(m => uniqueMap.set(m.url, m));
-    memes = Array.from(uniqueMap.values());
-
-    /* ================= REMOVE PREVIOUSLY USED ================= */
-    const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
-    memes = memes.filter(m => !usedUrls.includes(m.url));
-
-    /* ================= SHUFFLE ================= */
-    memes.sort(() => Math.random() - 0.5);
-
-    /* ================= FINAL DAILY LIMIT ================= */
-    memes = memes.slice(0, DAILY_LIMIT);
-
-    /* ================= SAVE USED URLS ================= */
-    const MAX_HISTORY = 5000;
-    let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
-
-    if (updatedUsedUrls.length > MAX_HISTORY) {
-      updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
-    }
-
-    localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
-
-    console.log(`✅ Total fresh memes loaded: ${memes.length}`);
-
-    return memes;
-
-  } catch (error) {
-    console.error("❌ Error fetching memes:", error);
-    return [];
-  }
-}
 
 
 
