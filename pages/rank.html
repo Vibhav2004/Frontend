@@ -16,7 +16,15 @@
     <link rel="stylesheet" href="/styling/pages/rank.css">
     <link rel="stylesheet" href="/styling/responsive/rankresponsive.css">
     <link rel="stylesheet" href="/styling/heightResponsive/rankheightresponsive.css">
-   
+   <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "42d4b147-37f6-4d4b-90af-7b0727be1048",
+    });
+  });
+</script>
 </head>
 <body>
     <div class="container">
