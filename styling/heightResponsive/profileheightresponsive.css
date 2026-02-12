@@ -281,4 +281,8 @@
 
 @media (min-height: 1190px) {}
 
-@media (min-height: 1200px) {}
+@media (MAX-height: 1200px) {
+    body{
+        overflow-y: hidden;
+    }
+}
