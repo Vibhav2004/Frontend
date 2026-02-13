@@ -1,7 +1,9 @@
 @font-face {
-  font-family: "SmoochSans";
-  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
-  font-weight: 100 900;
+  font-family: 'MyFont';
+  src: url('/assests/SmoochSans-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 *{
     margin: 0;

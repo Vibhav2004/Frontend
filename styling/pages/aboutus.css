@@ -9,7 +9,13 @@
   align-items: center;
   z-index: 999;
 }
-
+@font-face {
+  font-family: 'MyFont';
+  src: url('/assests/SmoochSans-VariableFont_wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 /* Popup box */
 .popup-content {
   width: 300px;
