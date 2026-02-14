@@ -376,10 +376,10 @@
 
 
 /* ================= CONFIG ================= */
-const API_BASE =
-  "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
+// const API_BASE =
+//   "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
 
-  const LOCAL_API = "http://localhost:8081/allMEMEs";
+  const LOCAL_API = "https://csuoqebombiuoslzwwys.supabase.co";
 
 // 🎛 CONTROL LIMITS HERE
 const SCRIPT_API_LIMIT = 200;   // limit for Google Script API
@@ -442,8 +442,16 @@ function removeLoader(container) {
 /* ================= FETCH MEMES (NO REPEAT EVER) ================= */
  async function fetchDailyMemes() {
    console.log("📦 Fetching daily memes...");
-
-   const res = await fetch(`${API_BASE}?limit=${DAILY_LIMIT}&t=${Date.now()}`);
+   const apikey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzdW9xZWJvbWJpdW9zbHp3d3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NDAyODQsImV4cCI6MjA4NjExNjI4NH0.ynx_QrsdWjTXa_qlax2pup6Sz2G2sYs3IXZWCNsWT2Q"
+   const res = await fetch(`${LOCAL_API}/rest/v1/memes?limit=${DAILY_LIMIT}&t=${Date.now()}`,
+  {
+    headers: {
+      apikey: apikey,
+      Authorization: `Bearer ${apikey}`,
+      "Content-Type": "application/json"
+    }
+  });
+   
    const json = await res.json();
 
    let memes = json.data
