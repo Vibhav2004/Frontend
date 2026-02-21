@@ -1,10 +1,10 @@
 
 
 /* ================= CONFIG ================= */
-// const API_BASE =
-//   "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
+const API_BASE =
+  "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
 
-  const LOCAL_API = "https://csuoqebombiuoslzwwys.supabase.co";
+  // const LOCAL_API = "https://csuoqebombiuoslzwwys.supabase.co";
 
 // 🎛 CONTROL LIMITS HERE
 const SCRIPT_API_LIMIT = 200;   // limit for Google Script API
@@ -118,7 +118,7 @@ async function fetchDailyMemes() {
   const apikey = "sb_publishable_JF-mG_aLWRcDZhvGsKKF8g_vxgJH7fF";
 
   const res = await fetch(
-    `${LOCAL_API}/rest/v1/memes?select=*&limit=${DAILY_LIMIT}&order=posted_time.desc`,
+    `${API_BASE}?limit=${DAILY_LIMIT}&t=${Date.now()}`,
     {
       headers: {
         apikey: apikey,
