@@ -115,7 +115,7 @@ function removeLoader(container) {
 async function fetchDailyMemes() {
   console.log("📦 Fetching daily memes...");
 
-  const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzdW9xZWJvbWJpdW9zbHp3d3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NDAyODQsImV4cCI6MjA4NjExNjI4NH0.ynx_QrsdWjTXa_qlax2pup6Sz2G2sYs3IXZWCNsWT2Q";
+  const apikey = "sb_publishable_JF-mG_aLWRcDZhvGsKKF8g_vxgJH7fF";
 
   const res = await fetch(
     `${LOCAL_API}/rest/v1/memes?select=*&limit=${DAILY_LIMIT}&order=posted_time.desc`,
