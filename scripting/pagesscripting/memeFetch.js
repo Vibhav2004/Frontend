@@ -589,8 +589,23 @@ async function getAllUnswipedMemes() {
   const memeStore = tx.objectStore("memes");
   const swipeStore = tx.objectStore("swipes");
 
-  const allBatches = await batchStore.getAll();
-  const swiped = await swipeStore.getAll();
+  // Proper promise wrapper
+  const getAll = store =>
+    new Promise((resolve, reject) => {
+      const req = store.getAll();
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+
+  const getOne = (store, key) =>
+    new Promise((resolve, reject) => {
+      const req = store.get(key);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+
+  const allBatches = await getAll(batchStore);
+  const swiped = await getAll(swipeStore);
 
   const swipedIds = swiped.map(s => s.id);
 
@@ -604,10 +619,11 @@ async function getAllUnswipedMemes() {
   const memes = [];
 
   for (let id of remainingIds) {
-    const meme = await memeStore.get(id);
+    const meme = await getOne(memeStore, id);
     if (meme) memes.push(meme);
   }
 
+  // Shuffle for different order per user
   memes.sort(() => Math.random() - 0.5);
 
   return memes;
