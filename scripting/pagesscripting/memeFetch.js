@@ -1,150 +1,25 @@
 
-// // const API_BASE = "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
-// // const BATCH_SIZE = 100;
-// // const MAX_BATCHES = 3;
-// // const STORAGE_KEYs = "memeQueue"; // sessionStorage key
-
-// // /* ================= LOADER ================= */
-// // function createLoader(container) {
-// //   if (container.querySelector(".meme-loader")) return;
-// //   const loader = document.createElement("div");
-// //   loader.className = "meme-loader";
-// //   loader.innerHTML = `
-// //     <div class="spinner"></div>
-// //     <p>Loading memes...</p>
-// //   `;
-// //   container.appendChild(loader);
-// // }
-
-// // function removeLoader(container) {
-// //   const loader = container.querySelector(".meme-loader");
-// //   if (!loader) return;
-// //   loader.style.opacity = "0";
-// //   setTimeout(() => loader.remove(), 300);
-// // }
-
-// // /* ================= FETCH BATCH ================= */
-// // async function fetchMemeBatch(page) {
-// //   console.log(`📦 Fetching batch ${page}`);
-  
-// //   const res = await fetch(`${API_BASE}?limit=${BATCH_SIZE}&page=${page}`);
-// //   const json = await res.json();
-
-// //   const memes = json.data
-// //     .filter(m => m.url && m.nsfw === false)
-// //     .map(m => ({ url: m.url, title: m.title || "meme" }));
-
-// //   console.log(`Batch ${page} fetched: ${memes.length} memes`);
-
-// //   // ✅ Log each meme title
-// //   memes.forEach((meme, index) => {
-// //     console.log(`Batch ${page} meme ${index + 1}: ${meme.title}`);
-// //   });
-  
-// //   return memes;
-// // }
-
-
-
-// // /* ================= IMAGE PRELOAD ================= */
-// // function preloadImages(memes) {
-// //   return Promise.allSettled(
-// //     memes.map(meme => new Promise(resolve => {
-// //       const img = new Image();
-// //       img.src = meme.url;
-// //       img.onload = () => resolve({ ...meme, img });
-// //       img.onerror = () => resolve(null);
-// //     }))
-// //   ).then(results => results.filter(r => r.status==="fulfilled" && r.value).map(r => r.value));
-// // }
-
-// // /* ================= RENDER ================= */
-// // let currentIndexs = 0;
-// // function renderMemes(memes) {
-// //   const memeBox = document.querySelector(".memeBox");
-// //   memeBox.innerHTML = "";
-// //   currentIndexs = 0;
-
-// //   memes.forEach((meme, i) => {
-// //     const card = document.createElement("div");
-// //     card.className = "meme-card";
-// //     card.style.zIndex = memes.length - i;
-// //     if (i === 0) card.classList.add("active");
-// //     meme.img.alt = meme.title;
-// //     card.appendChild(meme.img);
-// //     memeBox.appendChild(card);
-// //   });
-
-// //   enableSwipe(); // your swipe logic here
-// // }
-
-// // /* ================= SESSION STORAGE ================= */
-// // function getStoredMemes() {
-// //   return JSON.parse(sessionStorage.getItem(STORAGE_KEYs) || "[]");
-// // }
-
-// // function setStoredMemes(memes) {
-// //   sessionStorage.setItem(STORAGE_KEYs, JSON.stringify(memes));
-// // }
-
-// // /* ================= INIT BATCHES ================= */
-// // async function initBatches() {
-// //   const memeBox = document.querySelector(".memeBox");
-// //   createLoader(memeBox);
-
-// //   let storedMemes = getStoredMemes();
-
-// //   if (storedMemes.length === 0) {
-// //     // BATCH 1 → immediate
-// //     const batch1 = await fetchMemeBatch(1);
-// //     storedMemes = [...batch1];
-// //     setStoredMemes(storedMemes);
-
-// //     const loaded1 = await preloadImages(batch1);
-// //     renderMemes(loaded1);
-
-// //     console.log("✅ Batch 1 loaded");
-
-// //     // BATCH 2 → after 4 seconds
-// //     setTimeout(async () => {
-// //       const batch2 = await fetchMemeBatch(2);
-// //       storedMemes = [...getStoredMemes(), ...batch2];
-// //       setStoredMemes(storedMemes);
-// //       console.log("✅ Batch 2 stored in sessionStorage");
-// //     }, 1 * 60 * 1000);
-
-// //     // BATCH 3 → after 5 minutes
-// //     setTimeout(async () => {
-// //       const batch3 = await fetchMemeBatch(3);
-// //       storedMemes = [...getStoredMemes(), ...batch3];
-// //       setStoredMemes(storedMemes);
-// //       console.log("✅ Batch 3 stored in sessionStorage");
-// //     }, 2 * 60 * 1000);
-
-// //   } else {
-// //     // Already stored → shuffle and render
-// //     console.log("♻️ Memes loaded from sessionStorage");
-// //     const shuffled = storedMemes.sort(() => Math.random() - 0.5);
-// //     const loaded = await preloadImages(shuffled);
-// //     renderMemes(loaded);
-// //   }
-
-// //   removeLoader(memeBox);
-// // }
-
-// // window.addEventListener("load", initBatches);
 
 // /* ================= CONFIG ================= */
-// const API_BASE =
-//   "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
+// // const API_BASE =
+// //   "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
+
+//   const LOCAL_API = "https://csuoqebombiuoslzwwys.supabase.co";
+
+// // 🎛 CONTROL LIMITS HERE
+// const SCRIPT_API_LIMIT = 200;   // limit for Google Script API
+// const LOCAL_API_LIMIT = 200;
+
 
 // const DAILY_LIMIT = 300;
 // const RENDER_CHUNK_SIZE = 50;
-// const STORAGE_KEYs = "dailyMemeData";
+// const STORAGE_KEYs = "dailyMemeData"; // ✅ now in sessionStorage
+// const USED_MEMES_KEY = "usedMemeUrls";
 
 // /* ================= GLOBAL STATE ================= */
 // let loadedMemes = [];
 // let currentIndexs = 0;
+// let midnightTimer;
 
 // /* ================= DATE HELPERS ================= */
 // function getTodayKey() {
@@ -154,12 +29,12 @@
 // /* ================= LOADER ================= */
 // function createLoader(container) {
 //   if (container.querySelector(".meme-loader")) return;
-
 //   const loader = document.createElement("div");
 //   loader.className = "meme-loader";
 //   loader.innerHTML = `
 //     <div class="spinner"></div>
 //     <p>Loading memes...</p>
+//     <p>This May take few  Seconds</p>
 //   `;
 //   container.appendChild(loader);
 // }
@@ -172,23 +47,202 @@
 // }
 
 // /* ================= FETCH MEMES ================= */
+// // async function fetchDailyMemes() {
+// //   console.log("📦 Fetching daily memes...");
+
+// //   const res = await fetch(`${API_BASE}?limit=${DAILY_LIMIT}`);
+// //   const json = await res.json();
+
+// //   const memes = json.data
+// //     .filter(m => m.url && m.nsfw === false)
+// //     .slice(0, DAILY_LIMIT)
+// //     .map(m => ({ url: m.url, title: m.title || "meme" }));
+
+// //   console.log(`✅ ${memes.length} memes fetched`);
+// //   return memes;
+// // }
+
+
+
+// /* ================= FETCH MEMES (NO REPEAT EVER) ================= */
+// //  async function fetchDailyMemes() {
+// //    console.log("📦 Fetching daily memes...");
+// //    const apikey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzdW9xZWJvbWJpdW9zbHp3d3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NDAyODQsImV4cCI6MjA4NjExNjI4NH0.ynx_QrsdWjTXa_qlax2pup6Sz2G2sYs3IXZWCNsWT2Q"
+// //    const res = await fetch(`${LOCAL_API}/rest/v1/memes?limit=${DAILY_LIMIT}&t=${Date.now()}`,
+// //   {
+// //     headers: {
+// //       apikey: apikey,
+// //       Authorization: `Bearer ${apikey}`,
+// //       "Content-Type": "application/json"
+// //     }
+// //   });
+   
+// //    const json = await res.json();
+
+// //    let memes = json.data
+// //      .filter(m => m.url && m.nsfw === false);
+
+// //    // 🔥 Load permanently used meme URLs
+// //    const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+
+// //    // 🔥 Remove already shown memes (across all previous days)
+// //    memes = memes.filter(m => !usedUrls.includes(m.url));
+
+// //    // Shuffle for randomness
+// //   memes.sort(() => Math.random() - 0.5);
+
+// //    // Limit to daily limit
+   
+// //    //   // 🔥 Save newly used URLs permanently
+// //    memes = memes.slice(0, DAILY_LIMIT);
+// //    const MAX_HISTORY = 5000; // prevent unlimited growth
+
+// //    let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
+
+// //    if (updatedUsedUrls.length > MAX_HISTORY) {
+// //      updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
+// //    }
+
+// //    localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
+
+// //    console.log(`✅ Fresh memes fetched: ${memes.length}`);
+
+// //    return memes.map(m => ({
+// //      url: m.url,
+// //      title: m.title || "meme"
+// //    }));
+// //  }
 // async function fetchDailyMemes() {
 //   console.log("📦 Fetching daily memes...");
 
-//   const res = await fetch(`${API_BASE}?limit=${DAILY_LIMIT}`);
-//   const json = await res.json();
+//   const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzdW9xZWJvbWJpdW9zbHp3d3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NDAyODQsImV4cCI6MjA4NjExNjI4NH0.ynx_QrsdWjTXa_qlax2pup6Sz2G2sYs3IXZWCNsWT2Q";
 
-//   const memes = json.data
-//     .filter(m => m.url && m.nsfw === false)
-//     .slice(0, DAILY_LIMIT)
-//     .map(m => ({
-//       url: m.url,
-//       title: m.title || "meme"
-//     }));
+//   const res = await fetch(
+//     `${LOCAL_API}/rest/v1/memes?select=*&limit=${DAILY_LIMIT}&order=posted_time.desc`,
+//     {
+//       headers: {
+//         apikey: apikey,
+//         Authorization: `Bearer ${apikey}`,
+//         "Content-Type": "application/json"
+//       }
+//     }
+//   );
 
-//   console.log(`✅ ${memes.length} memes fetched`);
-//   return memes;
+//   if (!res.ok) {
+//     const error = await res.text();
+//     console.error("❌ Supabase Error:", error);
+//     return [];
+//   }
+
+//   const json = await res.json(); // this is an ARRAY
+
+//   let memes = json.filter(m => m.url);
+
+//   // 🔥 Load permanently used meme URLs
+//   const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+
+//   // 🔥 Remove already shown memes
+//   memes = memes.filter(m => !usedUrls.includes(m.url));
+
+//   // Shuffle
+//   memes.sort(() => Math.random() - 0.5);
+
+//   // Limit
+//   memes = memes.slice(0, DAILY_LIMIT);
+
+//   // Save used
+//   const MAX_HISTORY = 5000;
+//   let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
+
+//   if (updatedUsedUrls.length > MAX_HISTORY) {
+//     updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
+//   }
+
+//   localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
+
+//   console.log(`✅ Fresh memes fetched: ${memes.length}`);
+
+//   return memes.map(m => ({
+//     url: m.url,
+//     title: m.title || "meme"
+//   }));
 // }
+
+
+
+
+
+// // async function fetchDailyMemes() {
+// //   console.log("📦 Fetching memes from BOTH APIs...");
+
+// //   try {
+// //     /* ================= FETCH BOTH APIS IN PARALLEL ================= */
+// //     const [scriptRes, localRes] = await Promise.all([
+// //       fetch(`${API_BASE}?limit=${SCRIPT_API_LIMIT}&t=${Date.now()}`),
+// //       fetch(LOCAL_API)
+// //     ]);
+
+// //     const scriptJson = await scriptRes.json();
+// //     const localJson = await localRes.json();
+
+// //     /* ================= FORMAT SCRIPT API ================= */
+// //     let scriptMemes = scriptJson.data
+// //       .filter(m => m.url && m.nsfw === false)
+// //       .slice(0, SCRIPT_API_LIMIT)
+// //       .map(m => ({
+// //         url: m.url,
+// //         title: m.title || "meme"
+// //       }));
+
+// //     /* ================= FORMAT LOCAL API ================= */
+// //     // assuming your backend returns List<String> (urls only)
+// //     let localMemes = localJson
+// //       .slice(0, LOCAL_API_LIMIT)
+// //       .map(url => ({
+// //         url: url,
+// //         title: "meme"
+// //       }));
+
+// //     /* ================= MERGE BOTH ================= */
+// //     let memes = [...scriptMemes, ...localMemes];
+
+// //     /* ================= REMOVE DUPLICATES ================= */
+// //     const uniqueMap = new Map();
+// //     memes.forEach(m => uniqueMap.set(m.url, m));
+// //     memes = Array.from(uniqueMap.values());
+
+// //     /* ================= REMOVE PREVIOUSLY USED ================= */
+// //     const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+// //     memes = memes.filter(m => !usedUrls.includes(m.url));
+
+// //     /* ================= SHUFFLE ================= */
+// //     memes.sort(() => Math.random() - 0.5);
+
+// //     /* ================= FINAL DAILY LIMIT ================= */
+// //     memes = memes.slice(0, DAILY_LIMIT);
+
+// //     /* ================= SAVE USED URLS ================= */
+// //     const MAX_HISTORY = 5000;
+// //     let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
+
+// //     if (updatedUsedUrls.length > MAX_HISTORY) {
+// //       updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
+// //     }
+
+// //     localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
+
+// //     console.log(`✅ Total fresh memes loaded: ${memes.length}`);
+
+// //     return memes;
+
+// //   } catch (error) {
+// //     console.error("❌ Error fetching memes:", error);
+// //     return [];
+// //   }
+// // }
+
+
+
 
 // /* ================= IMAGE PRELOAD ================= */
 // function preloadImages(memes) {
@@ -199,11 +253,7 @@
 //       img.onload = () => resolve({ ...meme, img });
 //       img.onerror = () => resolve(null);
 //     }))
-//   ).then(results =>
-//     results
-//       .filter(r => r.status === "fulfilled" && r.value)
-//       .map(r => r.value)
-//   );
+//   ).then(results => results.filter(r => r.status==="fulfilled" && r.value).map(r => r.value));
 // }
 
 // /* ================= STORAGE ================= */
@@ -215,21 +265,17 @@
 //   localStorage.setItem(STORAGE_KEYs, JSON.stringify(data));
 // }
 
-
-
-// let midnightTimer;
-
+// /* ================= MIDNIGHT COUNTDOWN ================= */
 // function startMidnightCountdown() {
 //   const counterEl = document.getElementById("midnightCounter");
 //   if (!counterEl) return;
 
-//   // Clear any existing interval
 //   if (midnightTimer) clearInterval(midnightTimer);
 
 //   function updateCounter() {
 //     const now = new Date();
 //     const midnight = new Date();
-//     midnight.setHours(24, 0, 0, 0); // next midnight
+//     midnight.setHours(24,0,0,0);
 //     const diff = midnight - now;
 
 //     if (diff <= 0) {
@@ -238,17 +284,16 @@
 //       return;
 //     }
 
-//     const hrs = Math.floor(diff / (1000 * 60 * 60));
-//     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-//     const secs = Math.floor((diff % (1000 * 60)) / 1000);
+//     const hrs = Math.floor(diff / (1000*60*60));
+//     const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+//     const secs = Math.floor((diff % (1000*60)) / 1000);
 
 //     counterEl.textContent = `Next memes in: ${hrs}h ${mins}m ${secs}s`;
 //   }
 
-//   updateCounter(); // initial call
+//   updateCounter();
 //   midnightTimer = setInterval(updateCounter, 1000);
 // }
-
 
 // /* ================= RENDER ================= */
 // function renderQuotaCard() {
@@ -263,18 +308,16 @@
 //     <p id="midnightCounter" style="font-weight:bold; font-size:1.1rem;"></p>
 //   `;
 //   memeBox.appendChild(card);
-// startMidnightCountdown();
-//   disableSwipe(); // prevent swipes on quota card
-  
-// }
 
+//   startMidnightCountdown();
+//   disableSwipe();
+// }
 
 // function renderNextChunk() {
 //   const memeBox = document.querySelector(".memeBox");
 
 //   if (currentIndexs >= loadedMemes.length) {
 //     renderQuotaCard();
-     
 //     return;
 //   }
 
@@ -286,9 +329,7 @@
 //     card.className = "meme-card";
 //     card.style.zIndex = loadedMemes.length - (start + i);
 
-//     if (start === currentIndexs && i === 0) {
-//       card.classList.add("active");
-//     }
+//     if (start === currentIndexs && i === 0) card.classList.add("active");
 
 //     meme.img.alt = meme.title;
 //     card.appendChild(meme.img);
@@ -311,7 +352,6 @@
 // }
 
 // /* ================= SWIPE PROGRESS ================= */
-// /* CALL THIS ON EVERY LEFT OR RIGHT SWIPE */
 // function onMemeSwiped() {
 //   const data = getStoredData();
 //   if (!data) return;
@@ -321,87 +361,148 @@
 
 //   currentIndexs = data.index;
 
-//   // Daily quota finished
 //   if (currentIndexs >= loadedMemes.length) {
 //     renderQuotaCard();
 //     return;
 //   }
 
-//   // Load next chunk when needed
-//   if (currentIndexs % RENDER_CHUNK_SIZE === 0) {
-//     renderNextChunk();
-//   }
+//   if (currentIndexs % RENDER_CHUNK_SIZE === 0) renderNextChunk();
 // }
 
 // /* ================= INIT ================= */
+// // async function initDailyMemes() {
+// //   const memeBox = document.querySelector(".memeBox");
+// //   createLoader(memeBox);
+
+// //   const today = getTodayKey();
+// //   let storedData = getStoredData();
+
+// //   if (!storedData || storedData.date !== today) {
+// //     console.log("🆕 New day → fetching memes");
+
+// //     const memes = await fetchDailyMemes();
+// //     loadedMemes = await preloadImages(memes);
+
+// //     storedData = {
+// //       date: today,
+// //       memes: loadedMemes.map(m => ({ url: m.url, title: m.title })),
+// //       index: 0
+// //     };
+
+// //     setStoredData(storedData);
+// //     currentIndexs = 0;
+// //   } else {
+// //     console.log("♻️ Loading memes from sessionStorage");
+// //     currentIndexs = storedData.index;
+// //     loadedMemes = await preloadImages(storedData.memes);
+// //   }
+
+// //   renderInitial();
+// //   removeLoader(memeBox);
+// // }
+
+
+
 // async function initDailyMemes() {
 //   const memeBox = document.querySelector(".memeBox");
-//   createLoader(memeBox);
 
 //   const today = getTodayKey();
 //   let storedData = getStoredData();
 
-//   // 🆕 New day or no cache
 //   if (!storedData || storedData.date !== today) {
-//     console.log("🆕 New day → fetching memes");
+//     // 🆕 New day → fetch memes
+//     createLoader(memeBox);
 
+//     console.log("🆕 New day → fetching memes");
 //     const memes = await fetchDailyMemes();
 //     loadedMemes = await preloadImages(memes);
 
 //     storedData = {
 //       date: today,
-//       memes: loadedMemes.map(m => ({
-//         url: m.url,
-//         title: m.title
-//       })),
+//       memes: loadedMemes.map(m => ({ url: m.url, title: m.title })),
 //       index: 0
 //     };
 
 //     setStoredData(storedData);
 //     currentIndexs = 0;
+
+//     renderInitial();
+//     removeLoader(memeBox);
 //   } else {
-//     console.log("♻️ Loading memes from localStorage");
+//     // ♻️ Already have data in sessionStorage
+//     console.log("♻️ Loading memes from sessionStorage");
 
 //     currentIndexs = storedData.index;
-//     loadedMemes = await preloadImages(storedData.memes);
-//   }
 
-//   renderInitial();
-//   removeLoader(memeBox);
+//     // Preload only if images are not yet preloaded
+//     if (!loadedMemes.length) {
+//       loadedMemes = storedData.memes.map(m => {
+//         const img = new Image();
+//         img.src = m.url;
+//         img.alt = m.title;
+//         return { ...m, img };
+//       });
+//     }
+
+//     renderInitial(); // Render immediately without loader
+//   }
 // }
 
 // window.addEventListener("load", initDailyMemes);
 
 
 
-
 /* ================= CONFIG ================= */
-// const API_BASE =
-//   "https://script.google.com/macros/s/AKfycbwP5jaMrpfFviL8K9lWtMijLN4FMqkNHqQOWWrTqDCl_oFgl3jMTXfdRRLPkpDtIWO3Iw/exec";
 
-  const LOCAL_API = "https://csuoqebombiuoslzwwys.supabase.co";
-
-// 🎛 CONTROL LIMITS HERE
-const SCRIPT_API_LIMIT = 200;   // limit for Google Script API
-const LOCAL_API_LIMIT = 200;
-
+const LOCAL_API = "https://csuoqebombiuoslzwwys.supabase.co";
 
 const DAILY_LIMIT = 300;
 const RENDER_CHUNK_SIZE = 50;
-const STORAGE_KEYs = "dailyMemeData"; // ✅ now in sessionStorage
-const USED_MEMES_KEY = "usedMemeUrls";
 
 /* ================= GLOBAL STATE ================= */
+
 let loadedMemes = [];
 let currentIndexs = 0;
 let midnightTimer;
 
 /* ================= DATE HELPERS ================= */
+
 function getTodayKey() {
-  return new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  return new Date().toISOString().split("T")[0];
+}
+
+/* ================= INDEXED DB ================= */
+
+const DB_NAME = "MemeSwipeDB";
+const DB_VERSION = 1;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+    request.onupgradeneeded = e => {
+      const db = e.target.result;
+
+      if (!db.objectStoreNames.contains("daily_batches")) {
+        db.createObjectStore("daily_batches", { keyPath: "date" });
+      }
+
+      if (!db.objectStoreNames.contains("memes")) {
+        db.createObjectStore("memes", { keyPath: "id" });
+      }
+
+      if (!db.objectStoreNames.contains("swipes")) {
+        db.createObjectStore("swipes", { keyPath: "id" });
+      }
+    };
+
+    request.onsuccess = e => resolve(e.target.result);
+    request.onerror = e => reject(e);
+  });
 }
 
 /* ================= LOADER ================= */
+
 function createLoader(container) {
   if (container.querySelector(".meme-loader")) return;
   const loader = document.createElement("div");
@@ -409,7 +510,7 @@ function createLoader(container) {
   loader.innerHTML = `
     <div class="spinner"></div>
     <p>Loading memes...</p>
-    <p>This May take few  Seconds</p>
+    <p>This May take few Seconds</p>
   `;
   container.appendChild(loader);
 }
@@ -421,74 +522,10 @@ function removeLoader(container) {
   setTimeout(() => loader.remove(), 300);
 }
 
-/* ================= FETCH MEMES ================= */
-// async function fetchDailyMemes() {
-//   console.log("📦 Fetching daily memes...");
+/* ================= FETCH DAILY 300 ================= */
 
-//   const res = await fetch(`${API_BASE}?limit=${DAILY_LIMIT}`);
-//   const json = await res.json();
-
-//   const memes = json.data
-//     .filter(m => m.url && m.nsfw === false)
-//     .slice(0, DAILY_LIMIT)
-//     .map(m => ({ url: m.url, title: m.title || "meme" }));
-
-//   console.log(`✅ ${memes.length} memes fetched`);
-//   return memes;
-// }
-
-
-
-/* ================= FETCH MEMES (NO REPEAT EVER) ================= */
-//  async function fetchDailyMemes() {
-//    console.log("📦 Fetching daily memes...");
-//    const apikey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzdW9xZWJvbWJpdW9zbHp3d3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NDAyODQsImV4cCI6MjA4NjExNjI4NH0.ynx_QrsdWjTXa_qlax2pup6Sz2G2sYs3IXZWCNsWT2Q"
-//    const res = await fetch(`${LOCAL_API}/rest/v1/memes?limit=${DAILY_LIMIT}&t=${Date.now()}`,
-//   {
-//     headers: {
-//       apikey: apikey,
-//       Authorization: `Bearer ${apikey}`,
-//       "Content-Type": "application/json"
-//     }
-//   });
-   
-//    const json = await res.json();
-
-//    let memes = json.data
-//      .filter(m => m.url && m.nsfw === false);
-
-//    // 🔥 Load permanently used meme URLs
-//    const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
-
-//    // 🔥 Remove already shown memes (across all previous days)
-//    memes = memes.filter(m => !usedUrls.includes(m.url));
-
-//    // Shuffle for randomness
-//   memes.sort(() => Math.random() - 0.5);
-
-//    // Limit to daily limit
-   
-//    //   // 🔥 Save newly used URLs permanently
-//    memes = memes.slice(0, DAILY_LIMIT);
-//    const MAX_HISTORY = 5000; // prevent unlimited growth
-
-//    let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
-
-//    if (updatedUsedUrls.length > MAX_HISTORY) {
-//      updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
-//    }
-
-//    localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
-
-//    console.log(`✅ Fresh memes fetched: ${memes.length}`);
-
-//    return memes.map(m => ({
-//      url: m.url,
-//      title: m.title || "meme"
-//    }));
-//  }
 async function fetchDailyMemes() {
-  console.log("📦 Fetching daily memes...");
+  console.log("📦 Fetching daily 300 memes...");
 
   const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNzdW9xZWJvbWJpdW9zbHp3d3lzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA1NDAyODQsImV4cCI6MjA4NjExNjI4NH0.ynx_QrsdWjTXa_qlax2pup6Sz2G2sYs3IXZWCNsWT2Q";
 
@@ -496,7 +533,7 @@ async function fetchDailyMemes() {
     `${LOCAL_API}/rest/v1/memes?select=*&limit=${DAILY_LIMIT}&order=posted_time.desc`,
     {
       headers: {
-        apikey: apikey,
+        apikey,
         Authorization: `Bearer ${apikey}`,
         "Content-Type": "application/json"
       }
@@ -504,122 +541,80 @@ async function fetchDailyMemes() {
   );
 
   if (!res.ok) {
-    const error = await res.text();
-    console.error("❌ Supabase Error:", error);
+    console.error("❌ Supabase Error:", await res.text());
     return [];
   }
 
-  const json = await res.json(); // this is an ARRAY
+  const json = await res.json();
+  const memes = json.filter(m => m.url);
 
-  let memes = json.filter(m => m.url);
+  const db = await openDB();
+  const tx = db.transaction(["daily_batches", "memes"], "readwrite");
 
-  // 🔥 Load permanently used meme URLs
-  const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
+  const batchStore = tx.objectStore("daily_batches");
+  const memeStore = tx.objectStore("memes");
 
-  // 🔥 Remove already shown memes
-  memes = memes.filter(m => !usedUrls.includes(m.url));
+  const today = getTodayKey();
+  const memeIds = [];
 
-  // Shuffle
-  memes.sort(() => Math.random() - 0.5);
+  memes.forEach(m => {
+    memeStore.put({
+      id: m.id,
+      url: m.url,
+      title: m.title || "meme"
+    });
+    memeIds.push(m.id);
+  });
 
-  // Limit
-  memes = memes.slice(0, DAILY_LIMIT);
-
-  // Save used
-  const MAX_HISTORY = 5000;
-  let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
-
-  if (updatedUsedUrls.length > MAX_HISTORY) {
-    updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
-  }
-
-  localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
-
-  console.log(`✅ Fresh memes fetched: ${memes.length}`);
+  await batchStore.put({ date: today, memeIds });
 
   return memes.map(m => ({
+    id: m.id,
     url: m.url,
     title: m.title || "meme"
   }));
 }
 
+/* ================= GET REMAINING + NEW ================= */
 
+async function getAllUnswipedMemes() {
+  const db = await openDB();
 
+  const tx = db.transaction(
+    ["daily_batches", "memes", "swipes"],
+    "readonly"
+  );
 
+  const batchStore = tx.objectStore("daily_batches");
+  const memeStore = tx.objectStore("memes");
+  const swipeStore = tx.objectStore("swipes");
 
-// async function fetchDailyMemes() {
-//   console.log("📦 Fetching memes from BOTH APIs...");
+  const allBatches = await batchStore.getAll();
+  const swiped = await swipeStore.getAll();
 
-//   try {
-//     /* ================= FETCH BOTH APIS IN PARALLEL ================= */
-//     const [scriptRes, localRes] = await Promise.all([
-//       fetch(`${API_BASE}?limit=${SCRIPT_API_LIMIT}&t=${Date.now()}`),
-//       fetch(LOCAL_API)
-//     ]);
+  const swipedIds = swiped.map(s => s.id);
 
-//     const scriptJson = await scriptRes.json();
-//     const localJson = await localRes.json();
+  let allIds = [];
+  allBatches.forEach(b => {
+    allIds.push(...b.memeIds);
+  });
 
-//     /* ================= FORMAT SCRIPT API ================= */
-//     let scriptMemes = scriptJson.data
-//       .filter(m => m.url && m.nsfw === false)
-//       .slice(0, SCRIPT_API_LIMIT)
-//       .map(m => ({
-//         url: m.url,
-//         title: m.title || "meme"
-//       }));
+  const remainingIds = allIds.filter(id => !swipedIds.includes(id));
 
-//     /* ================= FORMAT LOCAL API ================= */
-//     // assuming your backend returns List<String> (urls only)
-//     let localMemes = localJson
-//       .slice(0, LOCAL_API_LIMIT)
-//       .map(url => ({
-//         url: url,
-//         title: "meme"
-//       }));
+  const memes = [];
 
-//     /* ================= MERGE BOTH ================= */
-//     let memes = [...scriptMemes, ...localMemes];
+  for (let id of remainingIds) {
+    const meme = await memeStore.get(id);
+    if (meme) memes.push(meme);
+  }
 
-//     /* ================= REMOVE DUPLICATES ================= */
-//     const uniqueMap = new Map();
-//     memes.forEach(m => uniqueMap.set(m.url, m));
-//     memes = Array.from(uniqueMap.values());
+  memes.sort(() => Math.random() - 0.5);
 
-//     /* ================= REMOVE PREVIOUSLY USED ================= */
-//     const usedUrls = JSON.parse(localStorage.getItem(USED_MEMES_KEY) || "[]");
-//     memes = memes.filter(m => !usedUrls.includes(m.url));
-
-//     /* ================= SHUFFLE ================= */
-//     memes.sort(() => Math.random() - 0.5);
-
-//     /* ================= FINAL DAILY LIMIT ================= */
-//     memes = memes.slice(0, DAILY_LIMIT);
-
-//     /* ================= SAVE USED URLS ================= */
-//     const MAX_HISTORY = 5000;
-//     let updatedUsedUrls = [...usedUrls, ...memes.map(m => m.url)];
-
-//     if (updatedUsedUrls.length > MAX_HISTORY) {
-//       updatedUsedUrls = updatedUsedUrls.slice(-MAX_HISTORY);
-//     }
-
-//     localStorage.setItem(USED_MEMES_KEY, JSON.stringify(updatedUsedUrls));
-
-//     console.log(`✅ Total fresh memes loaded: ${memes.length}`);
-
-//     return memes;
-
-//   } catch (error) {
-//     console.error("❌ Error fetching memes:", error);
-//     return [];
-//   }
-// }
-
-
-
+  return memes;
+}
 
 /* ================= IMAGE PRELOAD ================= */
+
 function preloadImages(memes) {
   return Promise.allSettled(
     memes.map(meme => new Promise(resolve => {
@@ -628,19 +623,15 @@ function preloadImages(memes) {
       img.onload = () => resolve({ ...meme, img });
       img.onerror = () => resolve(null);
     }))
-  ).then(results => results.filter(r => r.status==="fulfilled" && r.value).map(r => r.value));
-}
-
-/* ================= STORAGE ================= */
-function getStoredData() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEYs) || "null");
-}
-
-function setStoredData(data) {
-  localStorage.setItem(STORAGE_KEYs, JSON.stringify(data));
+  ).then(results =>
+    results
+      .filter(r => r.status === "fulfilled" && r.value)
+      .map(r => r.value)
+  );
 }
 
 /* ================= MIDNIGHT COUNTDOWN ================= */
+
 function startMidnightCountdown() {
   const counterEl = document.getElementById("midnightCounter");
   if (!counterEl) return;
@@ -650,7 +641,7 @@ function startMidnightCountdown() {
   function updateCounter() {
     const now = new Date();
     const midnight = new Date();
-    midnight.setHours(24,0,0,0);
+    midnight.setHours(24, 0, 0, 0);
     const diff = midnight - now;
 
     if (diff <= 0) {
@@ -659,9 +650,9 @@ function startMidnightCountdown() {
       return;
     }
 
-    const hrs = Math.floor(diff / (1000*60*60));
-    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
-    const secs = Math.floor((diff % (1000*60)) / 1000);
+    const hrs = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
     counterEl.textContent = `Next memes in: ${hrs}h ${mins}m ${secs}s`;
   }
@@ -671,6 +662,7 @@ function startMidnightCountdown() {
 }
 
 /* ================= RENDER ================= */
+
 function renderQuotaCard() {
   const memeBox = document.querySelector(".memeBox");
   memeBox.innerHTML = "";
@@ -704,7 +696,8 @@ function renderNextChunk() {
     card.className = "meme-card";
     card.style.zIndex = loadedMemes.length - (start + i);
 
-    if (start === currentIndexs && i === 0) card.classList.add("active");
+    if (start === currentIndexs && i === 0)
+      card.classList.add("active");
 
     meme.img.alt = meme.title;
     card.appendChild(meme.img);
@@ -726,101 +719,53 @@ function renderInitial() {
   renderNextChunk();
 }
 
-/* ================= SWIPE PROGRESS ================= */
-function onMemeSwiped() {
-  const data = getStoredData();
-  if (!data) return;
+/* ================= SWIPE ================= */
 
-  data.index += 1;
-  setStoredData(data);
+async function onMemeSwiped() {
+  const currentMeme = loadedMemes[currentIndexs];
+  if (!currentMeme) return;
 
-  currentIndexs = data.index;
+  const db = await openDB();
+  const tx = db.transaction("swipes", "readwrite");
+  tx.objectStore("swipes").put({ id: currentMeme.id });
+
+  currentIndexs++;
 
   if (currentIndexs >= loadedMemes.length) {
     renderQuotaCard();
     return;
   }
 
-  if (currentIndexs % RENDER_CHUNK_SIZE === 0) renderNextChunk();
+  if (currentIndexs % RENDER_CHUNK_SIZE === 0) {
+    renderNextChunk();
+  }
 }
 
 /* ================= INIT ================= */
-// async function initDailyMemes() {
-//   const memeBox = document.querySelector(".memeBox");
-//   createLoader(memeBox);
-
-//   const today = getTodayKey();
-//   let storedData = getStoredData();
-
-//   if (!storedData || storedData.date !== today) {
-//     console.log("🆕 New day → fetching memes");
-
-//     const memes = await fetchDailyMemes();
-//     loadedMemes = await preloadImages(memes);
-
-//     storedData = {
-//       date: today,
-//       memes: loadedMemes.map(m => ({ url: m.url, title: m.title })),
-//       index: 0
-//     };
-
-//     setStoredData(storedData);
-//     currentIndexs = 0;
-//   } else {
-//     console.log("♻️ Loading memes from sessionStorage");
-//     currentIndexs = storedData.index;
-//     loadedMemes = await preloadImages(storedData.memes);
-//   }
-
-//   renderInitial();
-//   removeLoader(memeBox);
-// }
-
-
 
 async function initDailyMemes() {
   const memeBox = document.querySelector(".memeBox");
+  createLoader(memeBox);
 
   const today = getTodayKey();
-  let storedData = getStoredData();
 
-  if (!storedData || storedData.date !== today) {
-    // 🆕 New day → fetch memes
-    createLoader(memeBox);
+  const db = await openDB();
+  const tx = db.transaction("daily_batches", "readonly");
+  const batchStore = tx.objectStore("daily_batches");
 
-    console.log("🆕 New day → fetching memes");
-    const memes = await fetchDailyMemes();
-    loadedMemes = await preloadImages(memes);
+  const todayBatch = await batchStore.get(today);
 
-    storedData = {
-      date: today,
-      memes: loadedMemes.map(m => ({ url: m.url, title: m.title })),
-      index: 0
-    };
-
-    setStoredData(storedData);
-    currentIndexs = 0;
-
-    renderInitial();
-    removeLoader(memeBox);
-  } else {
-    // ♻️ Already have data in sessionStorage
-    console.log("♻️ Loading memes from sessionStorage");
-
-    currentIndexs = storedData.index;
-
-    // Preload only if images are not yet preloaded
-    if (!loadedMemes.length) {
-      loadedMemes = storedData.memes.map(m => {
-        const img = new Image();
-        img.src = m.url;
-        img.alt = m.title;
-        return { ...m, img };
-      });
-    }
-
-    renderInitial(); // Render immediately without loader
+  if (!todayBatch) {
+    await fetchDailyMemes();
   }
+
+  const memes = await getAllUnswipedMemes();
+  loadedMemes = await preloadImages(memes);
+
+  currentIndexs = 0;
+
+  renderInitial();
+  removeLoader(memeBox);
 }
 
 window.addEventListener("load", initDailyMemes);
