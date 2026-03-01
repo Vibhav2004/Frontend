@@ -14,7 +14,7 @@
   //   document.getElementById("instructionPopup").style.display = "none";
   // }
 
-    console.log(this.localStorage);
+    // console.log(this.localStorage);
     
      fetch(API.getProfile(usernamess), 
  {
@@ -25,11 +25,11 @@
     })
     .then(response => response.json())
     .then(data => {
-    console.log(data);
+    // console.log(data);
   let swipe2= data.swipes;
 let streak2=data.streak;
-    console.log(swipe2);
-    console.log("OMG",data.username);
+    // console.log(swipe2);
+    // console.log("OMG",data.username);
     let guestUser=localStorage.getItem("guestUser");
     // document.getElementById("swipe").innerText=`Swipes : ${swipe2}`;
     document.getElementById("streak").innerText=`${streak2 ||0}🔥`;

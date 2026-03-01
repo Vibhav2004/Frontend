@@ -1,11 +1,11 @@
 function saveProfilePic() {
-    console.log("hi vibhav this side ");
+    // console.log("hi vibhav this side ");
     
   document.querySelectorAll('.dropdown-menu img').forEach(img => {
     img.addEventListener('click', () => {
       // Get filename only (e.g. headShock2.png)
       const fileName = img.src.split('/').pop();
-console.log(fileName);
+// console.log(fileName);
 
       // Optional: get display name
       const useR = localStorage.getItem("username");
@@ -22,9 +22,10 @@ console.log(fileName);
       })
       .then(res => res.json())
       .then(data => {
-        console.log('Saved:', data);
+        // console.log('Saved:', data);
       })
       .catch(err => {
+        window.location.href="/pages/error.html"; 
         console.error('Error:', err);
       });
     });

@@ -28,6 +28,7 @@
     })
     .catch(err => {
       console.error(err);
+      window.location.href="/pages/error.html"; 
       alert("User not found");
     });
 }
@@ -44,6 +45,7 @@ function checkFriendshipStatus(myUsername, otherUsername) {
         addBtn.textContent = "Add Friend";
       }
     })
-    .catch(err => console.error("Error checking friendship:", err));
+      
+    .catch(err =>{window.location.href="/pages/error.html";  console.error("Error checking friendship:", err)});
 }
 

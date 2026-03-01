@@ -285,4 +285,9 @@
     body{
         overflow-y: hidden;
     }
+
+    .share{
+        width: 30px;
+        margin-left: -10px;
+    }
 }

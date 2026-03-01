@@ -16,11 +16,12 @@ function postUserData(el) {
       return res.json();
   })
   .then(response => {
-      console.log("Server response:", response);
+    //   console.log("Server response:", response);
       el.classList.add("added");
       el.textContent = "Friends";
   })
   .catch(err => {
+    window.location.href="/pages/error.html"; 
       console.error("POST error:", err);
       alert("Failed to add friend");
   });
