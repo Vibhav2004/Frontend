@@ -2,18 +2,628 @@
 
 
 
+// /* =====================================================
+//    DAILY SWIPE - MERGED (MEME FETCH + SWIPE LOGIC)
+// ===================================================== */
+
+// /* ================= CONFIG ================= */
+
+// const BACKEND_API = "https://backend2-kpkg.onrender.com/daily-memes";
+// const STORAGE_KEYs = "dailyMemeData";
+
+// const DAILY_LIMIT = 300;
+// const RENDER_CHUNK_SIZE = 50;
+// // let userType=localStorage.getItem("username") 
+// /* ================= STATE ================= */
+// let loadedMemes = [];
+// let currentIndexs = 0;
+// let midnightTimer;
+// let swipeEnabled = false;
+
+// /* SWIPE STATE */
+// let currentIndex = 0;
+// let startX = 0;
+// let currentCard = null;
+// let keyLocked = false;
+
+// const RIGHT_STREAK_KEY = "rightSwipesForStreak";
+// let rightSwipesForStreak = Number(localStorage.getItem(RIGHT_STREAK_KEY)) || 0;
+// const RIGHT_SWIPE_SCORE_KEY = "rightSwipesForScore";
+// let rightSwipesForScore =
+//   Number(localStorage.getItem(RIGHT_SWIPE_SCORE_KEY)) || 0;
+
+// const API_SWIPE_STORAGE_KEY = "totalSwipesForAPI";
+// let totalSwipesForAPI =
+//   Number(localStorage.getItem(API_SWIPE_STORAGE_KEY)) || 0;
+// let streakIncrement = 0;
+
+// const STREAK_RIGHT_TARGET = 50;
+// const API_SWIPE_TARGET = 50;
+
+// /* USER */
+// const username = localStorage.getItem("username");
+
+// /* SWIPE COUNT UI */
+// const swipeBox = document.getElementById("swipe");
+// const STORAGE_KEY = "swipeCount";
+// let swipeCount = Number(localStorage.getItem(STORAGE_KEY)) || 0;
+// updateSwipeUI();
+
+// /* ================= DATE ================= */
+// function getTodayKey() {
+//   return new Date().toISOString().split("T")[0];
+// }
+
+
+
+// function popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username) {
+
+//   // STORE guest data
+//   localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+//   localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+//   localStorage.setItem("GuestStreakIncrement", streakIncrement);
+//   localStorage.setItem("guestTask", username);
+
+//   // READ guest data into popup
+//   document.getElementById("snapUsername").innerText =
+//     localStorage.getItem("guestTask");
+
+//   document.getElementById("snapScore").innerText =
+//     rightSwipesForScore * 3 + streakIncrement * 5;
+
+//   document.getElementById("snapSwipes").innerText =
+//     localStorage.getItem("GuestRightSwipes");
+
+//   document.getElementById("snapStreak").innerText =
+//     "🔥 " + localStorage.getItem("GuestStreakIncrement");
+
+//   // SHOW popup
+//   document.getElementById("snapshotOverlay").style.display = "flex";
+  
+//   // console.log(JSON.stringify(localStorage));
+
+// }
+// /* ================= STORAGE ================= */
+// function getStoredData() {
+//   return JSON.parse(localStorage.getItem(STORAGE_KEYs) || "null");
+// }
+
+// function setStoredData(data) {
+//   localStorage.setItem(STORAGE_KEYs, JSON.stringify(data));
+// }
+
+// /* ================= SWIPE UI COUNTER ================= */
+// function incrementSwipe() {
+//   swipeCount++;
+
+//   if (swipeCount > 300) swipeCount = 0;
+
+//   localStorage.setItem(STORAGE_KEY, swipeCount);
+//   updateSwipeUI();
+// }
+
+// function updateSwipeUI() {
+//   if (swipeBox) swipeBox.textContent = `Swipes:${swipeCount}`;
+// }
+
+// /* ================= ENABLE / DISABLE SWIPE ================= */
+// function enableSwipe() {
+//   swipeEnabled = true;
+//   document.body.classList.add("swipe-enabled");
+
+//   currentCard = document.querySelector(".meme-card.active");
+//   if (!currentCard) return;
+
+//   currentCard.addEventListener("touchstart", startSwipe);
+//   currentCard.addEventListener("touchmove", moveSwipe);
+//   currentCard.addEventListener("touchend", endSwipe);
+
+//   currentCard.addEventListener("mousedown", startSwipe);
+// }
+
+// function disableSwipe() {
+//   swipeEnabled = false;
+//   document.body.classList.remove("swipe-enabled");
+
+//   if (!currentCard) return;
+
+//   currentCard.removeEventListener("touchstart", startSwipe);
+//   currentCard.removeEventListener("touchmove", moveSwipe);
+//   currentCard.removeEventListener("touchend", endSwipe);
+
+//   currentCard.removeEventListener("mousedown", startSwipe);
+//   document.removeEventListener("mousemove", moveSwipe);
+//   document.removeEventListener("mouseup", endSwipe);
+
+//   currentCard.style.transform = "";
+//   currentCard.style.pointerEvents = "none";
+//   keyLocked = true;
+// }
+
+// /* ================= FETCH MEMES ================= */
+// async function fetchDailyMemes() {
+//   try {
+//     const res = await fetch(`${BACKEND_API}?username=${username}`);
+//     if (!res.ok) return [];
+//     const urls = await res.json();
+//     return urls.map(url => ({ url, title: "meme" }));
+//     // Map to include title and author
+//     // return memes.map(m => ({
+//     //   url: m.url,
+//     //   title: m.title || "No Title",
+//     //   author: m.posted_by || "Anonymous"
+//     // }));
+//   } catch {
+//     window.location.href="/pages/error.html"; 
+//     return [];
+//   }
+// }
+// // async function fetchDailyMemes(username) {
+// //   try {
+// //     const res = await fetch(`${BACKEND_API}?username=${username}`);
+// //     if (!res.ok) return [];
+// //     const urls = await res.json();
+
+// //     console.log("Fetched memes for:", username);
+// // console.log("API RESPONSE:", data);
+// //     return urls.map(url => ({ url, title: "meme" }));
+   
+// //   } catch {
+// //     return [];
+// //   }
+// // }
+
+// /* ================= PRELOAD IMAGES ================= */
+// function preloadImages(memes) {
+//   return Promise.all(
+//     memes.map(m =>
+//       new Promise(resolve => {
+//         const img = new Image();
+//         img.src = m.url;
+//         img.onload = () => resolve({ ...m, img });
+//         img.onerror = () => resolve(null);
+//       })
+//     )
+//   ).then(results => results.filter(Boolean));
+// }
+
+// /* ================= LOADER ================= */
+// function createLoader(container) {
+//   if (container.querySelector(".meme-loader")) return;
+
+//   const loader = document.createElement("div");
+//   loader.className = "meme-loader";
+//   loader.innerHTML = `
+//     <div class="spinner"></div>
+//     <p>Loading memes...</p>
+//   `;
+//   container.appendChild(loader);
+// }
+
+// function removeLoader(container) {
+//   const loader = container.querySelector(".meme-loader");
+//   if (loader) loader.remove();
+// }
+
+// /* ================= MIDNIGHT COUNTDOWN ================= */
+// function startMidnightCountdown() {
+//   const counterEl = document.getElementById("midnightCounter");
+//   if (!counterEl) return;
+
+//   if (midnightTimer) clearInterval(midnightTimer);
+
+//   function updateCounter() {
+//     const now = new Date();
+//     const midnight = new Date();
+//     midnight.setHours(24, 0, 0, 0);
+
+//     const diff = midnight - now;
+//     if (diff <= 0) {
+//       counterEl.textContent = "New memes available!";
+//       clearInterval(midnightTimer);
+//        // ✅ Reset quota for new day
+     
+//       // Re-init memes for new day
+//       initDailyMemes();
+//       return;
+//     }
+
+//     const hrs = Math.floor(diff / 3600000);
+//     const mins = Math.floor((diff % 3600000) / 60000);
+//     const secs = Math.floor((diff % 60000) / 1000);
+
+//     counterEl.textContent = `Next memes in: ${hrs}h ${mins}m ${secs}s`;
+//   }
+
+//   updateCounter();
+//   midnightTimer = setInterval(updateCounter, 1000);
+// }
+
+// /* ================= RENDER QUOTA CARD ================= */
+// function renderQuotaCard() {
+//   const memeBox = document.querySelector(".memeBox");
+//   memeBox.innerHTML = "";
+
+//   const card = document.createElement("div");
+//   card.className = "meme-card quota-card active";
+//   card.innerHTML = `
+//     <h2>🎉 Daily Quota Completed</h2>
+//     <p>Come back tomorrow for fresh memes</p>
+//     <p id="midnightCounter" style="font-weight:bold;"></p>
+//   `;
+
+//   memeBox.appendChild(card);
+//   startMidnightCountdown();
+//   disableSwipe();
+ 
+ 
+// }
+
+// /* ================= RENDER MEMES ================= */
+// function renderNextChunk() {
+//   const memeBox = document.querySelector(".memeBox");
+
+//   if (currentIndexs >= loadedMemes.length) {
+//     renderQuotaCard();
+//     return;
+//   }
+
+//   const start = currentIndexs;
+//   const end = Math.min(start + RENDER_CHUNK_SIZE, loadedMemes.length);
+
+//   loadedMemes.slice(start, end).forEach((meme, i) => {
+//     const card = document.createElement("div");
+//     card.className = "meme-card";
+//     card.style.zIndex = loadedMemes.length - (start + i);
+
+//     if (start === currentIndexs && i === 0) {
+//       card.classList.add("active");
+//     }
+
+//     meme.img.alt = meme.title;
+//     card.appendChild(meme.img);
+//     memeBox.appendChild(card);
+//   });
+// }
+// // function renderNextChunk() {
+// //   const memeBox = document.querySelector(".memeBox");
+// //   if (currentIndexs >= loadedMemes.length) {
+// //     renderQuotaCard();
+// //     return;
+// //   }
+
+// //   const start = currentIndexs;
+// //   const end = Math.min(start + RENDER_CHUNK_SIZE, loadedMemes.length);
+
+// //   loadedMemes.slice(start, end).forEach((meme, i) => {
+// //     const card = document.createElement("div");
+// //     card.className = "meme-card";
+// //     card.style.zIndex = loadedMemes.length - (start + i);
+
+// //     if (start === currentIndexs && i === 0) {
+// //       card.classList.add("active");
+// //     }
+// // console.log(meme);
+
+// //     // append image
+// //     card.appendChild(meme.img);
+
+// //     // create info container
+// //     const infoDiv = document.createElement("div");
+// //     infoDiv.className = "meme-info";
+// //     infoDiv.innerHTML = `
+// //       <h3 class="meme-title">${meme.title}</h3>
+// //       <p class="meme-author">by ${meme.author}</p>
+// //     `;
+
+// //     card.appendChild(infoDiv);
+// //     memeBox.appendChild(card);
+// //   });
+// // }
+
+// function renderInitial() {
+//   const memeBox = document.querySelector(".memeBox");
+//   memeBox.innerHTML = "";
+
+//   if (currentIndexs >= loadedMemes.length) {
+//     renderQuotaCard();
+//     return;
+//   }
+
+//   renderNextChunk();
+//   enableSwipe();
+// }
+
+// /* ================= SWIPE PROGRESS ================= */
+// function onMemeSwiped() {
+//   if (!swipeEnabled) return;
+
+//   const data = getStoredData();
+//   if (!data) return;
+
+//   data.index += 1;
+//   setStoredData(data);
+//   currentIndexs = data.index;
+
+//   if (currentIndexs >= loadedMemes.length) {
+//     renderQuotaCard();
+//     disableSwipe();
+//     return;
+//   }
+
+//   if (currentIndexs % RENDER_CHUNK_SIZE === 0) {
+//     renderNextChunk();
+//     setTimeout(enableSwipe, 50);
+//   }
+// }
+
+// /* ================= SWIPE HANDLERS ================= */
+// function startSwipe(e) {
+//   startX = e.touches ? e.touches[0].clientX : e.clientX;
+//   document.addEventListener("mousemove", moveSwipe);
+//   document.addEventListener("mouseup", endSwipe);
+// }
+
+// function moveSwipe(e) {
+//   const x = e.touches ? e.touches[0].clientX : e.clientX;
+//   const deltaX = x - startX;
+//   currentCard.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.05}deg)`;
+// }
+
+// function endSwipe(e) {
+//   const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+//   const deltaX = endX - startX;
+//   const threshold = 120;
+
+//   document.removeEventListener("mousemove", moveSwipe);
+//   document.removeEventListener("mouseup", endSwipe);
+
+//   if (deltaX > threshold) swipe("right");
+//   else if (deltaX < -threshold) swipe("left");
+//   else currentCard.style.transform = "";
+// }
+
+// /* ================= STREAK CHECK ================= */
+// function canIncreaseStreak() {
+//   const lastTimestamp = localStorage.getItem("lastStreakTime");
+//   if (!lastTimestamp) return true;
+
+//   return Date.now() - Number(lastTimestamp) >= 24 * 60 * 60 * 1000;
+// }
+
+// /* ================= STREAK POPUP ================= */
+// // function showStreakPopup() {
+// //   const popup = document.getElementById("streakPopup");
+// //   if (!popup) return;
+// //   popup.style.display = "flex";
+// //   setTimeout(() => (popup.style.display = "none"), 2000);
+// // }
+// function showStreakPopup(streakDays) {
+//   const popup = document.getElementById("streakPopup");
+//   if (!popup) return;
+
+//   popup.style.display = "flex";
+
+//   const weeks = document.querySelectorAll(".week");
+//   const completedWeeks = Math.floor(streakDays / 7);
+//   const leftoverDays = streakDays % 7;
+
+//   weeks.forEach((week, index) => {
+//     const fill = week.querySelector(".fill");
+//     fill.style.width = "0%"; // reset
+
+//     if (index < completedWeeks) {
+//       // Fully complete week
+//       setTimeout(() => (fill.style.width = "100%"), index * 150);
+//     } else if (index === completedWeeks) {
+//       // Partial fill for current week
+//       const percent = (leftoverDays / 7) * 100;
+//       setTimeout(() => (fill.style.width = percent + "%"), index * 150);
+//     }
+//   });
+
+//   document.getElementById("streakCount").innerText = `🔥 ${streakDays} Days`;
+
+//   // Auto-close after 2s
+//   setTimeout(() => (popup.style.display = "none"), 2000);
+// }
+// /* ================= SWIPE ACTION ================= */
+// function swipe(direction) {
+//   const heart = document.querySelector(".swipe-reaction.heart");
+//   const cross = document.querySelector(".swipe-reaction.cross");
+
+//   incrementSwipe();
+  
+//   totalSwipesForAPI++;
+//   localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
+
+//   if (direction === "right") {
+//     rightSwipesForScore++;
+//     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
+    
+// rightSwipesForStreak++;
+//     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+//     heart?.classList.add("show");
+//     setTimeout(() => heart?.classList.remove("show"), 300);
+
+//     if (rightSwipesForStreak >= STREAK_RIGHT_TARGET && canIncreaseStreak()) {
+//       streakIncrement++;
+//       localStorage.setItem("lastStreakTime", Date.now());
+//        rightSwipesForStreak = 0;
+//         localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+//       showStreakPopup();
+//     }
+//   } else {
+//     cross?.classList.add("show");
+//     setTimeout(() => cross?.classList.remove("show"), 300);
+//   }
+
+//   if (totalSwipesForAPI >= API_SWIPE_TARGET) {
+//     updateBackend();
+//   }
+
+//   currentCard.classList.add(direction === "right" ? "swipe-right" : "swipe-left");
+
+//   setTimeout(() => {
+//     currentCard.classList.remove("active");
+//     onMemeSwiped();
+
+//     currentIndex++;
+//     const next = document.querySelectorAll(".meme-card")[currentIndex];
+//     if (next) {
+//       next.classList.add("active");
+//       enableSwipe();
+//     }
+//   }, 300);
+// }
+
+// /* ================= BACKEND UPDATE ================= */
+// // async function updateBackend() {
+
+// //   const payload = {
+// //     username,
+// //     totalSwipes: totalSwipesForAPI,
+// //     swipes: rightSwipesForScore,
+// //     streak: rightSwipesForStreak,
+    
+// //   };
+
+// //   try {
+// //     const response = await fetch(API.updateUser(), {
+// //       method: "POST",
+// //       headers: { "Content-Type": "application/json" },
+// //       body: JSON.stringify(payload),
+// //     });
+
+// //     if (!response.ok) throw new Error("Backend error");
+
+// //     streakIncrement = 0;
+   
+// //     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+// // totalSwipesForAPI = 0;
+// // localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
+// //     rightSwipesForScore = 0;
+// //     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
+// //   } catch {
+// //     disableSwipe();
+// //     localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+// //     localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+// //     localStorage.setItem("GuestStreakIncrement", streakIncrement);
+// //     popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username);
+// //   }
+// // }
+// async function updateBackend() {
+//   const payload = {
+//     username,
+//     totalSwipes: totalSwipesForAPI,
+//     swipes: rightSwipesForScore,  // only session swipes
+//     streak: rightSwipesForStreak,
+//   };
+
+//   try {
+//     const response = await fetch(API.updateUser(), {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(payload),
+//     });
+
+//     if (!response.ok) throw new Error("Backend error");
+
+//     streakIncrement = 0;
+
+//     // Merge session swipes into localStorage so next session starts from DB total
+//     rightSwipesForScore = 0;  // reset session swipes
+//     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
+
+//     totalSwipesForAPI = 0;
+//     localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
+
+//     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+
+//   } catch {
+//     disableSwipe();
+//     localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+//     localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+//     localStorage.setItem("GuestStreakIncrement", streakIncrement);
+//     popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username);
+//   }
+// }
+
+// /* ================= INIT ================= */
+// async function initDailyMemes() {
+//   rightSwipesForStreak = Number(localStorage.getItem(RIGHT_STREAK_KEY)) || 0;
+//   const memeBox = document.querySelector(".memeBox");
+//   const today = getTodayKey();
+  
+ 
+//   let storedData = getStoredData();
+
+//   if (!storedData || storedData.date !== today) {
+//     createLoader(memeBox);
+
+//     const memes = await fetchDailyMemes(username);
+//     loadedMemes = await preloadImages(memes);
+
+//     storedData = {
+//       date: today,
+//       memes: loadedMemes.map(m => ({ url: m.url, title: m.title })),
+//       index: 0,
+//     };
+
+//     setStoredData(storedData);
+//     currentIndexs = 0;
+
+//     renderInitial();
+//     removeLoader(memeBox);
+
+//     setTimeout(enableSwipe, 100);
+//   } else {
+//     currentIndexs = storedData.index;
+
+//     loadedMemes = storedData.memes.map(m => {
+//       const img = new Image();
+//       img.src = m.url;
+//       img.alt = m.title;
+//       return { ...m, img };
+//     });
+
+//     renderInitial();
+//   }
+// }
+// /* ================= KEYBOARD SWIPE ================= */
+// document.addEventListener("keydown", (e) => {
+//   if (keyLocked) return;
+//   if (!currentCard) return;
+
+//   if (e.key === "ArrowRight") {
+//     keyLocked = true;
+//     swipe("right");
+//   }
+
+//   if (e.key === "ArrowLeft") {
+//     keyLocked = true;
+//     swipe("left");
+//   }
+// });
+
+// /* unlock on key release (so next swipe works) */
+// document.addEventListener("keyup", () => {
+//   keyLocked = false;
+// });
+// window.addEventListener("load", initDailyMemes);
+
 /* =====================================================
    DAILY SWIPE - MERGED (MEME FETCH + SWIPE LOGIC)
+   FULLY OPTIMIZED FOR FAST RENDERING
 ===================================================== */
 
 /* ================= CONFIG ================= */
-
 const BACKEND_API = "https://backend2-kpkg.onrender.com/daily-memes";
 const STORAGE_KEYs = "dailyMemeData";
 
 const DAILY_LIMIT = 300;
 const RENDER_CHUNK_SIZE = 50;
-// let userType=localStorage.getItem("username") 
+
 /* ================= STATE ================= */
 let loadedMemes = [];
 let currentIndexs = 0;
@@ -29,12 +639,10 @@ let keyLocked = false;
 const RIGHT_STREAK_KEY = "rightSwipesForStreak";
 let rightSwipesForStreak = Number(localStorage.getItem(RIGHT_STREAK_KEY)) || 0;
 const RIGHT_SWIPE_SCORE_KEY = "rightSwipesForScore";
-let rightSwipesForScore =
-  Number(localStorage.getItem(RIGHT_SWIPE_SCORE_KEY)) || 0;
+let rightSwipesForScore = Number(localStorage.getItem(RIGHT_SWIPE_SCORE_KEY)) || 0;
 
 const API_SWIPE_STORAGE_KEY = "totalSwipesForAPI";
-let totalSwipesForAPI =
-  Number(localStorage.getItem(API_SWIPE_STORAGE_KEY)) || 0;
+let totalSwipesForAPI = Number(localStorage.getItem(API_SWIPE_STORAGE_KEY)) || 0;
 let streakIncrement = 0;
 
 const STREAK_RIGHT_TARGET = 50;
@@ -54,35 +662,21 @@ function getTodayKey() {
   return new Date().toISOString().split("T")[0];
 }
 
-
-
+/* ================= POPUP FOR GUEST ================= */
 function popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username) {
-
-  // STORE guest data
   localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
   localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
   localStorage.setItem("GuestStreakIncrement", streakIncrement);
   localStorage.setItem("guestTask", username);
 
-  // READ guest data into popup
-  document.getElementById("snapUsername").innerText =
-    localStorage.getItem("guestTask");
+  document.getElementById("snapUsername").innerText = localStorage.getItem("guestTask");
+  document.getElementById("snapScore").innerText = rightSwipesForScore * 3 + streakIncrement * 5;
+  document.getElementById("snapSwipes").innerText = localStorage.getItem("GuestRightSwipes");
+  document.getElementById("snapStreak").innerText = "🔥 " + localStorage.getItem("GuestStreakIncrement");
 
-  document.getElementById("snapScore").innerText =
-    rightSwipesForScore * 3 + streakIncrement * 5;
-
-  document.getElementById("snapSwipes").innerText =
-    localStorage.getItem("GuestRightSwipes");
-
-  document.getElementById("snapStreak").innerText =
-    "🔥 " + localStorage.getItem("GuestStreakIncrement");
-
-  // SHOW popup
   document.getElementById("snapshotOverlay").style.display = "flex";
-  
-  // console.log(JSON.stringify(localStorage));
-
 }
+
 /* ================= STORAGE ================= */
 function getStoredData() {
   return JSON.parse(localStorage.getItem(STORAGE_KEYs) || "null");
@@ -95,9 +689,7 @@ function setStoredData(data) {
 /* ================= SWIPE UI COUNTER ================= */
 function incrementSwipe() {
   swipeCount++;
-
   if (swipeCount > 300) swipeCount = 0;
-
   localStorage.setItem(STORAGE_KEY, swipeCount);
   updateSwipeUI();
 }
@@ -117,7 +709,6 @@ function enableSwipe() {
   currentCard.addEventListener("touchstart", startSwipe);
   currentCard.addEventListener("touchmove", moveSwipe);
   currentCard.addEventListener("touchend", endSwipe);
-
   currentCard.addEventListener("mousedown", startSwipe);
 }
 
@@ -130,7 +721,6 @@ function disableSwipe() {
   currentCard.removeEventListener("touchstart", startSwipe);
   currentCard.removeEventListener("touchmove", moveSwipe);
   currentCard.removeEventListener("touchend", endSwipe);
-
   currentCard.removeEventListener("mousedown", startSwipe);
   document.removeEventListener("mousemove", moveSwipe);
   document.removeEventListener("mouseup", endSwipe);
@@ -147,39 +737,20 @@ async function fetchDailyMemes() {
     if (!res.ok) return [];
     const urls = await res.json();
     return urls.map(url => ({ url, title: "meme" }));
-    // Map to include title and author
-    // return memes.map(m => ({
-    //   url: m.url,
-    //   title: m.title || "No Title",
-    //   author: m.posted_by || "Anonymous"
-    // }));
   } catch {
-    window.location.href="/pages/error.html"; 
+    window.location.href = "/pages/error.html";
     return [];
   }
 }
-// async function fetchDailyMemes(username) {
-//   try {
-//     const res = await fetch(`${BACKEND_API}?username=${username}`);
-//     if (!res.ok) return [];
-//     const urls = await res.json();
 
-//     console.log("Fetched memes for:", username);
-// console.log("API RESPONSE:", data);
-//     return urls.map(url => ({ url, title: "meme" }));
-   
-//   } catch {
-//     return [];
-//   }
-// }
-
-/* ================= PRELOAD IMAGES ================= */
+/* ================= PRELOAD IMAGES IN CHUNKS ================= */
 function preloadImages(memes) {
   return Promise.all(
     memes.map(m =>
       new Promise(resolve => {
         const img = new Image();
         img.src = m.url;
+        img.loading = "lazy";
         img.onload = () => resolve({ ...m, img });
         img.onerror = () => resolve(null);
       })
@@ -190,7 +761,6 @@ function preloadImages(memes) {
 /* ================= LOADER ================= */
 function createLoader(container) {
   if (container.querySelector(".meme-loader")) return;
-
   const loader = document.createElement("div");
   loader.className = "meme-loader";
   loader.innerHTML = `
@@ -221,9 +791,6 @@ function startMidnightCountdown() {
     if (diff <= 0) {
       counterEl.textContent = "New memes available!";
       clearInterval(midnightTimer);
-       // ✅ Reset quota for new day
-     
-      // Re-init memes for new day
       initDailyMemes();
       return;
     }
@@ -231,7 +798,6 @@ function startMidnightCountdown() {
     const hrs = Math.floor(diff / 3600000);
     const mins = Math.floor((diff % 3600000) / 60000);
     const secs = Math.floor((diff % 60000) / 1000);
-
     counterEl.textContent = `Next memes in: ${hrs}h ${mins}m ${secs}s`;
   }
 
@@ -255,14 +821,11 @@ function renderQuotaCard() {
   memeBox.appendChild(card);
   startMidnightCountdown();
   disableSwipe();
- 
- 
 }
 
-/* ================= RENDER MEMES ================= */
+/* ================= RENDER MEMES IN CHUNKS ================= */
 function renderNextChunk() {
   const memeBox = document.querySelector(".memeBox");
-
   if (currentIndexs >= loadedMemes.length) {
     renderQuotaCard();
     return;
@@ -271,55 +834,23 @@ function renderNextChunk() {
   const start = currentIndexs;
   const end = Math.min(start + RENDER_CHUNK_SIZE, loadedMemes.length);
 
+  const fragment = document.createDocumentFragment();
   loadedMemes.slice(start, end).forEach((meme, i) => {
     const card = document.createElement("div");
     card.className = "meme-card";
     card.style.zIndex = loadedMemes.length - (start + i);
-
-    if (start === currentIndexs && i === 0) {
-      card.classList.add("active");
-    }
-
+    if (start === currentIndexs && i === 0) card.classList.add("active");
     meme.img.alt = meme.title;
-    card.appendChild(meme.img);
-    memeBox.appendChild(card);
+    fragment.appendChild(card).appendChild(meme.img);
   });
+
+  memeBox.appendChild(fragment);
+
+  // Preload next chunk in background
+  if (end < loadedMemes.length) {
+    preloadImages(loadedMemes.slice(end, Math.min(end + RENDER_CHUNK_SIZE, loadedMemes.length)));
+  }
 }
-// function renderNextChunk() {
-//   const memeBox = document.querySelector(".memeBox");
-//   if (currentIndexs >= loadedMemes.length) {
-//     renderQuotaCard();
-//     return;
-//   }
-
-//   const start = currentIndexs;
-//   const end = Math.min(start + RENDER_CHUNK_SIZE, loadedMemes.length);
-
-//   loadedMemes.slice(start, end).forEach((meme, i) => {
-//     const card = document.createElement("div");
-//     card.className = "meme-card";
-//     card.style.zIndex = loadedMemes.length - (start + i);
-
-//     if (start === currentIndexs && i === 0) {
-//       card.classList.add("active");
-//     }
-// console.log(meme);
-
-//     // append image
-//     card.appendChild(meme.img);
-
-//     // create info container
-//     const infoDiv = document.createElement("div");
-//     infoDiv.className = "meme-info";
-//     infoDiv.innerHTML = `
-//       <h3 class="meme-title">${meme.title}</h3>
-//       <p class="meme-author">by ${meme.author}</p>
-//     `;
-
-//     card.appendChild(infoDiv);
-//     memeBox.appendChild(card);
-//   });
-// }
 
 function renderInitial() {
   const memeBox = document.querySelector(".memeBox");
@@ -357,7 +888,8 @@ function onMemeSwiped() {
   }
 }
 
-/* ================= SWIPE HANDLERS ================= */
+/* ================= SWIPE HANDLERS WITH rAF ================= */
+let animFrame;
 function startSwipe(e) {
   startX = e.touches ? e.touches[0].clientX : e.clientX;
   document.addEventListener("mousemove", moveSwipe);
@@ -367,7 +899,11 @@ function startSwipe(e) {
 function moveSwipe(e) {
   const x = e.touches ? e.touches[0].clientX : e.clientX;
   const deltaX = x - startX;
-  currentCard.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.05}deg)`;
+
+  cancelAnimationFrame(animFrame);
+  animFrame = requestAnimationFrame(() => {
+    if (currentCard) currentCard.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.05}deg)`;
+  });
 }
 
 function endSwipe(e) {
@@ -380,24 +916,17 @@ function endSwipe(e) {
 
   if (deltaX > threshold) swipe("right");
   else if (deltaX < -threshold) swipe("left");
-  else currentCard.style.transform = "";
+  else if (currentCard) currentCard.style.transform = "";
 }
 
 /* ================= STREAK CHECK ================= */
 function canIncreaseStreak() {
   const lastTimestamp = localStorage.getItem("lastStreakTime");
   if (!lastTimestamp) return true;
-
   return Date.now() - Number(lastTimestamp) >= 24 * 60 * 60 * 1000;
 }
 
 /* ================= STREAK POPUP ================= */
-// function showStreakPopup() {
-//   const popup = document.getElementById("streakPopup");
-//   if (!popup) return;
-//   popup.style.display = "flex";
-//   setTimeout(() => (popup.style.display = "none"), 2000);
-// }
 function showStreakPopup(streakDays) {
   const popup = document.getElementById("streakPopup");
   if (!popup) return;
@@ -410,47 +939,44 @@ function showStreakPopup(streakDays) {
 
   weeks.forEach((week, index) => {
     const fill = week.querySelector(".fill");
-    fill.style.width = "0%"; // reset
+    fill.style.width = "0%";
 
     if (index < completedWeeks) {
-      // Fully complete week
       setTimeout(() => (fill.style.width = "100%"), index * 150);
     } else if (index === completedWeeks) {
-      // Partial fill for current week
       const percent = (leftoverDays / 7) * 100;
       setTimeout(() => (fill.style.width = percent + "%"), index * 150);
     }
   });
 
   document.getElementById("streakCount").innerText = `🔥 ${streakDays} Days`;
-
-  // Auto-close after 2s
   setTimeout(() => (popup.style.display = "none"), 2000);
 }
+
 /* ================= SWIPE ACTION ================= */
 function swipe(direction) {
   const heart = document.querySelector(".swipe-reaction.heart");
   const cross = document.querySelector(".swipe-reaction.cross");
 
   incrementSwipe();
-  
   totalSwipesForAPI++;
   localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
 
   if (direction === "right") {
     rightSwipesForScore++;
     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
-    
-rightSwipesForStreak++;
+
+    rightSwipesForStreak++;
     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+
     heart?.classList.add("show");
     setTimeout(() => heart?.classList.remove("show"), 300);
 
     if (rightSwipesForStreak >= STREAK_RIGHT_TARGET && canIncreaseStreak()) {
       streakIncrement++;
       localStorage.setItem("lastStreakTime", Date.now());
-       rightSwipesForStreak = 0;
-        localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+      rightSwipesForStreak = 0;
+      localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
       showStreakPopup();
     }
   } else {
@@ -458,14 +984,12 @@ rightSwipesForStreak++;
     setTimeout(() => cross?.classList.remove("show"), 300);
   }
 
-  if (totalSwipesForAPI >= API_SWIPE_TARGET) {
-    updateBackend();
-  }
+  if (totalSwipesForAPI >= API_SWIPE_TARGET) updateBackend();
 
-  currentCard.classList.add(direction === "right" ? "swipe-right" : "swipe-left");
+  if (currentCard) currentCard.classList.add(direction === "right" ? "swipe-right" : "swipe-left");
 
   setTimeout(() => {
-    currentCard.classList.remove("active");
+    if (currentCard) currentCard.classList.remove("active");
     onMemeSwiped();
 
     currentIndex++;
@@ -478,45 +1002,11 @@ rightSwipesForStreak++;
 }
 
 /* ================= BACKEND UPDATE ================= */
-// async function updateBackend() {
-
-//   const payload = {
-//     username,
-//     totalSwipes: totalSwipesForAPI,
-//     swipes: rightSwipesForScore,
-//     streak: rightSwipesForStreak,
-    
-//   };
-
-//   try {
-//     const response = await fetch(API.updateUser(), {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(payload),
-//     });
-
-//     if (!response.ok) throw new Error("Backend error");
-
-//     streakIncrement = 0;
-   
-//     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
-// totalSwipesForAPI = 0;
-// localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
-//     rightSwipesForScore = 0;
-//     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
-//   } catch {
-//     disableSwipe();
-//     localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
-//     localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
-//     localStorage.setItem("GuestStreakIncrement", streakIncrement);
-//     popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username);
-//   }
-// }
 async function updateBackend() {
   const payload = {
     username,
     totalSwipes: totalSwipesForAPI,
-    swipes: rightSwipesForScore,  // only session swipes
+    swipes: rightSwipesForScore,
     streak: rightSwipesForStreak,
   };
 
@@ -530,16 +1020,11 @@ async function updateBackend() {
     if (!response.ok) throw new Error("Backend error");
 
     streakIncrement = 0;
-
-    // Merge session swipes into localStorage so next session starts from DB total
-    rightSwipesForScore = 0;  // reset session swipes
+    rightSwipesForScore = 0;
     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
-
     totalSwipesForAPI = 0;
     localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
-
     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
-
   } catch {
     disableSwipe();
     localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
@@ -549,20 +1034,24 @@ async function updateBackend() {
   }
 }
 
-/* ================= INIT ================= */
+/* ================= INIT DAILY MEMES ================= */
 async function initDailyMemes() {
   rightSwipesForStreak = Number(localStorage.getItem(RIGHT_STREAK_KEY)) || 0;
   const memeBox = document.querySelector(".memeBox");
   const today = getTodayKey();
-  
- 
+
   let storedData = getStoredData();
 
   if (!storedData || storedData.date !== today) {
     createLoader(memeBox);
 
     const memes = await fetchDailyMemes(username);
-    loadedMemes = await preloadImages(memes);
+
+    // Preload only first chunk immediately
+    loadedMemes = await preloadImages(memes.slice(0, RENDER_CHUNK_SIZE));
+    // Keep rest for lazy preload
+    const remainingMemes = memes.slice(RENDER_CHUNK_SIZE).map(m => ({ ...m, img: null }));
+    loadedMemes = [...loadedMemes, ...remainingMemes];
 
     storedData = {
       date: today,
@@ -576,38 +1065,36 @@ async function initDailyMemes() {
     renderInitial();
     removeLoader(memeBox);
 
+    // Preload remaining chunks in background
+    setTimeout(async () => {
+      for (let i = RENDER_CHUNK_SIZE; i < loadedMemes.length; i += RENDER_CHUNK_SIZE) {
+        const chunk = loadedMemes.slice(i, i + RENDER_CHUNK_SIZE);
+        const preloaded = await preloadImages(chunk.map(m => ({ url: m.url, title: m.title })));
+        preloaded.forEach((p, idx) => (loadedMemes[i + idx].img = p.img));
+      }
+    }, 500);
+
     setTimeout(enableSwipe, 100);
   } else {
     currentIndexs = storedData.index;
-
     loadedMemes = storedData.memes.map(m => {
       const img = new Image();
       img.src = m.url;
       img.alt = m.title;
+      img.loading = "lazy";
       return { ...m, img };
     });
-
     renderInitial();
   }
 }
+
 /* ================= KEYBOARD SWIPE ================= */
 document.addEventListener("keydown", (e) => {
   if (keyLocked) return;
   if (!currentCard) return;
-
-  if (e.key === "ArrowRight") {
-    keyLocked = true;
-    swipe("right");
-  }
-
-  if (e.key === "ArrowLeft") {
-    keyLocked = true;
-    swipe("left");
-  }
+  if (e.key === "ArrowRight") { keyLocked = true; swipe("right"); }
+  if (e.key === "ArrowLeft") { keyLocked = true; swipe("left"); }
 });
 
-/* unlock on key release (so next swipe works) */
-document.addEventListener("keyup", () => {
-  keyLocked = false;
-});
+document.addEventListener("keyup", () => { keyLocked = false; });
 window.addEventListener("load", initDailyMemes);
