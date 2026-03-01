@@ -268,7 +268,7 @@
     const memeUrls = await response.json();
     renderMemes(memeUrls);
   } catch (error) {
-    window.location.href="/pages/error.html"; 
+    // window.location.href="/pages/error.html"; 
     console.error("Error loading memes:", error);
   }
 }
