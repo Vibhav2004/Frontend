@@ -7,6 +7,56 @@
     margin: 0;
     padding: 0;
 }
+.meme-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+ 
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.streak-line .week {
+  flex: 1;
+  height: 20px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.streak-line .week .fill {
+  height: 100%;
+  width: 0%;           /* start empty */
+  background: #f39c12; /* progress color */
+  transition: width 0.8s ease-in-out; /* smooth animation */
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.meme-card img {
+  width: 100%;
+  border-bottom: 1px solid #000000;
+}
+
+.meme-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.meme-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 5px 0 2px 0;
+}
+
+.meme-author {
+  font-size: 14px;
+  color: #000000;
+}
 body {
 
   background-color: #000000;

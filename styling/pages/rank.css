@@ -8,6 +8,36 @@
     padding: 0;
      font-family: "SmoochSans", sans-serif;
 }
+/* ================= PAGINATION ================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+margin-top: -15px;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.pagination .page-btn {
+  background-color: #f1f1f1;
+  border: 1.5px solid #000cea;
+  color: #000;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.pagination .page-btn:hover {
+  background-color: #000cea;
+  color: #fff;
+}
+
+.pagination .page-btn.active {
+  background-color: #000000;
+  color: #fff;
+  border: 1.5px solid #000cea;
+}
 body {
 
   background-color: #000000;
@@ -187,8 +217,8 @@ svg{
     display: flex;
      justify-content: space-around;
     align-items: center;
-    
-    margin-top: 15px;
+    margin-bottom: 0px;
+     margin-top: 5px;
 }
 .header{
     display: block;

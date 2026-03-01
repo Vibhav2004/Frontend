@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "SmoochSans";
+  src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+
+  background-color: #000000;
+  color: white;
+  font-family: "SmoochSans", sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  
+}
+.logo{
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.container{
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    
+}
+.heading{
+   text-align: center;
+   font-size: 40px;
+   font-weight: lighter;
+   font-family: "SmoochSans", sans-serif;
+}
+p{
+    text-align: center;
+    font-size: 23px;
+     font-family: "SmoochSans", sans-serif;
+}
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  animation: floatSlow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.white-glow {
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.4));
+}
+/* Register button transition */
+#retry {
+ width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: 120px;
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "SmoochSans", sans-serif;
+  /* transition: all 0.3s ease; */
+}

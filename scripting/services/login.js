@@ -38,10 +38,11 @@ async function loginUser() {
 
         if (response.ok) {
             alert("Successfully Logged in");
-            console.log(data.username);
+            // console.log(data.username);
             localStorage.setItem("isLoggedIn", "true");
 
-
+// After successful login or registration
+localStorage.setItem('showHomeConfetti', 'true');
            localStorage.setItem("username", data.username);
            localStorage.setItem("email", data.email);
            localStorage.setItem("pfp", data.pfp);
@@ -51,6 +52,7 @@ async function loginUser() {
             alert("Error: " + (data.message || "Failed to register"));
         }
     } catch (error) {
+        // window.location.href="/pages/error.html"; 
         console.error("Network error:", error);
         alert("Unsuccessful to Login");
     }

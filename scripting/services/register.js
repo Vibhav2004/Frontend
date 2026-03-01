@@ -7,6 +7,7 @@ async function registerUser() {
     let swipes=0
     let streak=0
     let score=0
+    
     // Basic validation
     if (!username || !email || !password) {
         alert("Username, Email and Password are required!");
@@ -17,6 +18,8 @@ if(localStorage.getItem("userType") === "guest"){
       swipes=localStorage.getItem("GuestTotalSwipes");
       streak=localStorage.getItem("GuestStreakIncrement");
       score=localStorage.getItem("GuestRightSwipes")*3+localStorage.getItem("GuestStreakIncrement")*5 ;
+    
+      
     localStorage.removeItem("userType");
     
 }
@@ -45,6 +48,8 @@ if(localStorage.getItem("userType") === "guest"){
         const data = await response.json(); // parse JSON regardless of status
 
         if (response.ok) {
+            // After successful login or registration
+localStorage.setItem('showHomeConfetti', 'true');
             alert("User registered successfully!");
             // sessionStorage.removeItem("userType");
             localStorage.setItem("isLoggedIn", "true");
@@ -56,6 +61,7 @@ if(localStorage.getItem("userType") === "guest"){
             alert("Error: " + (data.message || "Failed to register"));
         }
     } catch (error) {
+        // window.location.href="/pages/error.html"; 
         console.error("Network error:", error);
         alert("User already Registered");
     }

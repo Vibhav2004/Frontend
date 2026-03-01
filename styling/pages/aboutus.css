@@ -6,6 +6,7 @@
   backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
+  margin-left: -100px;
   align-items: center;
   z-index: 999;
 }
@@ -14,10 +15,30 @@
   src: url("/assests/SmoochSans-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
 }
+
+.svg-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+/* Brand colors */
+.insta { fill: #E1306C;}
+.discord   { fill: #5865F2; }
+.twitter   { fill: #ffffff; }
+.reddit    { fill: #FF4500; }
+
+/* Hover effect */
+.svg-icon:hover {
+  transform: scale(10);
+  filter: brightness(0.3);
+}
 /* Popup box */
 .popup-content {
-  width: 300px;
-  background: #2a2929;
+  width: 350px;
+  background: #000000;
   
   border-radius: 15px;
   padding: 20px;
@@ -25,7 +46,12 @@
   animation: popupFade 0.4s ease forwards;
   text-align: center;
 }
-
+.contact{
+  width: 170px;
+  /* justify-content: center;
+  align-items: center;
+  display: flex; */
+}
 /* Close button */
 .close-btn {
   position: absolute;
@@ -50,6 +76,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
+ 
+  margin-left: 100px;
+  /* display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center; */
   margin-top: 20px;
 }
 
@@ -57,8 +89,8 @@
 .contact-circle {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  border: 2px solid white;
+  /* border-radius: 50%;
+  border: 2px solid white; */
   display: flex;
   align-items: center;
   justify-content: center;

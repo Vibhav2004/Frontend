@@ -1,123 +1,61 @@
-/* ================================
-   GLOBAL STATE (RUNTIME ONLY)
-================================ */
+
+
+
+
+/* =====================================================
+   DAILY SWIPE - MERGED (MEME FETCH + SWIPE LOGIC)
+===================================================== */
+
+/* ================= CONFIG ================= */
+
+const BACKEND_API = "http://localhost:8081/daily-memes";
+const STORAGE_KEYs = "dailyMemeData";
+
+const DAILY_LIMIT = 300;
+const RENDER_CHUNK_SIZE = 50;
+// let userType=localStorage.getItem("username") 
+/* ================= STATE ================= */
+let loadedMemes = [];
+let currentIndexs = 0;
+let midnightTimer;
+let swipeEnabled = false;
+
+/* SWIPE STATE */
 let currentIndex = 0;
 let startX = 0;
 let currentCard = null;
 let keyLocked = false;
 
-/* ---- Counters ---- */
-let rightSwipesForStreak = 0;   // ONLY for streak (50 rights)
-let rightSwipesForScore = 0;    // ONLY for backend score
-let totalSwipesForAPI = 0;      // left + right
+const RIGHT_STREAK_KEY = "rightSwipesForStreak";
+let rightSwipesForStreak = Number(localStorage.getItem(RIGHT_STREAK_KEY)) || 0;
+const RIGHT_SWIPE_SCORE_KEY = "rightSwipesForScore";
+let rightSwipesForScore =
+  Number(localStorage.getItem(RIGHT_SWIPE_SCORE_KEY)) || 0;
+
+const API_SWIPE_STORAGE_KEY = "totalSwipesForAPI";
+let totalSwipesForAPI =
+  Number(localStorage.getItem(API_SWIPE_STORAGE_KEY)) || 0;
 let streakIncrement = 0;
 
-/* ---- Constants ---- */
-const STREAK_RIGHT_TARGET = 10;
+const STREAK_RIGHT_TARGET = 50;
 const API_SWIPE_TARGET = 50;
-const STREAK_COOLDOWN = 24 * 60 * 60 * 1000; // 24 hrs
 
- const username = localStorage.getItem("username");
-console.log(username);
+/* USER */
+const username = localStorage.getItem("username");
 
+/* SWIPE COUNT UI */
 const swipeBox = document.getElementById("swipe");
-const MAX_SWIPE = 300;
 const STORAGE_KEY = "swipeCount";
-
-// 🔄 Load saved value on page load
 let swipeCount = Number(localStorage.getItem(STORAGE_KEY)) || 0;
 updateSwipeUI();
 
-// ➕ Call this whenever a swipe happens
-function incrementSwipe() {
-  swipeCount++;
-  
-  if(swipeCount==50){
-    
-  }
-  if (swipeCount > MAX_SWIPE ) {
-    
-    swipeCount = 0; // 🔁 reset after 100
-  }
-
-  localStorage.setItem(STORAGE_KEY, swipeCount);
-  updateSwipeUI();
-}
-
-// 🎯 Update UI
-function updateSwipeUI() {
-  swipeBox.textContent = `Swipes:${swipeCount}`;
-}
-
-/* ================================
-   ENABLE SWIPE
-================================ */
-function enableSwipe() {
-  currentCard = document.querySelector(".meme-card.active");
-  if (!currentCard) return;
-
-  currentCard.addEventListener("touchstart", startSwipe);
-  currentCard.addEventListener("touchmove", moveSwipe);
-  currentCard.addEventListener("touchend", endSwipe);
-
-  currentCard.addEventListener("mousedown", startSwipe);
-}
-
-function startSwipe(e) {
-  startX = e.touches ? e.touches[0].clientX : e.clientX;
-  document.addEventListener("mousemove", moveSwipe);
-  document.addEventListener("mouseup", endSwipe);
-}
-
-function moveSwipe(e) {
-  const x = e.touches ? e.touches[0].clientX : e.clientX;
-  const deltaX = x - startX;
-  currentCard.style.transform =
-    `translateX(${deltaX}px) rotate(${deltaX * 0.05}deg)`;
-}
-
-function endSwipe(e) {
-  const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-  const deltaX = endX - startX;
-  const threshold = 120;
-
-  document.removeEventListener("mousemove", moveSwipe);
-  document.removeEventListener("mouseup", endSwipe);
-
-  if (deltaX > threshold) swipe("right");
-  else if (deltaX < -threshold) swipe("left");
-  else currentCard.style.transform = "";
-}
-
-function canIncreaseStreak() {
-  const lastTimestamp = localStorage.getItem("lastStreakTime"); // store as millis
-  const now = Date.now();
-
-  if (!lastTimestamp) return true; // never incremented before → allowed
-
-  // Check if 24 hours have passed
-  const HOURS_24 = 24 * 60 * 60 * 1000;
-  if (now - Number(lastTimestamp) >= HOURS_24) {
-    return true; // 24 hours passed → allowed
-  }
-console.log(Number(lastTimestamp));
-
-  return false; // still within 24 hours → locked
+/* ================= DATE ================= */
+function getTodayKey() {
+  return new Date().toISOString().split("T")[0];
 }
 
 
 
-
-/* ================================
-   STREAK POPUP
-================================ */
-function showStreakPopup() {
-  const popup = document.getElementById("streakPopup");
-  if (!popup) return;
-
-  popup.style.display = "flex";
-  setTimeout(() => popup.style.display="none", 2000);
-}
 function popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username) {
 
   // STORE guest data
@@ -141,121 +79,396 @@ function popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, 
 
   // SHOW popup
   document.getElementById("snapshotOverlay").style.display = "flex";
-  console.log(JSON.stringify(localStorage));
+  
+  // console.log(JSON.stringify(localStorage));
 
 }
+/* ================= STORAGE ================= */
+function getStoredData() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEYs) || "null");
+}
 
+function setStoredData(data) {
+  localStorage.setItem(STORAGE_KEYs, JSON.stringify(data));
+}
 
+/* ================= SWIPE UI COUNTER ================= */
+function incrementSwipe() {
+  swipeCount++;
 
-/* ================================
-   MAIN SWIPE HANDLER
-================================ */
-// function swipe(direction) {
-//   const heart = document.querySelector(".swipe-reaction.heart");
-//   const cross = document.querySelector(".swipe-reaction.cross");
-// incrementSwipe();
+  if (swipeCount > 300) swipeCount = 0;
 
-//   /* ---- Count ALL swipes ---- */
-//   totalSwipesForAPI++;
+  localStorage.setItem(STORAGE_KEY, swipeCount);
+  updateSwipeUI();
+}
 
-//   if (direction === "right") {
-//     rightSwipesForScore++;
-//     rightSwipesForStreak++;
+function updateSwipeUI() {
+  if (swipeBox) swipeBox.textContent = `Swipes:${swipeCount}`;
+}
 
-//     heart.classList.add("show");
-//     setTimeout(() => heart.classList.remove("show"), 300);
+/* ================= ENABLE / DISABLE SWIPE ================= */
+function enableSwipe() {
+  swipeEnabled = true;
+  document.body.classList.add("swipe-enabled");
 
-//     /* 🔥 STREAK CHECK */
-//     /* 🔥 STREAK CHECK */
-// if (rightSwipesForStreak >= STREAK_RIGHT_TARGET && canIncreaseStreak()) {
-//   streakIncrement++;
+  currentCard = document.querySelector(".meme-card.active");
+  if (!currentCard) return;
 
-//   // Store exact time in milliseconds for 24hr lock
-//   sessionStorage.setItem("lastStreakTime", Date.now());
+  currentCard.addEventListener("touchstart", startSwipe);
+  currentCard.addEventListener("touchmove", moveSwipe);
+  currentCard.addEventListener("touchend", endSwipe);
 
-//   // Reset daily counter
-//   rightSwipesForStreak = 0;
+  currentCard.addEventListener("mousedown", startSwipe);
+}
 
-//   // Show popup
-//   // showStreakPopup()
-//   console.log("🔥 Streak incremented! Next increment allowed after 24hrs.");
-  
+function disableSwipe() {
+  swipeEnabled = false;
+  document.body.classList.remove("swipe-enabled");
+
+  if (!currentCard) return;
+
+  currentCard.removeEventListener("touchstart", startSwipe);
+  currentCard.removeEventListener("touchmove", moveSwipe);
+  currentCard.removeEventListener("touchend", endSwipe);
+
+  currentCard.removeEventListener("mousedown", startSwipe);
+  document.removeEventListener("mousemove", moveSwipe);
+  document.removeEventListener("mouseup", endSwipe);
+
+  currentCard.style.transform = "";
+  currentCard.style.pointerEvents = "none";
+  keyLocked = true;
+}
+
+/* ================= FETCH MEMES ================= */
+async function fetchDailyMemes() {
+  try {
+    const res = await fetch(`${BACKEND_API}?username=${username}`);
+    if (!res.ok) return [];
+    const urls = await res.json();
+    return urls.map(url => ({ url, title: "meme" }));
+    // Map to include title and author
+    // return memes.map(m => ({
+    //   url: m.url,
+    //   title: m.title || "No Title",
+    //   author: m.posted_by || "Anonymous"
+    // }));
+  } catch {
+    window.location.href="/pages/error.html"; 
+    return [];
+  }
+}
+// async function fetchDailyMemes(username) {
+//   try {
+//     const res = await fetch(`${BACKEND_API}?username=${username}`);
+//     if (!res.ok) return [];
+//     const urls = await res.json();
+
+//     console.log("Fetched memes for:", username);
+// console.log("API RESPONSE:", data);
+//     return urls.map(url => ({ url, title: "meme" }));
+   
+//   } catch {
+//     return [];
+//   }
 // }
 
+/* ================= PRELOAD IMAGES ================= */
+function preloadImages(memes) {
+  return Promise.all(
+    memes.map(m =>
+      new Promise(resolve => {
+        const img = new Image();
+        img.src = m.url;
+        img.onload = () => resolve({ ...m, img });
+        img.onerror = () => resolve(null);
+      })
+    )
+  ).then(results => results.filter(Boolean));
+}
 
+/* ================= LOADER ================= */
+function createLoader(container) {
+  if (container.querySelector(".meme-loader")) return;
 
+  const loader = document.createElement("div");
+  loader.className = "meme-loader";
+  loader.innerHTML = `
+    <div class="spinner"></div>
+    <p>Loading memes...</p>
+  `;
+  container.appendChild(loader);
+}
 
-//   } else {
-//     cross.classList.add("show");
-//     setTimeout(() => cross.classList.remove("show"), 300);
+function removeLoader(container) {
+  const loader = container.querySelector(".meme-loader");
+  if (loader) loader.remove();
+}
+
+/* ================= MIDNIGHT COUNTDOWN ================= */
+function startMidnightCountdown() {
+  const counterEl = document.getElementById("midnightCounter");
+  if (!counterEl) return;
+
+  if (midnightTimer) clearInterval(midnightTimer);
+
+  function updateCounter() {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+
+    const diff = midnight - now;
+    if (diff <= 0) {
+      counterEl.textContent = "New memes available!";
+      clearInterval(midnightTimer);
+       // ✅ Reset quota for new day
+     
+      // Re-init memes for new day
+      initDailyMemes();
+      return;
+    }
+
+    const hrs = Math.floor(diff / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+
+    counterEl.textContent = `Next memes in: ${hrs}h ${mins}m ${secs}s`;
+  }
+
+  updateCounter();
+  midnightTimer = setInterval(updateCounter, 1000);
+}
+
+/* ================= RENDER QUOTA CARD ================= */
+function renderQuotaCard() {
+  const memeBox = document.querySelector(".memeBox");
+  memeBox.innerHTML = "";
+
+  const card = document.createElement("div");
+  card.className = "meme-card quota-card active";
+  card.innerHTML = `
+    <h2>🎉 Daily Quota Completed</h2>
+    <p>Come back tomorrow for fresh memes</p>
+    <p id="midnightCounter" style="font-weight:bold;"></p>
+  `;
+
+  memeBox.appendChild(card);
+  startMidnightCountdown();
+  disableSwipe();
+ 
+ 
+}
+
+/* ================= RENDER MEMES ================= */
+function renderNextChunk() {
+  const memeBox = document.querySelector(".memeBox");
+
+  if (currentIndexs >= loadedMemes.length) {
+    renderQuotaCard();
+    return;
+  }
+
+  const start = currentIndexs;
+  const end = Math.min(start + RENDER_CHUNK_SIZE, loadedMemes.length);
+
+  loadedMemes.slice(start, end).forEach((meme, i) => {
+    const card = document.createElement("div");
+    card.className = "meme-card";
+    card.style.zIndex = loadedMemes.length - (start + i);
+
+    if (start === currentIndexs && i === 0) {
+      card.classList.add("active");
+    }
+
+    meme.img.alt = meme.title;
+    card.appendChild(meme.img);
+    memeBox.appendChild(card);
+  });
+}
+// function renderNextChunk() {
+//   const memeBox = document.querySelector(".memeBox");
+//   if (currentIndexs >= loadedMemes.length) {
+//     renderQuotaCard();
+//     return;
 //   }
 
-//   /* 📡 BACKEND UPDATE */
-//   if (totalSwipesForAPI === API_SWIPE_TARGET) {
-//     updateBackend();
-//   }
+//   const start = currentIndexs;
+//   const end = Math.min(start + RENDER_CHUNK_SIZE, loadedMemes.length);
 
-//   currentCard.classList.add(
-//     direction === "right" ? "swipe-right" : "swipe-left"
-//   );
+//   loadedMemes.slice(start, end).forEach((meme, i) => {
+//     const card = document.createElement("div");
+//     card.className = "meme-card";
+//     card.style.zIndex = loadedMemes.length - (start + i);
 
-//   setTimeout(() => {
-//     currentCard.classList.remove("active");
-//     currentIndex++;
-//     const next = document.querySelectorAll(".meme-card")[currentIndex];
-//     if (next) {
-//       next.classList.add("active");
-//       enableSwipe();
+//     if (start === currentIndexs && i === 0) {
+//       card.classList.add("active");
 //     }
-//   }, 300);
+// console.log(meme);
+
+//     // append image
+//     card.appendChild(meme.img);
+
+//     // create info container
+//     const infoDiv = document.createElement("div");
+//     infoDiv.className = "meme-info";
+//     infoDiv.innerHTML = `
+//       <h3 class="meme-title">${meme.title}</h3>
+//       <p class="meme-author">by ${meme.author}</p>
+//     `;
+
+//     card.appendChild(infoDiv);
+//     memeBox.appendChild(card);
+//   });
 // }
 
+function renderInitial() {
+  const memeBox = document.querySelector(".memeBox");
+  memeBox.innerHTML = "";
 
+  if (currentIndexs >= loadedMemes.length) {
+    renderQuotaCard();
+    return;
+  }
 
+  renderNextChunk();
+  enableSwipe();
+}
+
+/* ================= SWIPE PROGRESS ================= */
+function onMemeSwiped() {
+  if (!swipeEnabled) return;
+
+  const data = getStoredData();
+  if (!data) return;
+
+  data.index += 1;
+  setStoredData(data);
+  currentIndexs = data.index;
+
+  if (currentIndexs >= loadedMemes.length) {
+    renderQuotaCard();
+    disableSwipe();
+    return;
+  }
+
+  if (currentIndexs % RENDER_CHUNK_SIZE === 0) {
+    renderNextChunk();
+    setTimeout(enableSwipe, 50);
+  }
+}
+
+/* ================= SWIPE HANDLERS ================= */
+function startSwipe(e) {
+  startX = e.touches ? e.touches[0].clientX : e.clientX;
+  document.addEventListener("mousemove", moveSwipe);
+  document.addEventListener("mouseup", endSwipe);
+}
+
+function moveSwipe(e) {
+  const x = e.touches ? e.touches[0].clientX : e.clientX;
+  const deltaX = x - startX;
+  currentCard.style.transform = `translateX(${deltaX}px) rotate(${deltaX * 0.05}deg)`;
+}
+
+function endSwipe(e) {
+  const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+  const deltaX = endX - startX;
+  const threshold = 120;
+
+  document.removeEventListener("mousemove", moveSwipe);
+  document.removeEventListener("mouseup", endSwipe);
+
+  if (deltaX > threshold) swipe("right");
+  else if (deltaX < -threshold) swipe("left");
+  else currentCard.style.transform = "";
+}
+
+/* ================= STREAK CHECK ================= */
+function canIncreaseStreak() {
+  const lastTimestamp = localStorage.getItem("lastStreakTime");
+  if (!lastTimestamp) return true;
+
+  return Date.now() - Number(lastTimestamp) >= 24 * 60 * 60 * 1000;
+}
+
+/* ================= STREAK POPUP ================= */
+// function showStreakPopup() {
+//   const popup = document.getElementById("streakPopup");
+//   if (!popup) return;
+//   popup.style.display = "flex";
+//   setTimeout(() => (popup.style.display = "none"), 2000);
+// }
+function showStreakPopup(streakDays) {
+  const popup = document.getElementById("streakPopup");
+  if (!popup) return;
+
+  popup.style.display = "flex";
+
+  const weeks = document.querySelectorAll(".week");
+  const completedWeeks = Math.floor(streakDays / 7);
+  const leftoverDays = streakDays % 7;
+
+  weeks.forEach((week, index) => {
+    const fill = week.querySelector(".fill");
+    fill.style.width = "0%"; // reset
+
+    if (index < completedWeeks) {
+      // Fully complete week
+      setTimeout(() => (fill.style.width = "100%"), index * 150);
+    } else if (index === completedWeeks) {
+      // Partial fill for current week
+      const percent = (leftoverDays / 7) * 100;
+      setTimeout(() => (fill.style.width = percent + "%"), index * 150);
+    }
+  });
+
+  document.getElementById("streakCount").innerText = `🔥 ${streakDays} Days`;
+
+  // Auto-close after 2s
+  setTimeout(() => (popup.style.display = "none"), 2000);
+}
+/* ================= SWIPE ACTION ================= */
 function swipe(direction) {
   const heart = document.querySelector(".swipe-reaction.heart");
   const cross = document.querySelector(".swipe-reaction.cross");
-   incrementSwipe()
-  /* ---- Count ALL swipes ---- */
-  totalSwipesForAPI++;
+
+  incrementSwipe();
   
+  totalSwipesForAPI++;
+  localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
+
   if (direction === "right") {
     rightSwipesForScore++;
-    rightSwipesForStreak++;
+    localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
+    
+rightSwipesForStreak++;
+    localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+    heart?.classList.add("show");
+    setTimeout(() => heart?.classList.remove("show"), 300);
 
-    heart.classList.add("show");
-    setTimeout(() => heart.classList.remove("show"), 300);
-
-    /* 🔥 STREAK CHECK */
     if (rightSwipesForStreak >= STREAK_RIGHT_TARGET && canIncreaseStreak()) {
       streakIncrement++;
       localStorage.setItem("lastStreakTime", Date.now());
-      rightSwipesForStreak = 0;
-      console.log("🔥 Streak incremented!");
+       rightSwipesForStreak = 0;
+        localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
       showStreakPopup();
     }
   } else {
-    cross.classList.add("show");
-    setTimeout(() => cross.classList.remove("show"), 300);
+    cross?.classList.add("show");
+    setTimeout(() => cross?.classList.remove("show"), 300);
   }
 
-  /* 📡 BACKEND UPDATE */
-  if (totalSwipesForAPI === API_SWIPE_TARGET) {
+  if (totalSwipesForAPI >= API_SWIPE_TARGET) {
     updateBackend();
   }
 
-  currentCard.classList.add(
-    direction === "right" ? "swipe-right" : "swipe-left"
-  );
+  currentCard.classList.add(direction === "right" ? "swipe-right" : "swipe-left");
 
   setTimeout(() => {
     currentCard.classList.remove("active");
-
-    /* ✅ THIS IS THE IMPORTANT LINE */
-    onMemeSwiped(); // 🔥 increments daily quota + saves to localStorage
+    onMemeSwiped();
 
     currentIndex++;
-
     const next = document.querySelectorAll(".meme-card")[currentIndex];
     if (next) {
       next.classList.add("active");
@@ -264,58 +477,120 @@ function swipe(direction) {
   }, 300);
 }
 
+/* ================= BACKEND UPDATE ================= */
+// async function updateBackend() {
 
+//   const payload = {
+//     username,
+//     totalSwipes: totalSwipesForAPI,
+//     swipes: rightSwipesForScore,
+//     streak: rightSwipesForStreak,
+    
+//   };
 
-/* ================================
-   BACKEND UPDATE
-================================ */
+//   try {
+//     const response = await fetch(API.updateUser(), {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(payload),
+//     });
+
+//     if (!response.ok) throw new Error("Backend error");
+
+//     streakIncrement = 0;
+   
+//     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
+// totalSwipesForAPI = 0;
+// localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
+//     rightSwipesForScore = 0;
+//     localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
+//   } catch {
+//     disableSwipe();
+//     localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+//     localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+//     localStorage.setItem("GuestStreakIncrement", streakIncrement);
+//     popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username);
+//   }
+// }
 async function updateBackend() {
   const payload = {
     username,
     totalSwipes: totalSwipesForAPI,
-    swipes: rightSwipesForScore,
-    streak: streakIncrement,
-    score: rightSwipesForScore * 3 + streakIncrement * 5
+    swipes: rightSwipesForScore,  // only session swipes
+    streak: rightSwipesForStreak,
   };
-
-  console.log("📡 Sending payload:", payload);
 
   try {
     const response = await fetch(API.updateUser(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) throw new Error("Backend error");
 
-    /* ✅ RESET ONLY API COUNTERS */
     streakIncrement = 0;
+
+    // Merge session swipes into localStorage so next session starts from DB total
+    rightSwipesForScore = 0;  // reset session swipes
+    localStorage.setItem(RIGHT_SWIPE_SCORE_KEY, rightSwipesForScore);
+
     totalSwipesForAPI = 0;
-    rightSwipesForScore = 0;
-console.log(JSON.stringify(localStorage));
-    console.log("✅ Backend synced", response);
+    localStorage.setItem(API_SWIPE_STORAGE_KEY, totalSwipesForAPI);
 
-  } catch (err) {
-    console.error("❌ Update failed:", err);
-    
-       console.log(totalSwipesForAPI);
-    console.log(rightSwipesForScore);
-    console.log(streakIncrement);
-    console.log(username);
-     localStorage.setItem("GuestTotalSwipes",totalSwipesForAPI);
-  localStorage.setItem("GuestRightSwipes",rightSwipesForScore);
-  localStorage.setItem("GuestStreakIncrement",streakIncrement);
-  localStorage.setItem("guestTask",username);
-      alert("Guest users cannot update insights to backend. Please register to save your progress.");
-    popupForGuest(totalSwipesForAPI,rightSwipesForScore,streakIncrement,username);
+    localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
 
-    
+  } catch {
+    disableSwipe();
+    localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+    localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+    localStorage.setItem("GuestStreakIncrement", streakIncrement);
+    popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username);
   }
 }
 
+/* ================= INIT ================= */
+async function initDailyMemes() {
+  rightSwipesForStreak = Number(localStorage.getItem(RIGHT_STREAK_KEY)) || 0;
+  const memeBox = document.querySelector(".memeBox");
+  const today = getTodayKey();
+  
+ 
+  let storedData = getStoredData();
 
+  if (!storedData || storedData.date !== today) {
+    createLoader(memeBox);
 
+    const memes = await fetchDailyMemes(username);
+    loadedMemes = await preloadImages(memes);
+
+    storedData = {
+      date: today,
+      memes: loadedMemes.map(m => ({ url: m.url, title: m.title })),
+      index: 0,
+    };
+
+    setStoredData(storedData);
+    currentIndexs = 0;
+
+    renderInitial();
+    removeLoader(memeBox);
+
+    setTimeout(enableSwipe, 100);
+  } else {
+    currentIndexs = storedData.index;
+
+    loadedMemes = storedData.memes.map(m => {
+      const img = new Image();
+      img.src = m.url;
+      img.alt = m.title;
+      return { ...m, img };
+    });
+
+    renderInitial();
+  }
+}
+/* ================= KEYBOARD SWIPE ================= */
 document.addEventListener("keydown", (e) => {
   if (keyLocked) return;
   if (!currentCard) return;
@@ -329,65 +604,10 @@ document.addEventListener("keydown", (e) => {
     keyLocked = true;
     swipe("left");
   }
-
-  if (e.key === " ") {
-    keyLocked = true;
-    downloadCurrentMeme();
-  }
 });
 
-
+/* unlock on key release (so next swipe works) */
 document.addEventListener("keyup", () => {
   keyLocked = false;
 });
-
-
-
-
-/* ================================
-   DISABLE SWIPE
-================================ */
-function disableSwipe() {
-  if (!currentCard) return;
-
-  // Touch events
-  currentCard.removeEventListener("touchstart", startSwipe);
-  currentCard.removeEventListener("touchmove", moveSwipe);
-  currentCard.removeEventListener("touchend", endSwipe);
-
-  // Mouse events
-  currentCard.removeEventListener("mousedown", startSwipe);
-  document.removeEventListener("mousemove", moveSwipe);
-  document.removeEventListener("mouseup", endSwipe);
-
-  // Optional: visually lock card
-  currentCard.style.transform = "";
-  currentCard.style.pointerEvents = "none";
-
-  // Lock keyboard
-  keyLocked = true;
-
-  console.log("🚫 Swipe disabled");
-}
- 
-
-/* ================================
-   INIT
-================================ */
-window.addEventListener("load", () => {
-  enableSwipe();
-//   fetch("http://localhost:8080/All-User", 
-//  {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//     .then(response     => response.json())
-//     .then(data => {
-//     console.log(data);
-//     })
-}); 
-
-
-
+window.addEventListener("load", initDailyMemes);

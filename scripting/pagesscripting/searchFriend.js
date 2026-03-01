@@ -32,7 +32,7 @@ function fetchUserProfile(username) {
     .then(data => {
       document.getElementById("usernameTexts").textContent = `@${data.username}`;
   // document.getElementById("profilePics").src = "/assests/pfp/3.png";
-  console.log(data);
+  // console.log(data);
   
    document.getElementById("profilePics").src = `/assests/pfp/${data.pfp || '2.png'}`;
 
@@ -57,6 +57,7 @@ function fetchUserProfile(username) {
     })
     .catch(err => {
       console.error(err);
+      window.location.href="/pages/error.html"; 
       alert("User not found");
     });
 }

@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "voelts8d4h");
+</script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKF6PBBLRL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKF6PBBLRL');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWIPENOW</title>
@@ -49,17 +66,20 @@
     <span class="close-btn" onclick="closePopup()">✕</span>
     <h2>Instructions</h2>
     <ul>
-      <li>Minimum <strong>50 swipes</strong> needed to maintain your streak 🔥.</li>
+      <li>Swipe Consecutive <strong>50 Memes </strong> to maintain your streak 🔥.</li>
       <li>Swipe <strong>left</strong> for dislike and <strong>right</strong> for like.</li>
-      <li>Each swipe adds <strong>5 points</strong> to your score.</li>
-      <li>Check your streak, targets, and total points at the top.</li>
+      <li>Each swipe adds <strong>3 points</strong> to your score.</li>
+      <li>Each streak adds <strong>5 points</strong> to your score.</li>
+      <li>Check your <strong> streak</strong>,<strong>score</strong>,<strong>swipe</strong> at the LeadBoard page.</li>
+      <li>You can add <strong>friends</strong> to your Account.</li>
+      <li>You can upload <strong>MEMEs</strong> to your Account.</li>
       <li>Enjoy memes and keep swiping!</li>
     </ul>
   </div>
 </div>
 
 
-        <div class="memeBox">
+        <div class="memeBox " active>
 
         </div>
        <div class="footerNav">
@@ -90,15 +110,15 @@
     <h2 class="streak-title" >🔥 Streak</h2>
     <div class="streak-count" id="streakCount">50 Days</div>
 
-    <div class="streak-line" id="streakLine">
-      <div class="week">1</div>
-      <div class="week">2</div>
-      <div class="week">3</div>
-      <div class="week">4</div>
-      <div class="week">5</div>
-      <div class="week">6</div>
-      <div class="week">7</div>
-    </div>
+   <div class="streak-line" id="streakLine">
+  <div class="week"><div class="fill"></div></div>
+  <div class="week"><div class="fill"></div></div>
+  <div class="week"><div class="fill"></div></div>
+  <div class="week"><div class="fill"></div></div>
+  <div class="week"><div class="fill"></div></div>
+  <div class="week"><div class="fill"></div></div>
+  <div class="week"><div class="fill"></div></div>
+</div>
 
     <p class="streak-subtext">Complete all weeks to keep your streak 🔥</p>
   </div>
@@ -140,7 +160,40 @@
   </div>
 </div>
 
+<script>
+  function fireConfetti() {
+  const duration = 3000; // 3 seconds
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
 
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = setInterval(function () {
+    const timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      clearInterval(interval);
+      return;
+    }
+
+    const particleCount = 50 * (timeLeft / duration);
+    // since particles fall down, skew start from center
+    confetti(Object.assign({}, defaults, {
+      particleCount,
+      origin: { x: Math.random(), y: Math.random() - 0.2 }
+    }));
+  }, 250);
+}
+
+window.addEventListener('load', () => {
+  if (localStorage.getItem('showHomeConfetti') === 'true') {
+    fireConfetti();
+    localStorage.removeItem('showHomeConfetti'); // fire only once per visit
+  }
+});
+</script>
 <script>
   if (localStorage.getItem("isLoggedIn") !== "true") {
     if (userType === "guest") {
@@ -155,8 +208,8 @@
 <script src="/scripting/pagesscripting/instructionpopup.js"></script>
 <script src="/scripting/API/apiHandler.js"></script>
 <script src="/scripting/pagesscripting/streakpopup.js"></script>
-<script src="/scripting/services/swipecount.js"></script>
-<script src="/scripting/pagesscripting/memeFetch.js"></script>
+<script src="/scripting/services/swipecount.js" defer></script>
+<script src="/scripting/pagesscripting/memeFetch.js" defer></script>
 <script src="/global.js"></script>
 
 <script src="/scripting/utils/routing.js"></script>

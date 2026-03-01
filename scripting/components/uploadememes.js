@@ -64,7 +64,7 @@ uploadBtn.addEventListener("click", async (event) => {
   }
 
   const caption = document.getElementById("usernameInput").value;
-  console.log("Uploading meme:", file, "Caption:", caption);
+  // console.log("Uploading meme:", file, "Caption:", caption);
 
   // TODO: Replace this alert with your actual upload API call
   alert("Meme uploaded successfully!");

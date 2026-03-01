@@ -10,7 +10,10 @@ function viewFriends() {
      
       showFriendsPopup(data, username);
     })
-    .catch(err => console.error("Error checking friendship:", err));
+    .catch(err => {
+      window.location.href="/pages/error.html";
+      console.error("Error checking friendship:", err);
+    });
 }
 
 function showFriendsPopup(friends, username) {
@@ -84,14 +87,14 @@ function showFriendsPopup(friends, username) {
     });
 
     // pfp
-    const pfp = document.createElement("img"); 
+//     const pfp = document.createElement("img"); 
     
-pfp.src = `/assests/pfp/${localStorage.getItem("pfp")}`; // use default if missing
-Object.assign(pfp.style, {
-  width: "40px",
-  height: "40px",
-  borderRadius: "50%"
-});
+// pfp.src = `/assests/pfp/${localStorage.getItem("pfp")}`; // use default if missing
+// Object.assign(pfp.style, {
+//   width: "40px",
+//   height: "40px",
+//   borderRadius: "50%"
+// });
 
 
     // username
@@ -102,7 +105,7 @@ Object.assign(pfp.style, {
       fontWeight: "500"
     });
 
-    left.appendChild(pfp);
+    // left.appendChild(pfp);
     left.appendChild(name);
 
     // button

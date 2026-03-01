@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "voelts8d4h");
+</script>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKF6PBBLRL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKF6PBBLRL');
+</script>
   <meta charset="UTF-8">
  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,7 +89,7 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("service-worker.js")
       .then(() => console.log("SW registered"))
-      .catch(err => console.error("SW error", err));
+      .catch(err =>{window.location.href="/pages/error.html";  console.error("SW error", err)});
   });
 }
 </script>
@@ -123,6 +139,57 @@ window.addEventListener("appinstalled", () => {
   document.getElementById("pwa-install-popup")?.remove();
 });
 
+</script>
+<script>
+// ============================
+// PLATFORM DETECTION
+// ============================
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+}
+
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true;
+}
+
+// ============================
+// ANDROID INSTALL EVENT
+// ============================
+let deferredPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // show popup only if not installed
+  if (!isStandalone()) {
+    showInstallPopup();
+  }
+});
+
+// ============================
+// IOS INSTALL FLOW
+// ============================
+window.addEventListener("load", () => {
+
+  if (isIOS() && !isStandalone()) {
+
+    // slight delay = better UX
+    setTimeout(() => {
+
+      const popup = document.getElementById("pwa-install-popup");
+      popup.classList.remove("pwa-hidden");
+
+      // change button behavior for iOS
+      document.getElementById("installBtn").onclick = () => {
+        alert("To install:\nTap Share icon\nThen 'Add to Home Screen'");
+      };
+
+    }, 2500);
+  }
+
+});
 </script>
 </body>
 </html>
