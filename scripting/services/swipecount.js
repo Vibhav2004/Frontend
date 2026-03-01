@@ -8,7 +8,7 @@
 
 /* ================= CONFIG ================= */
 
-const BACKEND_API = "http://localhost:8081/daily-memes";
+const BACKEND_API = "https://backend2-4uxe.onrender.com/daily-memes";
 const STORAGE_KEYs = "dailyMemeData";
 
 const DAILY_LIMIT = 300;
