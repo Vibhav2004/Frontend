@@ -243,7 +243,7 @@
 
 <script src="/scripting/API/apiHandler.js"></script>
 
-<script>
+<!-- <script>
   async function loadMemes() {
   try {
     const user = localStorage.getItem("username");
@@ -300,6 +300,84 @@ function renderMemes(urls) {
 // Load memes when page loads
 document.addEventListener("DOMContentLoaded", loadMemes);
 
+</script> -->
+<script>
+/* ================= LOAD MEMES ================= */
+async function loadMemes() {
+  try {
+    const user = localStorage.getItem("username");
+
+    if (!user) {
+      console.error("No username found in localStorage");
+      return;
+    }
+
+    console.log("Fetching memes for:", user);
+
+    const response = await fetch(
+      `https://backend2-kpkg.onrender.com/urls/${user}`,
+      { method: "GET" }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch memes");
+    }
+
+    const memeUrls = await response.json();
+    console.log("API Response:", memeUrls);
+
+    renderMemes(memeUrls);
+
+  } catch (error) {
+    console.error("Error loading memes:", error);
+  }
+}
+
+/* ================= RENDER MEMES ================= */
+function renderMemes(urls) {
+  const container = document.querySelector(".memebox");
+
+  if (!container) {
+    console.error("Container .memebox not found in DOM");
+    return;
+  }
+
+  container.innerHTML = "";
+
+  if (!Array.isArray(urls) || urls.length === 0) {
+    container.innerHTML = "<p>No memes found.</p>";
+    return;
+  }
+
+  urls.forEach(item => {
+
+    // Support both string and object response
+    const imageUrl = typeof item === "string" ? item : item.url;
+
+    if (!imageUrl) return;
+
+    const memeDiv = document.createElement("div");
+    memeDiv.className = "memes";
+
+    const img = document.createElement("img");
+    img.src = imageUrl;
+    img.loading = "lazy";
+    img.alt = "Meme";
+    img.draggable = false;
+
+    // Optional: Handle broken images
+    img.onerror = function () {
+      console.warn("Failed to load image:", imageUrl);
+      this.style.display = "none";
+    };
+
+    memeDiv.appendChild(img);
+    container.appendChild(memeDiv);
+  });
+}
+
+/* ================= AUTO LOAD ================= */
+document.addEventListener("DOMContentLoaded", loadMemes);
 </script>
 <script>
   
