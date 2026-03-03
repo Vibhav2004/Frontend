@@ -2983,16 +2983,16 @@ document.addEventListener("touchmove", (e) => {
   // Fade card slightly
   currentCard.style.opacity = 1 - Math.abs(percent) * 0.4;
 
-  // ❤️ ✖ Premium indicator animation
-  if (deltaX > 0) {
-    heart.style.opacity = Math.min(Math.abs(percent) * 3, 1);
-    heart.style.transform = `scale(${1 + Math.abs(percent)}) rotate(-10deg)`;
-    cross.style.opacity = 0;
-  } else {
-    cross.style.opacity = Math.min(Math.abs(percent) * 3, 1);
-    cross.style.transform = `scale(${1 + Math.abs(percent)}) rotate(10deg)`;
-    heart.style.opacity = 0;
-  }
+  // // ❤️ ✖ Premium indicator animation
+  // if (deltaX > 0) {
+  //   heart.style.opacity = Math.min(Math.abs(percent) * 3, 1);
+  //   heart.style.transform = `scale(${1 + Math.abs(percent)}) rotate(-10deg)`;
+  //   cross.style.opacity = 0;
+  // } else {
+  //   cross.style.opacity = Math.min(Math.abs(percent) * 3, 1);
+  //   cross.style.transform = `scale(${1 + Math.abs(percent)}) rotate(10deg)`;
+  //   heart.style.opacity = 0;
+  // }
 
 }, { passive: true });
 
