@@ -2302,20 +2302,20 @@ function renderNextChunk() {
     card.className = "meme-card";
     card.style.zIndex = loadedMemes.length - i;
 
-    if (!meme.img) {
-      const img = new Image();
-      img.src = meme.url;
-      img.loading = "eager";
-      meme.img = img;
-    }
+    // ✅ ALWAYS CREATE NEW IMG ELEMENT
+    const img = document.createElement("img");
+    img.src = meme.url;
+    img.loading = "eager";
+    img.decoding = "async";
+    img.draggable = false;
 
-    card.appendChild(meme.img);
+    card.appendChild(img);
     fragment.appendChild(card);
   }
 
   memeBox.appendChild(fragment);
 
-  // 🔥 IMPORTANT FIX
+  // Activate first visible card only if none active
   if (!document.querySelector(".meme-card.active")) {
     const firstCard = document.querySelector(".meme-card");
     if (firstCard) {
@@ -2397,10 +2397,14 @@ function onMemeSwiped() {
 const cards = document.querySelectorAll(".meme-card");
 
 cards.forEach(card => {
-  if (!card.classList.contains("active") &&
-      !card.classList.contains("quota-card") &&
+  if (
+    !card.classList.contains("active") &&
+    !card.classList.contains("quota-card") &&
+    (
       card.classList.contains("swipe-left") ||
-      card.classList.contains("swipe-right")) {
+      card.classList.contains("swipe-right")
+    )
+  ) {
     card.remove();
   }
 });
