@@ -2363,8 +2363,6 @@ function swipe(direction) {
 
     onMemeSwiped();
 
-   currentIndexs++;
-currentIndex = currentIndexs;
 
 const allCards = document.querySelectorAll(".meme-card");
 const next = allCards[currentIndexs];
@@ -2395,10 +2393,14 @@ function onMemeSwiped() {
   if (currentIndexs % RENDER_CHUNK_SIZE === 0) {
     renderNextChunk();
   }
-  // Remove old swiped cards to prevent DOM stacking issues
-const oldCards = document.querySelectorAll(".meme-card");
-oldCards.forEach((card, index) => {
-  if (index < currentIndexs - 5) {
+ // Clean only cards that are not active and already swiped
+const cards = document.querySelectorAll(".meme-card");
+
+cards.forEach(card => {
+  if (!card.classList.contains("active") &&
+      !card.classList.contains("quota-card") &&
+      card.classList.contains("swipe-left") ||
+      card.classList.contains("swipe-right")) {
     card.remove();
   }
 });
