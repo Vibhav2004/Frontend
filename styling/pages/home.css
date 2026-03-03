@@ -736,7 +736,8 @@ svg{
   width: 85%;
   max-width: 360px;
   padding: 28px 24px;
-
+ 
+  height: 300px;
   background: linear-gradient(135deg, #000000, #000000);
   color: #fff;
   border-radius: 16px;
@@ -782,3 +783,100 @@ svg{
   margin-top: 12px;
   font-family: "Arial", sans-serif;
 }
+
+
+
+
+/* ===== Quota Wrapper ===== */
+.quota-wrapper {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+/* ===== Midnight Counter ===== */
+.midnight-counter {
+  margin-top: 15px;
+  font-size: 17px;
+  opacity: 0.85;
+  color: #ffcc00;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  animation: pulseCounter 2s infinite;
+}
+
+@keyframes pulseCounter {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* ===== Premium Coffee Section ===== */
+.premium-coffee {
+  
+  margin-top: 0px;
+  height: 180px;
+  border-radius: 20px;
+   background: rgb(0, 0, 0);
+  backdrop-filter: blur(15px);
+  /* border: 1px solid rgba(255,255,255,0.1); */
+  overflow: hidden;
+  transition: 0.4s ease;
+}
+
+.premium-coffee:hover {
+  transform: translateY(-5px);
+}
+
+/* Rotating Glow
+.coffee-glow {
+ position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255,221,0,0.3), transparent 60%);
+  top: -75%;
+  left: -75%;
+  animation: rotateGlow 8s linear infinite;
+} */
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Floating Coffee */
+.coffee-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  animation: floatCoffee 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes floatCoffee {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* Coffee Button */
+.coffee-btn-premium {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  background: linear-gradient(135deg, #ffdd00, #ffb700);
+  color: #111;
+  transition: all 0.3s ease;
+  /* box-shadow: 0 10px 25px rgba(255, 200, 0, 0.4); */
+  position: relative;
+  z-index: 2;
+}
+
+/* .coffee-btn-premium:hover {
+  transform: scale(1.07);
+  box-shadow: 0 15px 35px rgba(255, 200, 0, 0.6);
+} */

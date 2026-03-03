@@ -2573,6 +2573,58 @@ function removeLoader(container) {
   if (loader) loader.remove();
 }
 
+// /* ================= QUOTA CARD ================= */
+// function renderQuotaCard() {
+//   const memeBox = document.querySelector(".memeBox");
+//   memeBox.innerHTML = "";
+
+//   const card = document.createElement("div");
+//   card.className = "meme-card quota-card active";
+//   card.innerHTML = `
+//     <h2>🎉 Daily Quota Completed</h2>
+//     <p>Come back tomorrow for fresh memes</p>
+//     <div style="margin-top:20px;">
+//       <a href="https://www.buymeacoffee.com/vibhavkhichi" target="_blank">
+//         <img 
+//           src="https://img.buymeacoffee.com/button-api/?text=Coffee?&emoji=😁&slug=vibhavkhichi&button_colour=5F7FFF&font_colour=ffffff&font_family=Poppins&outline_colour=ffffff&coffee_colour=FFDD00"
+//           style="height:50px; border-radius:8px;"
+//         />
+//       </a>
+//     </div>
+//   `;
+
+//   memeBox.appendChild(card);
+//   disableSwipe();
+// }
+/* ================= MIDNIGHT COUNTDOWN ================= */
+function startMidnightCountdown() {
+  const countdownEl = document.getElementById("countdown");
+
+  function updateCountdown() {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+
+    const diff = midnight - now;
+
+    if (diff <= 0) {
+      location.reload();
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdownEl.textContent =
+      String(hours).padStart(2, "0") + ":" +
+      String(minutes).padStart(2, "0") + ":" +
+      String(seconds).padStart(2, "0");
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
 /* ================= QUOTA CARD ================= */
 function renderQuotaCard() {
   const memeBox = document.querySelector(".memeBox");
@@ -2580,21 +2632,35 @@ function renderQuotaCard() {
 
   const card = document.createElement("div");
   card.className = "meme-card quota-card active";
+
   card.innerHTML = `
-    <h2>🎉 Daily Quota Completed</h2>
-    <p>Come back tomorrow for fresh memes</p>
-    <div style="margin-top:20px;">
-      <a href="https://www.buymeacoffee.com/vibhavkhichi" target="_blank">
-        <img 
-          src="https://img.buymeacoffee.com/button-api/?text=Coffee?&emoji=😁&slug=vibhavkhichi&button_colour=5F7FFF&font_colour=ffffff&font_family=Poppins&outline_colour=ffffff&coffee_colour=FFDD00"
-          style="height:50px; border-radius:8px;"
-        />
-      </a>
+    <div class="quota-wrapper">
+        <h2>🎉 Daily Quota Completed</h2>
+        <p>Come back tomorrow for fresh memes</p>
+
+        <div class="midnight-counter">
+            ⏳ Refresh in <span id="countdown">--:--:--</span>
+        </div>
+
+        <div class="premium-coffee">
+            <div class="coffee-glow"></div>
+            <div class="coffee-icon">☕</div>
+            <h3>Enjoying Daily Swipe?</h3>
+            <p>Your coffee keeps the memes alive 🚀</p>
+
+            <a href="https://www.buymeacoffee.com/vibhavkhichi"
+               target="_blank"
+               class="coffee-btn-premium">
+               Buy Me a Coffee
+            </a>
+        </div>
     </div>
   `;
 
   memeBox.appendChild(card);
   disableSwipe();
+
+  startMidnightCountdown();
 }
 
 /* ================= RENDER CHUNK ================= */
