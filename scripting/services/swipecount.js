@@ -2422,7 +2422,7 @@ async function updateBackend() {
   };
 
   try {
-    await fetch(API.updateUser, {
+    await fetch(API.updateUser(), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
