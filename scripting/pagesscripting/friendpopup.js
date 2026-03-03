@@ -15,9 +15,11 @@
     }
   });
 
-  function closePopup() {
-    profileOverlay.style.display = "none";
-  }
+const closeBtn = document.querySelector(".close-x");
+
+closeBtn.addEventListener("click", function () {
+  profileOverlay.style.display = "none";
+});
 
   function addFriend(el) {
     el.classList.toggle("added");

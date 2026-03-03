@@ -2501,6 +2501,13 @@ let currentCard = null;
 let keyLocked = false;
 let backendUpdating = false;
 
+
+
+/* ================= TOUCH CONFIG ================= */
+const TOUCH_SWIPE_THRESHOLD = 120;   // distance needed to trigger swipe
+const TOUCH_ROTATION_FACTOR = 0.15;  // rotation intensity
+const TOUCH_ANIMATION_SPEED = 0.35;  // lower = faster (0.2 fast, 0.5 slow)
+
 /* ================= USER ================= */
 const username = localStorage.getItem("username");
 
@@ -2862,6 +2869,80 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") { keyLocked = true; swipe("left"); }
 });
 document.addEventListener("keyup", () => keyLocked = false);
+
+
+
+
+/* ================= SMOOTH TOUCH SWIPE ================= */
+
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+
+document.addEventListener("touchstart", (e) => {
+  if (!swipeEnabled || !currentCard) return;
+
+  isDragging = true;
+  startX = e.touches[0].clientX;
+
+  currentCard.style.transition = "none";
+}, { passive: true });
+
+document.addEventListener("touchmove", (e) => {
+  if (!isDragging || !currentCard) return;
+
+  currentX = e.touches[0].clientX;
+  const deltaX = currentX - startX;
+
+  const rotate = deltaX * TOUCH_ROTATION_FACTOR;
+
+  currentCard.style.transform = `
+    translateX(${deltaX}px)
+    rotate(${rotate}deg)
+  `;
+}, { passive: true });
+
+document.addEventListener("touchend", () => {
+  if (!isDragging || !currentCard) return;
+
+  isDragging = false;
+  const deltaX = currentX - startX;
+
+  currentCard.style.transition = `transform ${TOUCH_ANIMATION_SPEED}s ease`;
+
+  // ✅ Trigger Swipe
+  if (deltaX > TOUCH_SWIPE_THRESHOLD) {
+    animateOut("right");
+  } else if (deltaX < -TOUCH_SWIPE_THRESHOLD) {
+    animateOut("left");
+  } else {
+    // ❌ Return to center
+    currentCard.style.transform = "translateX(0px) rotate(0deg)";
+  }
+});
+
+/* ================= ANIMATE OUT ================= */
+function animateOut(direction) {
+  if (!currentCard) return;
+
+  const exitX = direction === "right" ? 1000 : -1000;
+
+  currentCard.style.transform = `
+    translateX(${exitX}px)
+    rotate(${direction === "right" ? 25 : -25}deg)
+  `;
+
+  setTimeout(() => {
+    swipe(direction); // use your existing engine
+  }, TOUCH_ANIMATION_SPEED * 1000);
+}
+
+
+
+
+
+
+
 
 /* ================= START ================= */
 window.addEventListener("load", initDailyMemes);
