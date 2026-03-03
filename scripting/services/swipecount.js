@@ -2503,10 +2503,17 @@ let backendUpdating = false;
 
 
 
-/* ================= TOUCH CONFIG ================= */
-const TOUCH_SWIPE_THRESHOLD = 120;   // distance needed to trigger swipe
-const TOUCH_ROTATION_FACTOR = 0.15;  // rotation intensity
-const TOUCH_ANIMATION_SPEED = 0.35;  // lower = faster (0.2 fast, 0.5 slow)
+// /* ================= TOUCH CONFIG ================= */
+// const TOUCH_SWIPE_THRESHOLD = 120;   // distance needed to trigger swipe
+// const TOUCH_ROTATION_FACTOR = 0.15;  // rotation intensity
+// const TOUCH_ANIMATION_SPEED = 0.35;  // lower = faster (0.2 fast, 0.5 slow)
+
+
+/* ================= PREMIUM TOUCH CONFIG ================= */
+const TOUCH_THRESHOLD = 100;        // Distance required
+const TOUCH_SPEED = 0.28;           // Animation speed (lower = faster)
+const ROTATION_STRENGTH = 20;       // Max rotation deg
+const VELOCITY_TRIGGER = 0.6;       // Fast swipe sensitivity
 
 /* ================= USER ================= */
 const username = localStorage.getItem("username");
@@ -2873,70 +2880,173 @@ document.addEventListener("keyup", () => keyLocked = false);
 
 
 
-/* ================= SMOOTH TOUCH SWIPE ================= */
+// /* ================= SMOOTH TOUCH SWIPE ================= */
 
-let isDragging = false;
+// let isDragging = false;
+// let startX = 0;
+// let currentX = 0;
+
+// document.addEventListener("touchstart", (e) => {
+//   if (!swipeEnabled || !currentCard) return;
+
+//   isDragging = true;
+//   startX = e.touches[0].clientX;
+
+//   currentCard.style.transition = "none";
+// }, { passive: true });
+
+// document.addEventListener("touchmove", (e) => {
+//   if (!isDragging || !currentCard) return;
+
+//   currentX = e.touches[0].clientX;
+//   const deltaX = currentX - startX;
+
+//   const rotate = deltaX * TOUCH_ROTATION_FACTOR;
+
+//   currentCard.style.transform = `
+//     translateX(${deltaX}px)
+//     rotate(${rotate}deg)
+//   `;
+// }, { passive: true });
+
+// document.addEventListener("touchend", () => {
+//   if (!isDragging || !currentCard) return;
+
+//   isDragging = false;
+//   const deltaX = currentX - startX;
+
+//   currentCard.style.transition = `transform ${TOUCH_ANIMATION_SPEED}s ease`;
+
+//   // ✅ Trigger Swipe
+//   if (deltaX > TOUCH_SWIPE_THRESHOLD) {
+//     animateOut("right");
+//   } else if (deltaX < -TOUCH_SWIPE_THRESHOLD) {
+//     animateOut("left");
+//   } else {
+//     // ❌ Return to center
+//     currentCard.style.transform = "translateX(0px) rotate(0deg)";
+//   }
+// });
+
+// /* ================= ANIMATE OUT ================= */
+// function animateOut(direction) {
+//   if (!currentCard) return;
+
+//   const exitX = direction === "right" ? 1000 : -1000;
+
+//   currentCard.style.transform = `
+//     translateX(${exitX}px)
+//     rotate(${direction === "right" ? 25 : -25}deg)
+//   `;
+
+//   setTimeout(() => {
+//     swipe(direction); // use your existing engine
+//   }, TOUCH_ANIMATION_SPEED * 1000);
+// }
+
+/* ================= PREMIUM TOUCH ENGINE ================= */
+
 let startX = 0;
 let currentX = 0;
+let startTime = 0;
+let dragging = false;
+
+const heart = document.querySelector(".swipe-reaction.heart");
+const cross = document.querySelector(".swipe-reaction.cross");
 
 document.addEventListener("touchstart", (e) => {
   if (!swipeEnabled || !currentCard) return;
 
-  isDragging = true;
+  dragging = true;
   startX = e.touches[0].clientX;
+  startTime = Date.now();
 
   currentCard.style.transition = "none";
 }, { passive: true });
 
 document.addEventListener("touchmove", (e) => {
-  if (!isDragging || !currentCard) return;
+  if (!dragging || !currentCard) return;
 
   currentX = e.touches[0].clientX;
   const deltaX = currentX - startX;
 
-  const rotate = deltaX * TOUCH_ROTATION_FACTOR;
+  const screenWidth = window.innerWidth;
+  const percent = deltaX / screenWidth;
+
+  const rotate = percent * ROTATION_STRENGTH;
 
   currentCard.style.transform = `
     translateX(${deltaX}px)
     rotate(${rotate}deg)
   `;
+
+  // Fade card slightly
+  currentCard.style.opacity = 1 - Math.abs(percent) * 0.4;
+
+  // ❤️ ✖ Premium indicator animation
+  if (deltaX > 0) {
+    heart.style.opacity = Math.min(Math.abs(percent) * 3, 1);
+    heart.style.transform = `scale(${1 + Math.abs(percent)}) rotate(-10deg)`;
+    cross.style.opacity = 0;
+  } else {
+    cross.style.opacity = Math.min(Math.abs(percent) * 3, 1);
+    cross.style.transform = `scale(${1 + Math.abs(percent)}) rotate(10deg)`;
+    heart.style.opacity = 0;
+  }
+
 }, { passive: true });
 
 document.addEventListener("touchend", () => {
-  if (!isDragging || !currentCard) return;
+  if (!dragging || !currentCard) return;
 
-  isDragging = false;
+  dragging = false;
+
   const deltaX = currentX - startX;
+  const timeTaken = Date.now() - startTime;
+  const velocity = Math.abs(deltaX) / timeTaken;
 
-  currentCard.style.transition = `transform ${TOUCH_ANIMATION_SPEED}s ease`;
+  currentCard.style.transition = `all ${TOUCH_SPEED}s cubic-bezier(.22,1,.36,1)`;
 
-  // ✅ Trigger Swipe
-  if (deltaX > TOUCH_SWIPE_THRESHOLD) {
-    animateOut("right");
-  } else if (deltaX < -TOUCH_SWIPE_THRESHOLD) {
-    animateOut("left");
+  // Trigger swipe by distance OR velocity
+  if (Math.abs(deltaX) > TOUCH_THRESHOLD || velocity > VELOCITY_TRIGGER) {
+    const direction = deltaX > 0 ? "right" : "left";
+    premiumExit(direction);
   } else {
-    // ❌ Return to center
-    currentCard.style.transform = "translateX(0px) rotate(0deg)";
+    resetCard();
   }
 });
 
-/* ================= ANIMATE OUT ================= */
-function animateOut(direction) {
-  if (!currentCard) return;
+/* ================= PREMIUM EXIT ================= */
 
-  const exitX = direction === "right" ? 1000 : -1000;
+function premiumExit(direction) {
+  const exitX = direction === "right" ? window.innerWidth : -window.innerWidth;
 
   currentCard.style.transform = `
     translateX(${exitX}px)
-    rotate(${direction === "right" ? 25 : -25}deg)
+    rotate(${direction === "right" ? 30 : -30}deg)
   `;
+  currentCard.style.opacity = 0;
 
   setTimeout(() => {
-    swipe(direction); // use your existing engine
-  }, TOUCH_ANIMATION_SPEED * 1000);
+    swipe(direction);
+    resetIndicators();
+  }, TOUCH_SPEED * 1000);
 }
 
+/* ================= RESET ================= */
+
+function resetCard() {
+  currentCard.style.transform = "translateX(0) rotate(0)";
+  currentCard.style.opacity = 1;
+  resetIndicators();
+}
+
+function resetIndicators() {
+  heart.style.opacity = 0;
+  cross.style.opacity = 0;
+  heart.style.transform = "scale(1)";
+  cross.style.transform = "scale(1)";
+}
 
 
 
