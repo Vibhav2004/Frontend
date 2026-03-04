@@ -6,7 +6,7 @@
   backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
-  margin-left: -100px;
+  /* margin-left: -100px; */
   align-items: center;
   z-index: 999;
 }
@@ -48,9 +48,9 @@
 }
 .contact{
   width: 170px;
-  /* justify-content: center;
+  justify-content: center;
   align-items: center;
-  display: flex; */
+  display: flex;
 }
 /* Close button */
 .close-btn {
@@ -77,11 +77,11 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
  
-  margin-left: 100px;
-  /* display: flex;
+  margin-left: 70px;
+  display: flex;
   flex-direction: row-reverse;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
   margin-top: 20px;
 }
 

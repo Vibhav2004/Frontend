@@ -2559,10 +2559,34 @@ function getStoredData() {
 function setStoredData(data) {
   localStorage.setItem(STORAGE_KEYs, JSON.stringify(data));
 }
+async function fetchGuestMemes() {
+  try {
+    console.log("Fetching memes for guest user...");
+    const res = await fetch("/assests/data/meme.json");
+    if (!res.ok) return [];
 
+    const data = await res.json();
+
+    // If JSON is array of URLs
+    return data.map(url => ({ url }));
+
+  } catch (err) {
+    console.error("Guest meme fetch failed");
+    return [];
+  }
+}
 /* ================= FETCH MEMES ================= */
 async function fetchDailyMemes() {
   try {
+
+     const username = localStorage.getItem("username");
+ console.log(username);
+ 
+    // 🔥 CHECK IF USER IS GUEST (case-insensitive)
+    // if (username==="guest") {
+    //   return await fetchGuestMemes();
+    // }
+    console.log("Fetching memes for user:", username);
     const res = await fetch(`${BACKEND_API}?username=${username}`);
     if (!res.ok) return [];
     const urls = await res.json();
@@ -2641,6 +2665,7 @@ function startMidnightCountdown() {
 }
 /* ================= QUOTA CARD ================= */
 function renderQuotaCard() {
+  disableSwipe()
   const memeBox = document.querySelector(".memeBox");
   memeBox.innerHTML = "";
 
@@ -2727,11 +2752,15 @@ function enableSwipe() {
 function disableSwipe() {
   swipeEnabled = false;
   keyLocked = true;
+  currentCard = null;
 }
 
 /* ================= SWIPE ENGINE ================= */
 function swipe(direction) {
   if (!swipeEnabled) return;
+   if (!currentCard) return;
+  if (currentCard.classList.contains("quota-card")) return;
+
 
   swipeEnabled = false; // prevent rapid duplicate swipes
   incrementSwipe();
@@ -2878,72 +2907,6 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keyup", () => keyLocked = false);
 
 
-
-
-// /* ================= SMOOTH TOUCH SWIPE ================= */
-
-// let isDragging = false;
-// let startX = 0;
-// let currentX = 0;
-
-// document.addEventListener("touchstart", (e) => {
-//   if (!swipeEnabled || !currentCard) return;
-
-//   isDragging = true;
-//   startX = e.touches[0].clientX;
-
-//   currentCard.style.transition = "none";
-// }, { passive: true });
-
-// document.addEventListener("touchmove", (e) => {
-//   if (!isDragging || !currentCard) return;
-
-//   currentX = e.touches[0].clientX;
-//   const deltaX = currentX - startX;
-
-//   const rotate = deltaX * TOUCH_ROTATION_FACTOR;
-
-//   currentCard.style.transform = `
-//     translateX(${deltaX}px)
-//     rotate(${rotate}deg)
-//   `;
-// }, { passive: true });
-
-// document.addEventListener("touchend", () => {
-//   if (!isDragging || !currentCard) return;
-
-//   isDragging = false;
-//   const deltaX = currentX - startX;
-
-//   currentCard.style.transition = `transform ${TOUCH_ANIMATION_SPEED}s ease`;
-
-//   // ✅ Trigger Swipe
-//   if (deltaX > TOUCH_SWIPE_THRESHOLD) {
-//     animateOut("right");
-//   } else if (deltaX < -TOUCH_SWIPE_THRESHOLD) {
-//     animateOut("left");
-//   } else {
-//     // ❌ Return to center
-//     currentCard.style.transform = "translateX(0px) rotate(0deg)";
-//   }
-// });
-
-// /* ================= ANIMATE OUT ================= */
-// function animateOut(direction) {
-//   if (!currentCard) return;
-
-//   const exitX = direction === "right" ? 1000 : -1000;
-
-//   currentCard.style.transform = `
-//     translateX(${exitX}px)
-//     rotate(${direction === "right" ? 25 : -25}deg)
-//   `;
-
-//   setTimeout(() => {
-//     swipe(direction); // use your existing engine
-//   }, TOUCH_ANIMATION_SPEED * 1000);
-// }
-
 /* ================= PREMIUM TOUCH ENGINE ================= */
 
 let startX = 0;
@@ -2956,7 +2919,8 @@ const cross = document.querySelector(".swipe-reaction.cross");
 
 document.addEventListener("touchstart", (e) => {
   if (!swipeEnabled || !currentCard) return;
-
+  
+  if (currentCard.classList.contains("quota-card")) return;
   dragging = true;
   startX = e.touches[0].clientX;
   startTime = Date.now();

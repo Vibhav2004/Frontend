@@ -393,7 +393,7 @@ function renderMemes(urls) {
 /* ================= AUTO LOAD ================= */
 document.addEventListener("DOMContentLoaded", loadMemes);
 </script>
-<script>
+<!-- <script>
   
   function openPopup() {
   document.getElementById("popupOverlay").style.display = "flex";
@@ -410,6 +410,44 @@ function copyLink() {
   navigator.clipboard.writeText(linkInput.value);
   alert("Link copied to clipboard!");
 }
+</script> -->
+<script>
+
+function openPopup() {
+  document.getElementById("popupOverlay").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popupOverlay").style.display = "none";
+}
+
+async function copyLink() {
+
+  const linkInput = document.getElementById("pwaLink");
+  const url = linkInput.value;
+
+  // 🔥 If Web Share API is supported
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "SwipeNow",
+        text: "Check out this awesome app!",
+        url: url
+      });
+      console.log("Shared successfully");
+    } catch (err) {
+      console.error("Share failed:", err);
+    }
+  } 
+  else {
+    // 🟡 Fallback for unsupported devices
+    linkInput.select();
+    linkInput.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(url);
+    alert("Sharing not supported. Link copied to clipboard!");
+  }
+}
+
 </script>
 
 
