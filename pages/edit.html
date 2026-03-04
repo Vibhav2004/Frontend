@@ -195,7 +195,8 @@ async function deleteAccount(email) {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+             credentials: "include"
         });
 
         if (!response.ok) {
