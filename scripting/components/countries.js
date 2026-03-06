@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", loadCountries);
 
 function loadCountries() {
-  fetch("./assests/data/countries.json")
+  fetch("../assests/data/countries.json")
     .then(res => {
       if (!res.ok) throw new Error("Failed to load countries");
       return res.json();

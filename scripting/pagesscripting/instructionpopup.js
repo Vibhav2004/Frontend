@@ -34,7 +34,7 @@ let streak2=data.streak;
     // document.getElementById("swipe").innerText=`Swipes : ${swipe2}`;
     document.getElementById("streak").innerText=`${streak2 ||0}🔥`;
      
-      if (data.swipes === null || data.swipes === 0) {
+      if (data.swipes === null || data.swipes === 0 || userType === "guest" ) {
 
 
   const firstTimeUser = localStorage.getItem("firstTimeUser");
