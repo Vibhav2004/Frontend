@@ -17,6 +17,9 @@
 
   gtag('config', 'G-KKF6PBBLRL');
 </script>
+  <!-- PWA Manifest -->
+ <link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#000000">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWIPENOW</title>
@@ -110,6 +113,7 @@
   <button class="username" id="username" >Guest_67</button>
   <button class="email" id="email" >Guest67@gmail.com</button>
   <button class="password" onclick="sendOtpAndRedirect('password')">********</button>
+   <button class="install" onclick="installApp()">Install PWA</button>
 </div>
 
 
@@ -124,9 +128,41 @@
             <a href="aboutus.html">Know About Us</a>   
           </div>
 
+<div id="pwa-install-popup" class="pwa-hidden">
+  <div class="pwa-card">
+    <img src="/assests/logo-removebg-preview.png" alt="App Icon">
+    <h3>Install SwipeNow</h3>
+    <p> A full app experience right at your palm.</p>
 
+    <div class="actions">
+      <button id="installBtn">Install</button>
+      <button id="closeBtn">Not now</button>
+    </div>
+  </div>
+</div>
           
  <script src="/global.js"></script>
+ <script>
+  function installApp() {
+  document.getElementById("pwa-install-popup").classList.remove("pwa-hidden"); 
+  } 
+  
+document.getElementById("installBtn")?.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+
+  const { outcome } = await deferredPrompt.userChoice;
+  console.log("Install choice:", outcome);
+
+  deferredPrompt = null;
+  document.getElementById("pwa-install-popup").classList.add("pwa-hidden");
+});
+
+document.getElementById("closeBtn")?.addEventListener("click", () => {
+  document.getElementById("pwa-install-popup").classList.add("pwa-hidden");
+});
+ </script>
   <script src="/scripting/services/home.js"></script>  
 <script src="/scripting/utils/routing.js"></script>
  <script src="/scripting/services/profilepic.js"></script>  
