@@ -2490,7 +2490,7 @@
 /* ================= CONFIG ================= */
 const BACKEND_API = "https://backend2-kpkg.onrender.com/daily-memes";
 const STORAGE_KEYs = "dailyMemeData";
-const RENDER_CHUNK_SIZE = 20;
+const RENDER_CHUNK_SIZE = 10;
 
 /* ================= STATE ================= */
 let loadedMemes = [];
@@ -2559,22 +2559,72 @@ function getStoredData() {
 function setStoredData(data) {
   localStorage.setItem(STORAGE_KEYs, JSON.stringify(data));
 }
+
+
+
+let preloadIndex = 0;
+let isPreloading = false;
+
+function startBackgroundPreload() {
+  if (isPreloading) return;
+  isPreloading = true;
+
+  preloadIndex = RENDER_CHUNK_SIZE;
+
+  function preloadNextBatch() {
+    if (preloadIndex >= loadedMemes.length) {
+      isPreloading = false;
+      return;
+    }
+
+    const batchSize = 5; // preload 5 at a time
+    const end = Math.min(preloadIndex + batchSize, loadedMemes.length);
+
+    for (let i = preloadIndex; i < end; i++) {
+      const img = new Image();
+      img.src = loadedMemes[i].url;
+      img.decoding = "async";
+    }
+
+    preloadIndex = end;
+
+    // Delay next preload slightly to avoid blocking UI
+    setTimeout(preloadNextBatch, 300);
+  }
+
+  preloadNextBatch();
+}
+
+
+/* ================= GUEST MEME FETCH ================= */
 async function fetchGuestMemes() {
   try {
-    console.log("Fetching memes for guest user...");
-    const res = await fetch("/assests/data/meme.json");
-    if (!res.ok) return [];
+    const response = await fetch("../assests/data/meme.json");
 
-    const data = await res.json();
+    if (!response.ok) {
+      throw new Error("Failed to load guest meme.json");
+    }
 
-    // If JSON is array of URLs
-    return data.map(url => ({ url }));
+    const json = await response.json();
 
-  } catch (err) {
-    console.error("Guest meme fetch failed");
+    // 🔥 Convert { meme: ["url"] } → [{id, url}]
+    const formattedMemes = json.meme.map((url, index) => ({
+      id: index + 1,
+      url: url
+    }));
+
+    return formattedMemes;
+
+  } catch (error) {
+    console.error("Guest meme fetch error:", error);
     return [];
   }
 }
+
+
+
+
+
 /* ================= FETCH MEMES ================= */
 async function fetchDailyMemes() {
   try {
@@ -2724,7 +2774,7 @@ function renderNextChunk() {
 
     const img = document.createElement("img");
     img.src = meme.url;
-    img.loading = "eager";
+    img.loading = "eagar";
     img.decoding = "async";
     img.draggable = false;
 
@@ -2775,9 +2825,29 @@ function swipe(direction) {
     localStorage.setItem(RIGHT_STREAK_KEY, rightSwipesForStreak);
   }
 
+  // if (totalSwipesForAPI === API_SWIPE_TARGET) {
+  //   updateBackend();
+  // }
+
   if (totalSwipesForAPI === API_SWIPE_TARGET) {
+
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+  if (isLoggedIn) {
     updateBackend();
+  } else {
+    // 🔥 DIRECTLY SHOW GUEST POPUP
+    popupForGuest(
+      totalSwipesForAPI,
+      rightSwipesForScore,
+      rightSwipesForStreak,
+      "Guest"
+    );
+    disableSwipe();
   }
+}
+
+
 
   if (currentCard) {
     currentCard.classList.add(direction === "right" ? "swipe-right" : "swipe-left");
@@ -2797,6 +2867,38 @@ function swipe(direction) {
     }
   }, 300);
 }
+
+
+function popupForGuest(totalSwipesForAPI, rightSwipesForScore, streakIncrement, username) {
+
+  // STORE guest data
+  localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+  localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+  localStorage.setItem("GuestStreakIncrement", 1);
+  localStorage.setItem("guestTask", username);
+
+  // READ guest data into popup
+  document.getElementById("snapUsername").innerText =
+    localStorage.getItem("guestTask");
+
+  document.getElementById("snapScore").innerText =
+    rightSwipesForScore * 3 + 1 * 5;
+
+  document.getElementById("snapSwipes").innerText =
+    localStorage.getItem("GuestRightSwipes");
+
+  document.getElementById("snapStreak").innerText =
+    "🔥 1" 
+
+  // SHOW popup
+  document.getElementById("snapshotOverlay").style.display = "flex";
+  
+  // console.log(JSON.stringify(localStorage));
+
+}
+
+
+
 
 /* ================= SWIPE PROGRESS ================= */
 function onMemeSwiped() {
@@ -2834,7 +2936,7 @@ function onMemeSwiped() {
 
 /* ================= BACKEND UPDATE ================= */
 async function updateBackend() {
-  if (!username) return;
+ 
   if (backendUpdating) return;
 
   backendUpdating = true;
@@ -2861,6 +2963,12 @@ async function updateBackend() {
 
   } catch (err) {
     console.error("Backend update failed", err);
+    
+     localStorage.setItem("GuestTotalSwipes", totalSwipesForAPI);
+     localStorage.setItem("GuestRightSwipes", rightSwipesForScore);
+     localStorage.setItem("GuestStreakIncrement", 1);
+    popupForGuest(totalSwipesForAPI, rightSwipesForScore, 1, username);
+     disableSwipe();
   } finally {
     backendUpdating = false;
   }
@@ -2871,6 +2979,9 @@ async function initDailyMemes() {
   const memeBox = document.querySelector(".memeBox");
   const today = getTodayKey();
   let storedData = getStoredData();
+   
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
 
   if (storedData && storedData.date === today) {
     currentIndexs = storedData.index || 0;
@@ -2881,9 +2992,21 @@ async function initDailyMemes() {
   }
 
   createLoader(memeBox);
+ let memes = [];
+  // const memes = await fetchDailyMemes();
+  // loadedMemes = memes;
+         
+     if (isLoggedIn) {
+      console.log("for user");
+      
+    memes = await fetchDailyMemes();
+  } else {
+    console.log("for guest");
+    memes = await fetchGuestMemes();   // ✅ only change
+  }
 
-  const memes = await fetchDailyMemes();
   loadedMemes = memes;
+
 
   setStoredData({
     date: today,
@@ -2896,6 +3019,7 @@ async function initDailyMemes() {
 
   renderNextChunk();
   enableSwipe();
+  startBackgroundPreload();
 }
 
 /* ================= KEYBOARD SWIPE ================= */
