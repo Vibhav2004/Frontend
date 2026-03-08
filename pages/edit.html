@@ -240,12 +240,7 @@ async function deleteAccount() {
 
         const result = await response.text();
         console.log("Account deleted:", result);
-
-        alert("Account deleted successfully!");
-        window.location.replace("registeration.html");
-      
-    } catch (err) {
-        localStorage.removeItem("GuestRightSwipes");
+localStorage.removeItem("GuestRightSwipes");
 localStorage.removeItem("GuestStreakIncrement");
 localStorage.removeItem("GuestTotalSwipes");
 localStorage.removeItem("dailyMemeData");
@@ -254,6 +249,11 @@ localStorage.removeItem("guestTask");
 localStorage.removeItem("onesignal-notification-prompt");
 
 localStorage.setItem("isLoggedIn","false");
+        alert("Account deleted successfully!");
+        window.location.replace("registeration.html");
+      
+    } catch (err) {
+        
         console.error("Failed to delete account:", err);
         window.location.href="/pages/error.html"; 
         alert("Failed to delete account: " + err.message);
