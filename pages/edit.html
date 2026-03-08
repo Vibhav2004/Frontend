@@ -243,9 +243,17 @@ async function deleteAccount() {
 
         alert("Account deleted successfully!");
         window.location.replace("registeration.html");
-
+      
     } catch (err) {
+        localStorage.removeItem("GuestRightSwipes");
+localStorage.removeItem("GuestStreakIncrement");
+localStorage.removeItem("GuestTotalSwipes");
+localStorage.removeItem("dailyMemeData");
+localStorage.removeItem("firstTimeUser");
+localStorage.removeItem("guestTask");
+localStorage.removeItem("onesignal-notification-prompt");
 
+localStorage.setItem("isLoggedIn","false");
         console.error("Failed to delete account:", err);
         window.location.href="/pages/error.html"; 
         alert("Failed to delete account: " + err.message);
