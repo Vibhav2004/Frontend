@@ -227,11 +227,14 @@ async function deleteAccount(email) {
     try {
       const email = document.querySelector(".email").innerText.trim();
     console.log(email);
-        const response = await fetch(`https://backend2-4uxe.onrender.com/delete-account?email=${encodeURIComponent(email)}`, {
+        const response = await fetch(`https://backend2-kpkg.onrender.com/delete-account`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
+               body: JSON.stringify({
+               email: email
+            }),
              credentials: "include"
         });
 
