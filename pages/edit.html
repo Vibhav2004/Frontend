@@ -241,13 +241,17 @@ async function deleteAccount() {
         const result = await response.text();
         console.log("Account deleted:", result);
           // clear all stored data
+                 // clear all stored data
     localStorage.clear();
     localStorage.setItem("isLoggedIn","false");
         alert("Account deleted successfully!");
         window.location.replace("registeration.html");
       
-    } catch (err) {
+   
         
+
+    } catch (err) {
+
         console.error("Failed to delete account:", err);
         window.location.href="/pages/error.html"; 
         alert("Failed to delete account: " + err.message);
@@ -257,7 +261,6 @@ async function deleteAccount() {
 // Example usage:
 
 </script>
-
 
 
 
