@@ -222,21 +222,16 @@ function updateUIs(user) {
   
 </script>
 <script>
-
-async function deleteAccount(email) {
+async function deleteAccount() {
     try {
-      const email = document.querySelector(".email").innerText.trim();
-    console.log(email);
-        const response = await fetch(`https://backend2-kpkg.onrender.com/delete-account`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-               body: JSON.stringify({
-               email: email
-            }),
-             credentials: "include"
-        });
+
+        const email = document.querySelector(".email").innerText.trim();
+        console.log(email);
+
+  const response = await fetch(
+      `https://backend2-kpkg.onrender.com/delete-account/${email}`,
+      { method: "DELETE" }
+    );
 
         if (!response.ok) {
             const text = await response.text();
@@ -245,19 +240,21 @@ async function deleteAccount(email) {
 
         const result = await response.text();
         console.log("Account deleted:", result);
+
         alert("Account deleted successfully!");
         window.location.replace("registeration.html");
+
     } catch (err) {
+
         console.error("Failed to delete account:", err);
         window.location.href="/pages/error.html"; 
         alert("Failed to delete account: " + err.message);
+
     }
 }
-
 // Example usage:
 
 </script>
-
 
 
 
