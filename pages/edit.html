@@ -59,7 +59,7 @@
            </div>
            </div>
          <div class="img-dropdown">
-  <div class="dropdown-btn" id="dropdownBtn" onclick="saveProfilePic()">Select Image <span>↓</span></dix>
+  <div class="dropdown-btn" id="dropdownBtn" onclick="saveProfilePic()">Select Image <span>↓</span></div>
 
   <div class="dropdown-menu" id="dropdownMenu">
 
@@ -240,11 +240,15 @@ async function deleteAccount() {
 
         const result = await response.text();
         console.log("Account deleted:", result);
+          // clear all stored data
                  // clear all stored data
     localStorage.clear();
     localStorage.setItem("isLoggedIn","false");
         alert("Account deleted successfully!");
         window.location.replace("registeration.html");
+      
+   
+        
 
     } catch (err) {
 

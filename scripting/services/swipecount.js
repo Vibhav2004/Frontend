@@ -3002,63 +3002,63 @@ async function updateBackend() {
 }
 
 // /* ================= INIT ================= */
-// async function initDailyMemes() {
-//   const memeBox = document.querySelector(".memeBox");
-//   const today = getTodayKey();
-//   let storedData = getStoredData();
+async function initDailyMemes() {
+  const memeBox = document.querySelector(".memeBox");
+  const today = getTodayKey();
+  let storedData = getStoredData();
    
-// const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
 
-//   if (storedData && storedData.date === today) {
-//     currentIndexs = storedData.index || 0;
-//     loadedMemes = storedData.memes;
-//     renderNextChunk();
-//     enableSwipe();
-//     return;
-//   }
+  if (storedData && storedData.date === today) {
+    currentIndexs = storedData.index || 0;
+    loadedMemes = storedData.memes;
+    renderNextChunk();
+    enableSwipe();
+    return;
+  }
 
-//   createLoader(memeBox);
-//  let memes = [];
-//   // const memes = await fetchDailyMemes();
-//   // loadedMemes = memes;
+  createLoader(memeBox);
+ let memes = [];
+  // const memes = await fetchDailyMemes();
+  // loadedMemes = memes;
          
-//      if (isLoggedIn) {
-//       console.log("for user");
+     if (isLoggedIn) {
+      console.log("for user");
       
-//     memes = await fetchDailyMemes();
-//   } else {
-//     console.log("for guest");
-//     memes = await fetchGuestMemes();   // ✅ only change
-//   }
+    memes = await fetchDailyMemes();
+  } else {
+    console.log("for guest");
+    memes = await fetchGuestMemes();   // ✅ only change
+  }
 
-//   // loadedMemes = memes;
+  // loadedMemes = memes;
 
 
-//   // setStoredData({
-//   //   date: today,
-//   //   memes: memes,
-//   //   index: 0,
-//   // });
-//   // 🔥 PRELOAD FIRST MEMES BEFORE RENDER
-// await preloadInitialMemes(memes, 5);
+  // setStoredData({
+  //   date: today,
+  //   memes: memes,
+  //   index: 0,
+  // });
+  // 🔥 PRELOAD FIRST MEMES BEFORE RENDER
+await preloadInitialMemes(memes, 5);
 
-// loadedMemes = memes;
+loadedMemes = memes;
 
-// setStoredData({
-//   date: today,
-//   memes: memes,
-//   index: 0,
-// });
+setStoredData({
+  date: today,
+  memes: memes,
+  index: 0,
+});
 
-//   memeBox.innerHTML = "";
-//   removeLoader(memeBox);
+  memeBox.innerHTML = "";
+  removeLoader(memeBox);
 
-//   renderNextChunk();
-//   enableSwipe();
-//   // startBackgroundPreload();
-//   setTimeout(startBackgroundPreload, 800);
-// }
+  renderNextChunk();
+  enableSwipe();
+  // startBackgroundPreload();
+  setTimeout(startBackgroundPreload, 800);
+}
 
 
 /* ================= KEYBOARD SWIPE ================= */
@@ -3175,72 +3175,72 @@ function resetIndicators() {
   cross.style.transform = "scale(1)";
 }
 
-async function initDailyMemes() {
+// async function initDailyMemes() {
 
-  const memeBox = document.querySelector(".memeBox");
-  const today = getTodayKey();
-  let storedData = getStoredData();
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+//   const memeBox = document.querySelector(".memeBox");
+//   const today = getTodayKey();
+//   let storedData = getStoredData();
+//   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-  let memes = [];
+//   let memes = [];
 
-  /* ===== SAME DAY ===== */
-  if (storedData && storedData.date === today) {
+//   /* ===== SAME DAY ===== */
+//   if (storedData && storedData.date === today) {
 
-    currentIndexs = storedData.index || 0;
-    loadedMemes = storedData.memes || [];
+//     currentIndexs = storedData.index || 0;
+//     loadedMemes = storedData.memes || [];
 
-    renderNextChunk();
-    enableSwipe();
-    return;
-  }
+//     renderNextChunk();
+//     enableSwipe();
+//     return;
+//   }
 
-  /* ===== NEW DAY ===== */
+//   /* ===== NEW DAY ===== */
 
-  createLoader(memeBox);
+//   createLoader(memeBox);
 
-  if (isLoggedIn) {
-    memes = await fetchDailyMemes();
-  } else {
-    memes = await fetchGuestMemes();
-  }
+//   if (isLoggedIn) {
+//     memes = await fetchDailyMemes();
+//   } else {
+//     memes = await fetchGuestMemes();
+//   }
 
-  if (storedData && storedData.memes) {
+//   if (storedData && storedData.memes) {
 
-    // remaining memes from yesterday
-    const remainingMemes = storedData.memes.slice(storedData.index || 0);
+//     // remaining memes from yesterday
+//     const remainingMemes = storedData.memes.slice(storedData.index || 0);
 
-    console.log("Remaining memes from yesterday:", remainingMemes.length);
+//     console.log("Remaining memes from yesterday:", remainingMemes.length);
 
-    // merge remaining + new
-    loadedMemes = [...remainingMemes, ...memes];
+//     // merge remaining + new
+//     loadedMemes = [...remainingMemes, ...memes];
 
-    // reset swipe index
-    currentIndexs = 0;
+//     // reset swipe index
+//     currentIndexs = 0;
 
-  } else {
+//   } else {
 
-    loadedMemes = memes;
-    currentIndexs = 0;
+//     loadedMemes = memes;
+//     currentIndexs = 0;
 
-  }
+//   }
 
-  await preloadInitialMemes(loadedMemes, 5);
+//   await preloadInitialMemes(loadedMemes, 5);
 
-  setStoredData({
-    date: today,
-    memes: loadedMemes,
-    index: currentIndexs
-  });
+//   setStoredData({
+//     date: today,
+//     memes: loadedMemes,
+//     index: currentIndexs
+//   });
 
-  memeBox.innerHTML = "";
-  removeLoader(memeBox);
+//   memeBox.innerHTML = "";
+//   removeLoader(memeBox);
 
-  renderNextChunk();
-  enableSwipe();
+//   renderNextChunk();
+//   enableSwipe();
 
-  setTimeout(startBackgroundPreload, 800);
-}
+//   setTimeout(startBackgroundPreload, 800);
+// }
 
 
 
