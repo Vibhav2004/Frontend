@@ -24,7 +24,7 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: black;
+  background: rgb(0, 0, 0);
   overflow-y: hidden;
   overflow-x: hidden;
 }

@@ -14,7 +14,9 @@ function loadProfile() {
       return res.json();
     })
     .then(data => updateUI(data))
-    .catch(err =>{window.location.href="/pages/error.html";  console.error(err)});
+    .catch(err =>{
+      // window.location.href="/pages/error.html"; 
+       console.error(err)});
 }
 
 function updateUI(user) {
