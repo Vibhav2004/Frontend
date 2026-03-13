@@ -9,7 +9,10 @@
   "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#000000",
- "icons": [
+  "categories": ["entertainment", "social"],
+  "id": "/",
+  "lang": "en",
+  "icons": [
   {
     "src": "/assests/icon/web-app-manifest-192x192 (1).png",
     "sizes": "512x512",

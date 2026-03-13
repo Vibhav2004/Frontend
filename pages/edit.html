@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Make PWA fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- Status bar style -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- App name on Home Screen -->
+<meta name="apple-mobile-web-app-title" content="SwipeNow">
+<link rel="apple-touch-icon" sizes="180x180" href="/assests/icon/download.png">
+<!-- Prevent automatic phone number detection -->
+<meta name="format-detection" content="telephone=no">
+
+<!-- Viewport fit for notch devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
      <meta name="google-adsense-account" content="ca-pub-7037433296047161">
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -109,7 +123,7 @@
 </div>
 
 </div>
-         </div>
+         
 <div class="info">
   <button class="username" id="username" >Guest_67</button>
   <button class="email" id="email" >Guest67@gmail.com</button>
@@ -128,7 +142,7 @@
 
             <a href="aboutus.html">Know About Us</a>   
           </div>
-
+        </div>
 <div id="pwa-install-popup" class="pwa-hidden">
   <div class="pwa-card">
     <img src="/assests/logo-removebg-preview.png" alt="App Icon">
@@ -209,7 +223,7 @@ document.getElementById("closeBtn")?.addEventListener("click", () => {
       updateUIs(data)
     } )
     .catch(err =>{ console.error(err)
-      window.location.href="/pages/error.html"; });
+      // window.location.href="/pages/error.html"; });
 });
 
 function updateUIs(user) {
@@ -220,7 +234,7 @@ function updateUIs(user) {
 
  
 }
-  
+})
 </script>
 <script>
 async function deleteAccount() {
@@ -297,3 +311,11 @@ async function deleteAccount() {
 
 </body>
 </html>
+
+
+
+
+
+
+
+

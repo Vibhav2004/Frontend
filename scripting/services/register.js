@@ -15,7 +15,7 @@ async function registerUser() {
     }
 if(localStorage.getItem("userType") === "guest"){
     alert("login to see access all features");
-      swipes=localStorage.getItem("GuestTotalSwipes");
+      swipes=localStorage.getItem("GuestRightSwipes");
       streak=localStorage.getItem("GuestStreakIncrement");
       score=localStorage.getItem("GuestRightSwipes")*3+localStorage.getItem("GuestStreakIncrement")*5 ;
     

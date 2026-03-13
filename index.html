@@ -59,9 +59,23 @@
 
 
 
+<!-- Make PWA fullscreen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
 
+<!-- Status bar style -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- App name on Home Screen -->
+<meta name="apple-mobile-web-app-title" content="SwipeNow">
+
+<!-- Prevent automatic phone number detection -->
+<meta name="format-detection" content="telephone=no">
+
+<!-- Viewport fit for notch devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="stylesheet" href="styling/base/body.css">
   <link rel="stylesheet" href="styling/components/loading.css">
+
 </head>
 <body>
   <div class="container">
@@ -141,7 +155,7 @@ window.addEventListener("appinstalled", () => {
 });
 
 </script>
-<!-- <script>
+<script>
 // ============================
 // PLATFORM DETECTION
 // ============================
@@ -160,13 +174,14 @@ function isStandalone() {
 let deferredPrompt = null;
 
 window.addEventListener("beforeinstallprompt", (e) => {
+
   e.preventDefault();
   deferredPrompt = e;
 
-  // show popup only if not installed
-  if (!isStandalone()) {
+  if (!isStandalone() && !localStorage.getItem("pwaInstalled")) {
     showInstallPopup();
   }
+
 });
 
 // ============================
@@ -174,23 +189,35 @@ window.addEventListener("beforeinstallprompt", (e) => {
 // ============================
 window.addEventListener("load", () => {
 
-  if (isIOS() && !isStandalone()) {
+  if (isIOS() && !isStandalone() && !localStorage.getItem("pwaInstalled")) {
 
-    // slight delay = better UX
     setTimeout(() => {
 
       const popup = document.getElementById("pwa-install-popup");
-      popup.classList.remove("pwa-hidden");
 
-      // change button behavior for iOS
-      document.getElementById("installBtn").onclick = () => {
-        alert("To install:\nTap Share icon\nThen 'Add to Home Screen'");
-      };
+      if (popup) popup.classList.remove("pwa-hidden");
+
+      const installBtn = document.getElementById("installBtn");
+
+      if (installBtn) {
+        installBtn.onclick = () => {
+          alert(
+"Install SwipeNow\n\n1️⃣ Tap Share icon\n2️⃣ Tap 'Add to Home Screen'\n3️⃣ Tap Add"
+          );
+        };
+      }
 
     }, 2500);
   }
 
 });
-</script> -->
+
+// ============================
+// AFTER INSTALL
+// ============================
+window.addEventListener("appinstalled", () => {
+  localStorage.setItem("pwaInstalled", "true");
+});
+</script>
 </body>
 </html>
