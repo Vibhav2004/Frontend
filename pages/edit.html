@@ -127,7 +127,7 @@
 <div class="info">
   <button class="username" id="username" >Guest_67</button>
   <button class="email" id="email" >Guest67@gmail.com</button>
-  <button class="password" onclick="sendOtpAndRedirect('password')">********</button>
+  <button class="password" onclick="openInputPopup()">********</button>
    <button class="install" onclick="installApp()">Install PWA</button>
 </div>
 
@@ -276,10 +276,61 @@ async function deleteAccount() {
 // Example usage:
 
 </script>
+<script> 
+function openInputPopup(){
+
+  const overlay = document.createElement("div");
+  overlay.className = "popup-overlay";
+
+  overlay.innerHTML = `
+    <div class="popup-box">
+
+      <div class="popup-close" onclick="this.closest('.popup-overlay').remove()">✖</div>
+
+      <h3>Enter New Password</h3>
+
+      <input type="text" id="popupInput" placeholder="Enter value">
+
+      <button onclick="submitPopup()">Submit</button>
+
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+}
+
+function submitPopup(){
+
+  const value = document.getElementById("popupInput").value;
+
+ try {
+    const response = fetch(API.sendOtp(value), {
+      method: "POST",
+    });
+
+    if (!response.ok) {
+      throw new Error("Invalid Code");
+    }
+
+    // localStorage.setItem("otpEmail", email);
+    // localStorage.setItem("otpAction", actionType);
+
+    window.location.href = "/pages/actualeditPassword.html";
+
+  } catch (error) {
+    console.error(error);
+    window.location.href="/pages/error.html"; 
+    alert("Invalid code");
+  }
 
 
+  document.querySelector(".popup-overlay").remove();
+
+}
+</script>
 
 
+<!-- 
 <script>
   const sendOtpAndRedirect = async (actionType) => {
   const email = document.querySelector(".email").innerText.trim();
@@ -306,7 +357,7 @@ async function deleteAccount() {
   }
 };
 
-</script>
+</script> -->
 
 
 </body>
