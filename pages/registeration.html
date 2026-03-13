@@ -39,7 +39,7 @@
 
 <!-- Prevent automatic phone number detection -->
 <meta name="format-detection" content="telephone=no">
-
+<link rel="apple-touch-icon" sizes="180x180" href="/assests/icon/download.png">
 <!-- Viewport fit for notch devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="icon" href="/assests/icon/favicon-96x96.png" sizes="any" type="image/x-icon">
@@ -74,6 +74,7 @@
    <select name="country" id="country">
   <option value="">Select Country</option>
 </select>
+<button id="codegenerator" class="code" onclick="generateCode()" active >Code</button>
 
      <button id="registered"  onclick="registerUser()" disabled>Register</button>
      
@@ -145,6 +146,18 @@
 <script src="/scripting/pagesscripting/terms.js"></script>
 <script src="/scripting/services/register.js"></script>
 <script src="/global.js"></script>
+<script>
+ function generateCode(){ const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
+let code = ""; for(let i=0;i<10;i++){ 
+  code += chars.charAt(Math.floor(Math.random() * chars.length)); 
+  } 
+  localStorage.setItem("registrationCode", code);
+  document.getElementById("codegenerator").textContent = ""+code;
+  document.getElementById("codegenerator").style.textspacing = "2px";
+   document.getElementById("codegenerator").disabled = true;
+   
+  } 
+  </script>
 </body>
 
 </html>
