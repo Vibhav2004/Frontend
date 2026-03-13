@@ -2613,19 +2613,43 @@ async function preloadInitialMemes(memes, count = 5) {
   return memes;
 }
 
-/* ================= GUEST MEME FETCH ================= */
+// /* ================= GUEST MEME FETCH ================= */
+// async function fetchGuestMemes() {
+//   try {
+//     const response = await fetch("https://backend2-kpkg.onrender.com/guest-memes");
+
+//     if (!response.ok) {
+//       throw new Error("Failed to load guest meme.json");
+//     }
+
+//     const json = await response.json();
+
+//     // 🔥 Convert { meme: ["url"] } → [{id, url}]
+//     const formattedMemes = json.meme.map((url, index) => ({
+//       id: index + 1,
+//       url: url
+//     }));
+
+//     return formattedMemes;
+
+//   } catch (error) {
+//     console.error("Guest meme fetch error:", error);
+//     return [];
+//   }
+// }
+
+
 async function fetchGuestMemes() {
   try {
     const response = await fetch("https://backend2-kpkg.onrender.com/guest-memes");
 
     if (!response.ok) {
-      throw new Error("Failed to load guest meme.json");
+      throw new Error("Failed to load guest memes");
     }
 
     const json = await response.json();
 
-    // 🔥 Convert { meme: ["url"] } → [{id, url}]
-    const formattedMemes = json.meme.map((url, index) => ({
+    const formattedMemes = json.map((url, index) => ({
       id: index + 1,
       url: url
     }));
