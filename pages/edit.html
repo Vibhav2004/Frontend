@@ -299,33 +299,35 @@ function openInputPopup(){
   document.body.appendChild(overlay);
 }
 
-function submitPopup(){
+async function submitPopup(){
 
   const value = document.getElementById("popupInput").value;
 
- try {
-    const response = fetch(API.sendOtp(value), {
+  try {
+
+    const response = await fetch(API.sendOtp(value), {
       method: "POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(value)
     });
 
     if (!response.ok) {
       throw new Error("Invalid Code");
     }
 
-    // localStorage.setItem("otpEmail", email);
-    // localStorage.setItem("otpAction", actionType);
-
     window.location.href = "/pages/actualeditPassword.html";
 
   } catch (error) {
+
     console.error(error);
-    window.location.href="/pages/error.html"; 
     alert("Invalid code");
+    window.location.href="/pages/error.html";
+
   }
 
-
   document.querySelector(".popup-overlay").remove();
-
 }
 </script>
 
