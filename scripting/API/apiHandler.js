@@ -44,8 +44,8 @@ const API = {
    sendOtp: (email) =>
     `${BASE_URL}/send?email=${encodeURIComponent(email)}`,
 
-  verifyOtp: (email, otp) =>
-    `${BASE_URL}/verify?email=${encodeURIComponent(email)}&otp=${otp}`,
+  verifyOtp: (code) =>
+    `${BASE_URL}/verify?code=${code}`,
   updatePassword: () =>
     `${BASE_URL}/update-password`,
 
