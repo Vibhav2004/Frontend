@@ -30,7 +30,7 @@ if(localStorage.getItem("userType") === "guest"){
         username: username,
         email: email,
         code: localStorage.getItem("registrationCode") || null, // get code from localStorage
-        
+        termsAndCondition: true,
         password: password,
         country: country || null, // if empty, send null
         swipes:swipes || 0,
