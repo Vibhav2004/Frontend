@@ -305,7 +305,7 @@ async function submitPopup(){
 
   try {
 
-    const response = await fetch(API.sendOtp(value), {
+    const response = await fetch(API.verifyOtp(value), {
       method: "POST",
       headers:{
         "Content-Type":"application/json"
