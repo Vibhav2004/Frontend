@@ -305,14 +305,9 @@ async function submitPopup(){
 
   try {
 
-    const response = await fetch(API.verifyOtp(value), {
-      method: "POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify(value)
-    });
-
+    const response = awaitfetch(`https://backend2-kpkg.onrender.com/verify?code=${value}`, {
+  method: "POST"
+});
     if (!response.ok) {
       throw new Error("Invalid Code");
     }
