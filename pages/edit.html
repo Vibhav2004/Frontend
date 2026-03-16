@@ -302,11 +302,15 @@ function openInputPopup(){
 async function submitPopup(){
 
   const value = document.getElementById("popupInput").value;
-
+ console.log(value);
+ 
   try {
 
-    const response = awaitfetch(`https://backend2-kpkg.onrender.com/verify?code=${value}`, {
-  method: "POST"
+    const response = await fetch(`http://localhost:8080/verify?code=${encodeURIComponent(value)}`, {
+  method: "POST",
+   headers: {
+      "Content-Type": "application/json"
+    }
 });
     if (!response.ok) {
       throw new Error("Invalid Code");
@@ -318,7 +322,7 @@ async function submitPopup(){
 
     console.error(error);
     alert("Invalid code");
-    window.location.href="/pages/error.html";
+   
 
   }
 
