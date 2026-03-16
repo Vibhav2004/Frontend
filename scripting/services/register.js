@@ -1,4 +1,13 @@
 async function registerUser() {
+
+     const btn = document.getElementById("registered");
+    const text = document.getElementById("registerText");
+    const loader = document.getElementById("registerLoader");
+
+    // 🔹 Start loading
+    btn.disabled = true;
+    text.textContent = "Registering...";
+    loader.style.display = "inline-block";
     // Get form values
     const username = document.getElementById('username').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -11,6 +20,9 @@ async function registerUser() {
     // Basic validation
     if (!username || !email || !password) {
         alert("Username, Email and Password are required!");
+            btn.disabled = false;
+        text.textContent = "Register";
+        loader.style.display = "none";
         return;
     }
 if(localStorage.getItem("userType") === "guest"){
@@ -61,10 +73,16 @@ localStorage.setItem('showHomeConfetti', 'true');
              window.location.href = "/pages/home.html"; // redirect to login page
         } else {
             alert("Error: " + (data.message || "Failed to register"));
+             btn.disabled = false;
+            text.textContent = "Register";
+            loader.style.display = "none";
         }
     } catch (error) {
         // window.location.href="/pages/error.html"; 
         console.error("Network error:", error);
         alert("User already Registered");
+        btn.disabled = false;
+        text.textContent = "Register";
+        loader.style.display = "none";
     }
 }

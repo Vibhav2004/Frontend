@@ -96,14 +96,26 @@
   <div class="flex">
     <input type="text" class="username-input" id="titleInput" placeholder="Enter Caption" />
   </div>
-
+<div id="pageLoader" class="page-loader">
+  <div class="spinners"></div>
+  <p>Loading AI Scanner...</p>
+</div>
   <div class="buttons">
     <button type="button" onclick="history.back()">Back</button>
-    <button id="uploadBtn" disabled>Upload</button>
+    <button id="uploadBtn" disabled>
+  <span id="uploadText">Upload</span>
+  <span id="uploadLoader" class="btn-loader" style="display:none;"></span>
+</button>
   </div>
+
 </div>
 
 <div id="popup"></div>
+
+
+
+
+
 
 <!-- TensorFlow.js -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
@@ -182,6 +194,7 @@ async function compressImage(file, minKB = 50, maxKB = 75) {
 window.addEventListener("load", async () => {
   try {
     nsfwModel = await nsfwjs.load("/assests/models/");
+    document.getElementById("pageLoader").style.display = "none";
     showPopup("✅ NSFW Scanner Ready", "#2ecc71");
   } catch {
     window.location.href="/pages/error.html"; 
@@ -262,6 +275,8 @@ fileInput.addEventListener("change", async (e) => {
 
 /* ================= UPLOAD TO SPRING BOOT ================= */
 uploadBtn.addEventListener("click", async () => {
+   const uploadText = document.getElementById("uploadText");
+  const uploadLoader = document.getElementById("uploadLoader");
   const title = document.getElementById("titleInput").value.trim();
 
   const postedBy = localStorage.getItem("username") || "Anonymous";
@@ -271,6 +286,12 @@ console.log(postedBy);
     showPopup("❌ Upload blocked or missing info", "#e74c3c");
     return;
   }
+
+     // 🔹 start loading
+  uploadBtn.disabled = true;
+  uploadText.textContent = "Uploading...";
+  uploadLoader.style.display = "inline-block";
+
 
   showPopup("⏳ Uploading meme...", "#3498db");
 const today = new Date();
@@ -290,6 +311,9 @@ try {
         const errorText = await response.text();
         console.error("Upload failed:", errorText);
         showPopup("❌ Upload failed", "#e74c3c");
+              uploadBtn.disabled = false;
+        uploadText.textContent = "Upload";
+        uploadLoader.style.display = "none";
         return;
     }
 window.location.href="/pages/profile.html";
@@ -298,6 +322,9 @@ window.location.href="/pages/profile.html";
     showPopup("✅ Upload successful", "#2ecc71");
 } catch (err) {
     console.error(err);
+      uploadBtn.disabled = false;
+    uploadText.textContent = "Upload";
+    uploadLoader.style.display = "none";
     window.location.href="/pages/error.html"; 
     showPopup("❌ Upload failed", "#e74c3c");
 }

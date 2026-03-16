@@ -6,7 +6,17 @@ if(localStorage.getItem("userType") === "guest"){
 
 async function loginUser() {
     // Get form values
-    
+       
+        const btn = document.getElementById("registered");
+    const text = document.getElementById("registerText");
+    const loader = document.getElementById("registerLoader");
+
+    // 🔹 Start loading
+  
+    text.textContent = "Logging in...";
+    loader.style.display = "inline-block";
+
+
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
     
@@ -14,6 +24,9 @@ async function loginUser() {
     // Basic validation
     if (!email || !password) {
         alert("Email and Password are required!");
+       
+        text.textContent = "Login";
+        loader.style.display = "none";
         return;
     }
 
@@ -50,10 +63,16 @@ localStorage.setItem('showHomeConfetti', 'true');
             window.location.href = "/pages/home.html"; // redirect to login page
         } else {
             alert("Error: " + (data.message || "Failed to register"));
+              
+        text.textContent = "Login";
+        loader.style.display = "none";
         }
     } catch (error) {
         // window.location.href="/pages/error.html"; 
         console.error("Network error:", error);
         alert("Unsuccessful to Login");
+     
+        text.textContent = "Login";
+        loader.style.display = "none";
     }
 }

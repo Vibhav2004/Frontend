@@ -26,10 +26,11 @@ button{
     font-family: "SmoochSans", sans-serif;
     font-weight: bold;
     font-size: 20px;
-    color: #000000;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: #000000;
     border: none;
     border-radius: 5px;
+    border: 1px solid #ffffff;
     cursor: pointer;
     
 }
@@ -111,9 +112,28 @@ input {
   letter-spacing: 3px;
 }
 span{
-  color: blue;
+  color: rgb(255, 255, 255);
 }
 span{
     font-weight: bold;
     cursor: pointer;
+}
+
+
+
+
+.loader{
+  width:16px;
+  height:16px;
+  border:2px solid white;
+  border-top:2px solid transparent;
+  border-radius:50%;
+  display:inline-block;
+  animation:spin 0.7s linear infinite;
+  margin-left:8px;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
 }
