@@ -69,15 +69,18 @@
     
     <input type="email" id="email"  class="email" placeholder="Enter Email" >  
     <input type="password" id="password" placeholder="Enter Password" >
-     <button id="registered" onclick="loginUser()">LOGIN</button>
+     <button id="login" onclick="loginUser()">
+       <span id="registerText">Login</span>
+  <span id="registerLoader" class="loader" style="display:none;"></span>
+     </button>
      <div class="flex">
 
        <p class="redirect">No Account? <span onclick="routeToRegister()">Create now</span></p>
      </div>
-      <div class="flex">
+      <!-- <div class="flex">
 
        <p class="redirect"><span onclick="generateOtp()">Forgot Password</span></p>
-     </div>
+     </div> -->
 
 
    

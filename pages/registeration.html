@@ -75,9 +75,25 @@
    <select name="country" id="country">
   <option value="">Select Country</option>
 </select>
-<button id="codegenerator" class="code" onclick="generateCode()" active >Code</button>
+<!-- <button id="codegenerator" class="code" onclick="generateCode()" active >Click</button> -->
 
-     <button id="registered"  onclick="registerUser()" disabled>Register</button>
+
+<div class="info-container">
+  <button id="codegenerator" class="code" onclick="generateCode()">Click</button>
+
+  <div class="info-card">
+    Click to generate your unique registration code.  
+    Save this code to verify your account later.
+  </div>
+</div>
+
+     <!-- <button id="registered"  onclick="registerUser()" disabled>Register</button> -->
+
+
+     <button id="registered" onclick="registerUser()" disabled>
+  <span id="registerText">Register</span>
+  <span id="registerLoader" class="loader" style="display:none;"></span>
+</button>
      
    
 
