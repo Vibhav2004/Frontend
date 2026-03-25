@@ -171,7 +171,9 @@ input{
    
 }
 #delete{
-    background-color: red;
+      color: #ff3b3b;
+  border: 1px solid #ff3b3b;
+  box-shadow: 0 0 6px rgba(255, 59, 59, 0.6);
 }
 .dropdown-menu img {
   width: 50px;        /* ✅ THIS FIXES IT */
